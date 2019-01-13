@@ -1,0 +1,329 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Как создать и разместить Проект на Symfony2 в git-репозитории &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" />
+    <link rel="up" title="Cookbook" href="../index.html" />
+    <link rel="next" title="Как создать и разместить Проект на Symfony2 в Subversion" href="new_project_svn.html" />
+    <link rel="prev" title="Cookbook" href="../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="symfony2-git">
+<h1>Как создать и разместить Проект на Symfony2 в git-репозитории<a class="headerlink" href="#symfony2-git" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Несмотря на то, что эта статья посвещяна git, основные принципы,
+описанные тут, актуальны и для Subversion.</p>
+</div>
+<p>Если Вы уже прочитали статью <a class="reference internal" href="../../book/page_creation.html"><em>Создание страниц в Symfony2</em></a> и немного познакомились
+с Symfony, смело можно создавать свой собственный проект. Этот рецепт познакомит Вас
+с лучшим способом создания проекта на Symfony2 с использованием системы контроля версий <a class="reference external" href="http://git-scm.com/">git</a>.</p>
+<div class="section" id="id1">
+<h2>Предварительная настройка проекта<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для начала Вам нужно скачать Symfony и инициализировать Ваш локальный
+git репозиторий:</p>
+<ol class="arabic">
+<li><p class="first">Скачайте <a class="reference external" href="http://symfony.com/download">Symfony2 Standard Edition</a> без сторонных библиотек (without vendors).</p>
+</li>
+<li><p class="first">Распакуйте дестрибутив. Будет создана директория Symfony с базовой
+структурой проекта, файлами конфигурации и т.д. Переименуйте ее, как
+сочтете нужным.</p>
+</li>
+<li><p class="first">Создайте новый файл с именем <tt class="docutils literal"><span class="pre">.gitignore</span></tt> в корне Вашего проекта
+и вставьте в него следующий код. Все файлы, совпадающие с перечисленными
+шаблонами, git будет игнорировать:</p>
+<blockquote>
+<div><div class="highlight-text"><div class="highlight"><pre>/web/bundles/
+/app/bootstrap*
+/app/cache/*
+/app/logs/*
+/vendor/
+/app/config/parameters.yml
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Скопируйте <tt class="docutils literal"><span class="pre">app/config/parameters.yml</span></tt> в <tt class="docutils literal"><span class="pre">app/config/parameters.yml.dist</span></tt>.
+Файл <tt class="docutils literal"><span class="pre">parameters.yml</span></tt> игнорируется git&#8217;ом (смотрите выше), поэтому такие
+машино-зависимые настройки, как например пароль от базы данных, не будут отправляться в репозиторий.
+Имея файл <tt class="docutils literal"><span class="pre">app/config/parameters.yml.dist</span></tt> в репозитории, новые разработчики смогут
+быстро выгрузуть проект, скопировать этот файл в <tt class="docutils literal"><span class="pre">parameters.yml</span></tt>, настроить его и
+начать разработку.</p>
+</li>
+<li><p class="first">Инициализируйте Ваш git репозиторий:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git init
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Добавьте все начальные файлы в git:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git add .
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Создайте первый коммит Вашего проекта:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Initial commit&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Наконец, скачайте все сторонние библиотеки:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>php bin/vendors install
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>На этом моменте Вы имеете полностью функционирующий проект на Symfony2, который
+правильно размещен в git. Вы можете начинать программировать и отправлять изменения
+в Ваш репозиторий.</p>
+<p>Сейчас Вы можете переключиться на статью <a class="reference internal" href="../../book/page_creation.html"><em>Создание страниц в Symfony2</em></a>
+для изучения вопросов конфигурации и разработки Вашего приложения.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Стандартная версия Symfony2 содержит в себе некоторый функционал для демонстрации.
+Чтобы убрать демонстрационный код, следуйте инструкциям <a class="reference external" href="https://github.com/symfony/symfony-standard/blob/master/README.md">Standard Edition Readme</a>.</p>
+</div>
+</div>
+<div class="section" id="bin-vendors-deps">
+<span id="cookbook-managing-vendor-libraries"></span><h2>Управление внешними библиотеками с помощью bin/vendors и deps<a class="headerlink" href="#bin-vendors-deps" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Каждый проект на Symfony использует большую группу сторонних библиотек.</p>
+<p>По умолчанию, эти библиотеки скачиваются при запуске команды <tt class="docutils literal"><span class="pre">php</span> <span class="pre">bin/vendors</span> <span class="pre">install</span></tt>.
+Этот скрипт читает из файла <tt class="docutils literal"><span class="pre">deps</span></tt> и скачивает полученные библиотеки в папку
+<tt class="docutils literal"><span class="pre">vendor/</span></tt>. Он также читает файл <tt class="docutils literal"><span class="pre">deps.lock</span></tt> и связывает каждую упомянутую библиотеку
+с указанным git хешем в репозитории.</p>
+<p>В нашем проекте сторонние библиотеки не являются частью git репозитория.
+Они также не являются дочерними модулями (submodules). Вместо этого мы
+полагаемся на файлы <tt class="docutils literal"><span class="pre">deps</span></tt> и <tt class="docutils literal"><span class="pre">deps.lock</span></tt>, а также на скрипт <tt class="docutils literal"><span class="pre">bin/vendors</span></tt>,
+который всем управляет. Эти файлы лежат в репозитории, и каждая версия проекта
+использует необходимые версии сторонних библиотек. Получается, Вы можете
+использовать скрипт vendors, чтобы Ваш проект был в актуальном состоянии.</p>
+<p>Всякий раз, когда разработчик копирует проект, он должен выполнить скрипт
+<tt class="docutils literal"><span class="pre">php</span> <span class="pre">bin/vendors</span> <span class="pre">install</span></tt> чтобы убедиться, что все необходимые сторонние библиотеки
+установлены.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Обновление Symfony</p>
+<p>Поскольку Symfony это группа сторонних библиотек и эти сторонние
+библиотеки полностью контролируются через <tt class="docutils literal"><span class="pre">deps</span></tt> и <tt class="docutils literal"><span class="pre">deps.lock</span></tt>,
+обновление Symfony - это простое обновление этих файлов до состояния их
+в последней версии Symfony Standard Edition.</p>
+<p class="last">Конечно же, если Вы добавили дополнительные источники в <tt class="docutils literal"><span class="pre">deps</span></tt> или <tt class="docutils literal"><span class="pre">deps.lock</span></tt>,
+убедитесь, что обновляете только оригинальные источники (т.е. не трогайте
+Ваши дополнительные источники).</p>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p>Также существует команда <tt class="docutils literal"><span class="pre">php</span> <span class="pre">bin/vendors</span> <span class="pre">update</span></tt>, но она не предназначена
+для обновления Вашего проекта и Вам не надо ее использовать в работе. Эта
+команда служит для фиксации версий всех Ваших сторонних библиотек при обновлений
+их до версии, указанной в <tt class="docutils literal"><span class="pre">deps</span></tt>, и записывает их хеши в файл <tt class="docutils literal"><span class="pre">deps.lock</span></tt>.</p>
+<p class="last">Кроме того, если Вам захотелось обновить файл <tt class="docutils literal"><span class="pre">deps.lock</span></tt> в соответствии с
+установленными сторонними библиотеками, то просто запустите команду <tt class="docutils literal"><span class="pre">php</span> <span class="pre">bin/vendors</span> <span class="pre">lock</span></tt>
+чтобы сохранить соответствующие git SHA идентификаторы в файле deps.lock.</p>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="id2">
+<h3>Сторонние библиотеки и Дочерние модули<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Вместо того, чтобы использовать <tt class="docutils literal"><span class="pre">deps</span></tt> и скрипт <tt class="docutils literal"><span class="pre">bin/vendors</span></tt> для управления
+Вашими сторонними библиотеками, Вы можете использовать родные <a class="reference external" href="http://book.git-scm.com/5_submodules.html">git submodules</a>.
+Нет ничего плохого в этом выборе, но система <tt class="docutils literal"><span class="pre">deps</span></tt> - это официальное решение
+этой проблемы и дочерние модули git&#8217;а могут внести дополнительные сложности в работу.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Хранение Вашего проекта на Удаленном Сервере<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Сейчас у Вас имеется полностью функционирующий проект на Symfony2,
+сохраненный в git. Тем не менее, во многих случаях Вам понадобится
+хранить проект на удаленном сервере. Например для хранения резервной
+копии проекта или чтобы другие разработчики также имели доступ к проекту
+для совместной работы.</p>
+<p>Самый простой способ хранить Ваш проект на удаленном сервере - это <a class="reference external" href="https://github.com/">GitHub</a>.
+На нем публичный репозитории бесплатны. За закрытые репозитории
+Вам нужно будет платить ежемесячную плату.</p>
+<p>С другой стороны, Вы можете хранить Ваш git репозиторий на любом сервере.
+Достаточно лишь создать <a class="reference external" href="http://progit.org/book/ch4-4.html">barebones repository</a> и загрузить данные на него.
+Библиотека <a class="reference external" href="https://github.com/sitaramc/gitolite">Gitolite</a> может помочь Вам в этом процессе.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

@@ -1,0 +1,501 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Безопасность &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Безопасность<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Symfony2 поставляется со встроенным слоем безопасности. Он защищает ваше
+приложение, обеспечивая идентификацию и авторизацию.</p>
+<p><em>Идентификация</em> удостоверяет что пользователь действительно тот, на кого он
+претендует. <em>Авторизация</em> связана с принятием решения, может или нет пользователь
+выполнить действие (авторизация идёт после идентификации).</p>
+<p>Этот документ является кратким обзором этих концепций, но настоящая мощь
+содержится в следующих трёх частях: <a class="reference internal" href="users.html"><em>Пользователи</em></a>,
+<a class="reference internal" href="authentication.html"><em>Идентификация</em></a> и
+<a class="reference internal" href="authorization.html"><em>Авторизация</em></a>.</p>
+<div class="section" id="index-1">
+<span id="id2"></span><h2>Конфигурация<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В большинстве случаев безопасность в Symfony2 может быть легко настроена через
+ваш главный конфигурационный файл; вот типичная конфигурация:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">password_encoder</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sha1</span>
+            <span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">password</span><span class="p-Indicator">:</span> <span class="nv">0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33</span><span class="p-Indicator">,</span> <span class="nv">roles</span><span class="p-Indicator">:</span> <span class="nv">ROLE_USER</span> <span class="p-Indicator">}</span>
+
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>    <span class="l-Scalar-Plain">/.*</span>
+            <span class="l-Scalar-Plain">http-basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">logout</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">true</span>
+
+    <span class="l-Scalar-Plain">access_control</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">path</span><span class="p-Indicator">:</span> <span class="nv">/.*</span><span class="p-Indicator">,</span> <span class="nv">role</span><span class="p-Indicator">:</span> <span class="nv">ROLE_USER</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;security:config&gt;</span>
+    <span class="nt">&lt;security:provider&gt;</span>
+        <span class="nt">&lt;security:password-encoder</span> <span class="na">hash=</span><span class="s">&quot;sha1&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;security:user</span> <span class="na">name=</span><span class="s">&quot;foo&quot;</span> <span class="na">password=</span><span class="s">&quot;0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33&quot;</span> <span class="na">roles=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/security:provider&gt;</span>
+
+    <span class="nt">&lt;security:firewall</span> <span class="na">pattern=</span><span class="s">&quot;/.*&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;security:http-basic</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;security:logout</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/security:firewall&gt;</span>
+
+    <span class="nt">&lt;security:access-control&gt;</span>
+        <span class="nt">&lt;security:rule</span> <span class="na">path=</span><span class="s">&quot;/.*&quot;</span> <span class="na">role=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/security:access-control&gt;</span>
+<span class="nt">&lt;/security:config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/config.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;provider&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;password_encoder&#39; =&gt; &#39;sha1&#39;, &#39;users&#39; =&gt; array(</span>
+<span class="x">            &#39;foo&#39; =&gt; array(&#39;password&#39; =&gt; &#39;0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33&#39;, &#39;roles&#39; =&gt; &#39;ROLE_USER&#39;),</span>
+<span class="x">        )),</span>
+<span class="x">    ),</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;pattern&#39; =&gt; &#39;/.*&#39;, &#39;http-basic&#39; =&gt; true, &#39;logout&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">    &#39;access_control&#39; =&gt; array(</span>
+<span class="x">        array(&#39;path&#39; =&gt; &#39;/.*&#39;, &#39;role&#39; =&gt; &#39;ROLE_USER&#39;),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Предпочтительнее вынести всю конфигурацию, касающуюся безопасности, во внешний
+файл. Если вы используете XML, внешний файл может использовать пространство имён
+безопасности как значение по умолчанию, чтобы сделать его более читабельным:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;srv:container</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.symfony-project.org/schema/dic/security&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:srv=</span><span class="s">&quot;http://www.symfony-project.org/schema/dic/services&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;config&gt;</span>
+        <span class="nt">&lt;provider&gt;</span>
+            <span class="nt">&lt;password-encoder</span> <span class="na">hash=</span><span class="s">&quot;sha1&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;user</span> <span class="na">name=</span><span class="s">&quot;foo&quot;</span> <span class="na">password=</span><span class="s">&quot;0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33&quot;</span> <span class="na">roles=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/provider&gt;</span>
+
+        <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/.*&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;logout</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/firewall&gt;</span>
+
+        <span class="nt">&lt;access-control&gt;</span>
+            <span class="nt">&lt;rule</span> <span class="na">path=</span><span class="s">&quot;/.*&quot;</span> <span class="na">role=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/access-control&gt;</span>
+    <span class="nt">&lt;/config&gt;</span>
+<span class="nt">&lt;/srv:container&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Все примеры документации предполагают, что вы используете внешний файл с
+пространством имён безопасности по умолчанию, как сказано выше.</p>
+</div>
+<p>Как вы можете видеть, конфигурация состоит из трех разделов:</p>
+<ul class="simple">
+<li><em>provider</em>: Провайдер знает как создавать пользователей;</li>
+<li><em>firewall</em>: Фаервол определяет механизмы идентификации для приложения в целом
+или хотя бы его части;</li>
+<li><em>access-control</em>: Правила контроля доступа защищают части вашего приложения
+с помощью ролей.</li>
+</ul>
+<p>Подводя итоги рабочего процесса, фаервол идентифицирует клиента на основе
+представленных полномочий, пользователь создаётся провайдером, а контроль
+доступа уполномачивает на доступ к ресурсам.</p>
+</div>
+<div class="section" id="id3">
+<h2>Идентификация<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В Symfony2 есть поддержка различных механизмов идентификации прямо из корбки,
+а также многие могут быть легко добавлены при необходимости; главными из них
+являются:</p>
+<ul class="simple">
+<li>HTTP Basic;</li>
+<li>HTTP Digest;</li>
+<li>идентификация через форму;</li>
+<li>сертификаты X.509.</li>
+</ul>
+<p>Здесь показано как вы можете защитить приложение при помощи базовой HTTP
+идентификации:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">http-basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;http-basic&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Можно определить несколько фаерволов если вам необходимо использование различных
+механизмов идентификаци в различных частях приложения:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">backend</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/admin/.*</span>
+            <span class="l-Scalar-Plain">http-basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">public</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/.*</span>
+            <span class="l-Scalar-Plain">security</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/admin/.*&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+
+    <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/.*&quot;</span> <span class="na">security=</span><span class="s">&quot;false&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;backend&#39; =&gt; array(&#39;pattern&#39; =&gt; &#39;/admin/.*&#39;, &#39;http-basic&#39; =&gt; true),</span>
+<span class="x">        &#39;public&#39;  =&gt; array(&#39;pattern&#39; =&gt; &#39;/.*&#39;, &#39;security&#39; =&gt; false),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Проще всего использовать базовую HTTP идентификацию, но прочтите документ
+<a class="reference internal" href="authentication.html"><em>Идентификация</em></a> чтобы научиться
+настраивать другие механизмы идентификации, настраивать идентификацию без
+состояний, имитировать другого пользователя, навязать https и многое другое.</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Пользователи<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Во время идентификации, Symfony2 опрашивает провайдера пользователя для создания
+объекта пользователя, отвечающего клиентскому запросу (через такие полномочия
+как имя пользователя и пароль). Чтобы быстрее начать, вы можете определить
+провайдера &#8220;в памяти&#8221; прямо в конфигурации:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">password</span><span class="p-Indicator">:</span> <span class="nv">foo</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;provider&gt;</span>
+        <span class="nt">&lt;user</span> <span class="na">name=</span><span class="s">&quot;foo&quot;</span> <span class="na">password=</span><span class="s">&quot;foo&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/provider&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;provider&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;users&#39; =&gt; array(</span>
+<span class="x">            &#39;foo&#39; =&gt; array(&#39;password&#39; =&gt; &#39;foo&#39;),</span>
+<span class="x">        )),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Эта конфигурация устанавливает пользователя &#8216;foo&#8217; с паролем &#8216;foo&#8217;. После
+идентификации, вы можете получить доступ к идентифицированному пользователю
+через безопасный контекст (пользователь является экземпляром класса <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\User</span></tt>):</p>
+<div class="highlight-python"><pre>$user = $container-&gt;get('security.context')-&gt;getUser();</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Использование провайдера &#8220;в памяти&#8221; это отличный способ легко защитить
+бэкэнд вашего персонального сайта, создать прототип или приспособления для
+тестов. Прочитайте документ <a class="reference internal" href="users.html"><em>Пользователи</em></a> чтобы
+изучить как избежать паролей, которые будут в чистом виде, как использовать
+Doctrine Entity в качестве провайдера пользователя, как определить
+нескольких поставщиков и многое другое.</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>Авторизация<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Авторизация необязательна, но предоставляет мощный способ ограничивать доступ к
+ресурсам вашего приложения на основе пользовательских ролей:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">password</span><span class="p-Indicator">:</span> <span class="nv">foo</span><span class="p-Indicator">,</span> <span class="nv">roles</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&#39;ROLE_USER&#39;</span><span class="p-Indicator">,</span> <span class="s">&#39;ROLE_ADMIN&#39;</span><span class="p-Indicator">]</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">access_control</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">path</span><span class="p-Indicator">:</span> <span class="nv">/.*</span><span class="p-Indicator">,</span> <span class="nv">role</span><span class="p-Indicator">:</span> <span class="nv">ROLE_USER</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;provider&gt;</span>
+        <span class="nt">&lt;user</span> <span class="na">name=</span><span class="s">&quot;foo&quot;</span> <span class="na">password=</span><span class="s">&quot;foo&quot;</span> <span class="na">roles=</span><span class="s">&quot;ROLE_USER,ROLE_ADMIN&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/provider&gt;</span>
+
+    <span class="nt">&lt;access-control&gt;</span>
+        <span class="nt">&lt;rule</span> <span class="na">path=</span><span class="s">&quot;/.*&quot;</span> <span class="na">role=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/access-control&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;provider&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;users&#39; =&gt; array(</span>
+<span class="x">            &#39;foo&#39; =&gt; array(&#39;password&#39; =&gt; &#39;foo&#39;, &#39;roles&#39; =&gt; array(&#39;ROLE_USER&#39;, &#39;ROLE_ADMIN&#39;)),</span>
+<span class="x">        )),</span>
+<span class="x">    ),</span>
+
+<span class="x">    &#39;access_control&#39; =&gt; array(</span>
+<span class="x">        array(&#39;path&#39; =&gt; &#39;/.*&#39;, &#39;role&#39; =&gt; &#39;ROLE_USER&#39;),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Эта конфигурация устанавливает пользователя &#8216;foo&#8217; с ролями &#8216;ROLE_USER&#8217; и
+&#8216;ROLE_ADMIN&#8217; и ограничивает доступ ко всему приложению для пользователей,
+имеющих роль &#8216;ROLE_USER&#8217;.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Прочитайте документ <a class="reference internal" href="authorization.html"><em>Авторизация</em></a> чтобы
+узнать как устанавливать иерархию роли, как настроить шаблон, основываясь на
+ролях, как определить правила контроля доступа, основываясь на атрибутах
+запроса и многое другое.</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

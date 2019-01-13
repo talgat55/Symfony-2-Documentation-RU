@@ -1,0 +1,281 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Поле date &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../../index.html" />
+    <link rel="up" title="Справочник типов полей для форм" href="../types.html" />
+    <link rel="next" title="Справочник функций Twig для работы с формами" href="../twig_reference.html" />
+    <link rel="prev" title="Тип поля collection" href="collection.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="date">
+<span id="index-0"></span><h1>Поле date<a class="headerlink" href="#date" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Это поле позволяет пользователю изменять информацию о дате при помощи
+различных HTML-элементов.</p>
+<p>Соответствующие данные для этого поля должны быть в виде объекта <tt class="docutils literal"><span class="pre">\DateTime</span></tt>,
+строки, таймштампа или массива. Если опция <a href="#id3"><span class="problematic" id="id4">`input`_</span></a> указана верно, поле будет
+заботиться о деталях самостоятельно.</p>
+<p>Это поле может быть отображено как один текстбокс, три текстбокса (месяц,
+день, год) или же три селектбокса (см. опцию <cite>widget_</cite>).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="78%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Тип данных</td>
+<td><tt class="docutils literal"><span class="pre">\DateTime</span></tt>, string, timestamp, или array (см. опцию <tt class="docutils literal"><span class="pre">input</span></tt>)</td>
+</tr>
+<tr><td>Отображается как</td>
+<td>один text box или три поля select</td>
+</tr>
+<tr><td>Опции</td>
+<td><ul class="first last simple">
+<li><a href="#id5"><span class="problematic" id="id6">`widget`_</span></a></li>
+<li><a href="#id7"><span class="problematic" id="id8">`input`_</span></a></li>
+<li><a class="reference internal" href="#empty-value">empty_value</a></li>
+<li><a href="#id9"><span class="problematic" id="id10">`years`_</span></a></li>
+<li><a href="#id11"><span class="problematic" id="id12">`months`_</span></a></li>
+<li><a href="#id13"><span class="problematic" id="id14">`days`_</span></a></li>
+<li><a href="#id15"><span class="problematic" id="id16">`format`_</span></a></li>
+<li><a href="#id17"><span class="problematic" id="id18">`pattern`_</span></a></li>
+<li><a href="#id19"><span class="problematic" id="id20">`data_timezone`_</span></a></li>
+<li><a href="#id21"><span class="problematic" id="id22">`user_timezone`_</span></a></li>
+</ul>
+</td>
+</tr>
+<tr><td>Родительский тип</td>
+<td><tt class="docutils literal"><span class="pre">field</span></tt> (если текст), иначе <tt class="docutils literal"><span class="pre">form</span></tt></td>
+</tr>
+<tr><td>Класс</td>
+<td><tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Form\Extension\Core\Type\DateType</span></tt></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id1">
+<h2>Примеры использования<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Это поле имеет много натроект, но оно просто в использовании. Наиболее
+важными опциями являются <tt class="docutils literal"><span class="pre">input</span></tt> и <tt class="docutils literal"><span class="pre">widget</span></tt>.</p>
+<p>Полагая, что у вас есть поле <tt class="docutils literal"><span class="pre">publishedAt</span></tt>, которое содержит дату в
+виде обхекта <tt class="docutils literal"><span class="pre">DateTime</span></tt>. Следующий код конфигурирует поле <tt class="docutils literal"><span class="pre">date</span></tt>
+для этого поля в вите трёх селектов:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;publishedAt&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;input&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;widget&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;choice&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Опция <tt class="docutils literal"><span class="pre">input</span></tt> <em>должна</em> всегда соответствовать типу данных, которые используются
+для этого поля. Например, если поле <tt class="docutils literal"><span class="pre">publishedAt</span></tt> использует unix timestamp,
+вам нужно присвоить опции <tt class="docutils literal"><span class="pre">input</span></tt> значение <tt class="docutils literal"><span class="pre">timestamp</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;publishedAt&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;input&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;widget&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;choice&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Это поле также подерживает <tt class="docutils literal"><span class="pre">array</span></tt> и <tt class="docutils literal"><span class="pre">string</span></tt> в качестве валидных опций
+для <tt class="docutils literal"><span class="pre">input</span></tt>.</p>
+</div>
+<div class="section" id="id2">
+<h2>Опции поля<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="empty-value">
+<h3>empty_value<a class="headerlink" href="#empty-value" title="Ссылка на этот заголовок">¶</a></h3>
+<p><strong>type</strong>: <tt class="docutils literal"><span class="pre">string</span></tt> | <tt class="docutils literal"><span class="pre">array</span></tt></p>
+<p>Если опция widget имеет значение <tt class="docutils literal"><span class="pre">choice</span></tt>, тогда это поле будет представлено
+последовательностью селектбоксов. Опция <tt class="docutils literal"><span class="pre">empty_value</span></tt> может быть использована
+для добавления пустой опции в начале списка селектбокса:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;dueDate&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;empty_value&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Также вы можете указать строку, которая будет значением &#8220;пустой&#8221; опции в selectbox:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$builder</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;dueDate&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;empty_value&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;year&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Day&#39;</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

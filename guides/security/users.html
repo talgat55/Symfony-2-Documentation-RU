@@ -1,0 +1,596 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Пользователи &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Пользователи<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Безопасность имеет смысл только в случае когда ваше приложение доступно клиентам,
+которым вы не можете доверять. Клиентом может быть как человек, работающий через
+браузер, так и некоторое устройство, web служба или даже бот.</p>
+<div class="section" id="id2">
+<h2>Определение пользователей<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Во время идентификации, Symfony2 пытается найти пользователя, соотвествующего
+клиентским полномочиям (чаще всего это имя пользователя и пароль). Так как
+Symfony2 не делает предположений по поводу PHP представления клиента/пользователя,
+то приложение должно определить класс пользователя и подключить его к Symfony2
+через класс провайдера пользователя.</p>
+<div class="section" id="userproviderinterface">
+<span id="index-1"></span><h3>UserProviderInterface<a class="headerlink" href="#userproviderinterface" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Провайдер пользователя должен реализовывать интерфейс <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\UserProviderInterface</span></tt>:</p>
+<div class="highlight-python"><pre>interface UserProviderInterface
+{
+     function loadUserByUsername($username);
+}</pre>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">loadUserByUsername()</span></tt> получает имя пользователя и должен возвратить
+объект User. Если пользователь не может быть найден, он выбрасывает исключение
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\Exception\UsernameNotFoundException</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Чаще всего вам нет надобности определять провайдер пользователя самим,
+так как Symfony2 поставляется с наиболее общими их вариантами. Обратитесь к
+следующему разделу за дополнительной информацией.</p>
+</div>
+</div>
+<div class="section" id="accountinterface">
+<span id="index-2"></span><h3>AccountInterface<a class="headerlink" href="#accountinterface" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Провайдер пользователя должен возвращать объекты, реализующие интерфейс
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AccountInterface</span></tt>:</p>
+<div class="highlight-python"><pre>interface AccountInterface
+{
+    function __toString();
+    function getRoles();
+    function getPassword();
+    function getSalt();
+    function getUsername();
+    function eraseCredentials();
+}</pre>
+</div>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">__toString()</span></tt>: Возвращает строковое представление для пользователя;</li>
+<li><tt class="docutils literal"><span class="pre">getRoles()</span></tt>: Возвращает роли, предоставленные пользователю;</li>
+<li><tt class="docutils literal"><span class="pre">getPassword()</span></tt>: Возвращает пароль, используемый для идентификации пользователя;</li>
+<li><tt class="docutils literal"><span class="pre">getSalt()</span></tt>: Возвращает соль;</li>
+<li><tt class="docutils literal"><span class="pre">getUsername()</span></tt>: Возвращает имя пользователя, используемое для идентификации пользователя;</li>
+<li><tt class="docutils literal"><span class="pre">eraseCredentials()</span></tt>: Удаляет деликатные данные пользователя.</li>
+</ul>
+</div>
+<div class="section" id="index-3">
+<span id="id3"></span><h3>Шифрование паролей<a class="headerlink" href="#index-3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Вместо хранения паролей в чистом виде, вы можете зашифровать их. Если сделаете
+это, то вам придётся использовать объект <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\Encoder\PasswordEncoderInterface</span></tt>:</p>
+<div class="highlight-python"><pre>interface PasswordEncoderInterface
+{
+    function encodePassword($raw, $salt);
+    function isPasswordValid($encoded, $raw, $salt);
+}</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Во время идентификации Symfony2 будет использовать метод <tt class="docutils literal"><span class="pre">isPasswordValid()</span></tt>
+для проверки пароля пользователя; прочтите следующий раздел чтобы узнать
+как уведомить ваш провайдер идентификации об использовании шифрования.</p>
+</div>
+<p>В большинстве случаев, используйте
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder</span></tt>:</p>
+<div class="highlight-python"><pre>$user = new User();
+
+$encoder = new MessageDigestPasswordEncoder('sha1');
+$password = $encoder-&gt;encodePassword('MyPass', $user-&gt;getSalt());
+$user-&gt;setPassword($password);</pre>
+</div>
+<p>Когда шифруете ваши пароли, также лучше будет определить уникальную соль для
+каждого пользователя (например, метод <tt class="docutils literal"><span class="pre">getSalt()</span></tt> может возвращать первичный
+ключ если пользователи хранятся в базе данных).</p>
+</div>
+<div class="section" id="advancedaccountinterface">
+<span id="index-4"></span><h3>AdvancedAccountInterface<a class="headerlink" href="#advancedaccountinterface" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Перед и после идентификации Symfony2 может проверить различные отметки у
+пользователя. Если ваш класс пользователя реализует <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AdvancedAccountInterface</span></tt>
+вместо <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AccountInterface</span></tt>, то Symfony2
+сделает сопутствующие проверки автоматически:</p>
+<blockquote>
+<div><p>interface AdvancedAccountInterface extends AccountInterface
+{</p>
+<blockquote>
+<div>function isAccountNonExpired();
+function isAccountNonLocked();
+function isCredentialsNonExpired();
+function isEnabled();</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">isAccountNonExpired()</span></tt>: Возвращает <tt class="docutils literal"><span class="pre">true</span></tt> если аккаунт пользователя устарел;</li>
+<li><tt class="docutils literal"><span class="pre">isAccountNonLocked()</span></tt>: Возвращает <tt class="docutils literal"><span class="pre">true</span></tt> если пользователь заблокирован;</li>
+<li><tt class="docutils literal"><span class="pre">isCredentialsNonExpired()</span></tt>: Возвращает <tt class="docutils literal"><span class="pre">true</span></tt> если полномочия пользователя (пароль) устарели;</li>
+<li><tt class="docutils literal"><span class="pre">isEnabled()</span></tt>: Возвращает <tt class="docutils literal"><span class="pre">true</span></tt> если пользователь включён.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last"><tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AdvancedAccountInterface</span></tt>
+полагается на объект
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AccountCheckerInterface</span></tt>
+для выполнения пред- и после-идентификационных проверок.</p>
+</div>
+</div>
+</div>
+<div class="section" id="index-5">
+<span id="id4"></span><h2>Определение провайдера<a class="headerlink" href="#index-5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Как мы видели в предыдущем разделе, провайдер реализует <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\UserProviderInterface</span></tt>.
+Symfony2 поставляется с провайдером для пользователей &#8220;в памяти&#8221;,
+Doctrine Entities, Doctrine Documents и определяет базовый класс для любого DAO
+провайдера, который вы, возможно, захотите создать.</p>
+<div class="section" id="index-6">
+<span id="id5"></span><h3>Провайдер &#8220;в памяти&#8221;<a class="headerlink" href="#index-6" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Провайдер &#8220;в памяти&#8221; это отличный провайдер для защиты бэкэнда вашего
+персонального web сайта или прототипа, а также лучший провайдер когда пишутся
+модульные тесты:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">password</span><span class="p-Indicator">:</span> <span class="nv">foo</span><span class="p-Indicator">,</span> <span class="nv">roles</span><span class="p-Indicator">:</span> <span class="nv">ROLE_USER</span> <span class="p-Indicator">}</span>
+                <span class="l-Scalar-Plain">bar</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">password</span><span class="p-Indicator">:</span> <span class="nv">bar</span><span class="p-Indicator">,</span> <span class="nv">roles</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">ROLE_USER</span><span class="p-Indicator">,</span> <span class="nv">ROLE_ADMIN</span><span class="p-Indicator">]</span> <span class="p-Indicator">}</span>
+        <span class="l-Scalar-Plain">encoded</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">password_encoder</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sha1</span>
+            <span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">password</span><span class="p-Indicator">:</span> <span class="nv">0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33</span><span class="p-Indicator">,</span> <span class="nv">roles</span><span class="p-Indicator">:</span> <span class="nv">ROLE_USER</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;provider</span> <span class="na">name=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;user</span> <span class="na">name=</span><span class="s">&quot;foo&quot;</span> <span class="na">password=</span><span class="s">&quot;foo&quot;</span> <span class="na">roles=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;user</span> <span class="na">name=</span><span class="s">&quot;bar&quot;</span> <span class="na">password=</span><span class="s">&quot;bar&quot;</span> <span class="na">roles=</span><span class="s">&quot;ROLE_USER,ROLE_ADMIN&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/provider&gt;</span>
+
+    <span class="nt">&lt;provider</span> <span class="na">name=</span><span class="s">&quot;encoded&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;password-encoder&gt;</span>sha1<span class="nt">&lt;/password-encoder&gt;</span>
+        <span class="nt">&lt;user</span> <span class="na">name=</span><span class="s">&quot;foo&quot;</span> <span class="na">password=</span><span class="s">&quot;0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33&quot;</span> <span class="na">roles=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/provider&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;providers&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;users&#39; =&gt; array(</span>
+<span class="x">            &#39;foo&#39; =&gt; array(&#39;password&#39; =&gt; &#39;foo&#39;, &#39;roles&#39; =&gt; &#39;ROLE_USER&#39;),</span>
+<span class="x">            &#39;bar&#39; =&gt; array(&#39;password&#39; =&gt; &#39;bar&#39;, &#39;roles&#39; =&gt; array(&#39;ROLE_USER&#39;, &#39;ROLE_ADMIN&#39;)),</span>
+<span class="x">        )),</span>
+<span class="x">        &#39;encoded&#39; =&gt; array(&#39;password_encoder&#39; =&gt; &#39;sha1&#39;, &#39;users&#39; =&gt; array(</span>
+<span class="x">            &#39;foo&#39; =&gt; array(&#39;password&#39; =&gt; &#39;0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33&#39;, &#39;roles&#39; =&gt; &#39;ROLE_USER&#39;),</span>
+<span class="x">        )),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Предыдущая конфигурация определяет два провайдера &#8220;в памяти&#8221;. Как вы можете
+видеть второй из них использует &#8216;sha1&#8217; для шифрования пользовательского пароля.</p>
+</div>
+<div class="section" id="doctrine-entity">
+<span id="index-7"></span><h3>Провайдер Doctrine Entity<a class="headerlink" href="#doctrine-entity" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В большинстве случаев, пользователи описываются через Doctrine Entity:</p>
+<div class="highlight-python"><pre>/**
+ * @Entity
+ */
+class User implements AccountInterface
+{
+    // ...
+}</pre>
+</div>
+<p>В этом случае можете использовать провайдер Doctrine по умолчанию, не создавая
+его самостоятельного:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">password_encoder</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sha1</span>
+            <span class="l-Scalar-Plain">entity</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">class</span><span class="p-Indicator">:</span> <span class="nv">SecurityBundle</span><span class="p-Indicator">:</span><span class="nv">User</span><span class="p-Indicator">,</span> <span class="nv">property</span><span class="p-Indicator">:</span> <span class="nv">username</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;provider</span> <span class="na">name=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;password-encoder&gt;</span>sha1<span class="nt">&lt;/password-encoder&gt;</span>
+        <span class="nt">&lt;entity</span> <span class="na">class=</span><span class="s">&quot;SecurityBundle:User&quot;</span> <span class="na">property=</span><span class="s">&quot;username&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/provider&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;providers&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(</span>
+<span class="x">            &#39;password_encoder&#39; =&gt; &#39;sha1&#39;,</span>
+<span class="x">            &#39;entity&#39; =&gt; array(&#39;class&#39; =&gt; &#39;SecurityBundle:User&#39;, &#39;property&#39; =&gt; &#39;username&#39;),</span>
+<span class="x">        ),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Запись <tt class="docutils literal"><span class="pre">entity</span></tt> конфигурирует класс Entity для использования на пользователе,
+а <tt class="docutils literal"><span class="pre">property</span></tt> - это название колонки PHP, где хранится имя пользователя.</p>
+<p>Если получение пользователя сложнее чем просто вызов <tt class="docutils literal"><span class="pre">findOneBy()</span></tt>, то
+удалите установку <tt class="docutils literal"><span class="pre">property</span></tt> и сделайте так чтобы класс Entity Repository
+реализовывал <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\UserProviderInterface</span></tt>:</p>
+<div class="highlight-python"><pre>/**
+ * @Entity(repositoryClass="SecurityBundle:UserRepository")
+ */
+class User implements AccountInterface
+{
+    // ...
+}
+
+class UserRepository extends EntityRepository implements UserProviderInterface
+{
+    public function loadUserByUsername($username)
+    {
+        // do whatever you need to retrieve the user from the database
+        // code below is the implementation used when using the property setting
+
+        return $this-&gt;findOneBy(array('username' =&gt; $username));
+    }
+}</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Если вы используете интерфейс
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AdvancedAccountInterface</span></tt>,
+не проверяйте различные установки (locked, expired, enabled и т. д.)
+когда получаете пользователя из базы данных т. к. это будет сделано системой
+идентификации автоматически (и правильные исключения будут выброшены
+если это необходимо). Если имеются специальные установки, переопределите
+первоначальную реализацию <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AccountCheckerInterface</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="doctrine-document">
+<span id="index-8"></span><h3>Провайдер Doctrine Document<a class="headerlink" href="#doctrine-document" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В большинстве случаев, пользователи описываются через Doctrine Document:</p>
+<div class="highlight-python"><pre>/**
+ * @Document
+ */
+class User implements AccountInterface
+{
+    // ...
+}</pre>
+</div>
+<p>В этом случае можете использовать провайдер Doctrine по умолчанию, не создавая
+его самостоятельного:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">password_encoder</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sha1</span>
+            <span class="l-Scalar-Plain">document</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">class</span><span class="p-Indicator">:</span> <span class="nv">SecurityBundle</span><span class="p-Indicator">:</span><span class="nv">User</span><span class="p-Indicator">,</span> <span class="nv">property</span><span class="p-Indicator">:</span> <span class="nv">username</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;provider</span> <span class="na">name=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;password-encoder&gt;</span>sha1<span class="nt">&lt;/password-encoder&gt;</span>
+        <span class="nt">&lt;document</span> <span class="na">class=</span><span class="s">&quot;SecurityBundle:User&quot;</span> <span class="na">property=</span><span class="s">&quot;username&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/provider&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;providers&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(</span>
+<span class="x">            &#39;password_encoder&#39; =&gt; &#39;sha1&#39;,</span>
+<span class="x">            &#39;document&#39; =&gt; array(&#39;class&#39; =&gt; &#39;SecurityBundle:User&#39;, &#39;property&#39; =&gt; &#39;username&#39;),</span>
+<span class="x">        ),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Запись <tt class="docutils literal"><span class="pre">document</span></tt> конфигурирует класс Document для использования на пользователе,
+а <tt class="docutils literal"><span class="pre">property</span></tt> - это название колонки PHP, где хранится имя пользователя.</p>
+<p>Если получение пользователя сложнее чем просто вызов <tt class="docutils literal"><span class="pre">findOneBy()</span></tt>, то
+удалите установку <tt class="docutils literal"><span class="pre">property</span></tt> и сделайте так чтобы класс Document Repository
+реализовывал <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\UserProviderInterface</span></tt>:</p>
+<div class="highlight-python"><pre>/**
+ * @Document(repositoryClass="SecurityBundle:UserRepository")
+ */
+class User implements AccountInterface
+{
+    // ...
+}
+
+class UserRepository extends DocumentRepository implements UserProviderInterface
+{
+    public function loadUserByUsername($username)
+    {
+        // do whatever you need to retrieve the user from the database
+        // code below is the implementation used when using the property setting
+
+        return $this-&gt;findOneBy(array('username' =&gt; $username));
+    }
+}</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Если вы используете интерфейс
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AdvancedAccountInterface</span></tt>,
+не проверяйте различные установки (locked, expired, enabled и т. д.)
+когда получаете пользователя из базы данных т. к. это будет сделано системой
+идентификации автоматически (и правильные исключения будут выброшены
+если это необходимо). Если имеются специальные установки, переопределите
+первоначальную реализацию <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\User\AccountCheckerInterface</span></tt>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Получение пользователя<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>После идентификации, пользователь доступен через безопасный контекст:</p>
+<div class="highlight-python"><pre>$user = $container-&gt;get('security.context')-&gt;getUser();</pre>
+</div>
+<p>Также можно проверить идентифицирован ли пользователь через метод
+<tt class="docutils literal"><span class="pre">isAuthenticated()</span></tt>:</p>
+<div class="highlight-python"><pre>$container-&gt;get('security.context')-&gt;isAuthenticated();</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Не забудьте что анонимные пользователи считаются идентифицированными. Если
+хотите узнать является ли пользователь &#8220;полностью идентифицированным&#8221;
+(не анонимным), необходимо проверить имеет ли он роль <tt class="docutils literal"><span class="pre">IS_AUTHENTICATED_FULLY</span></tt>
+(или удостовериться что у него нет роли <tt class="docutils literal"><span class="pre">IS_AUTHENTICATED_ANONYMOUSLY</span></tt>).</p>
+</div>
+</div>
+<div class="section" id="index-9">
+<span id="id7"></span><h2>Роли<a class="headerlink" href="#index-9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Пользователь может иметь столько ролей, сколько необходимо. Роли обычно
+определяются как строки, но они могут быть любым объектом, реализующим
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Security\Role\RoleInterface</span></tt>
+(во внутреннем представлении роли всегда объекты). Роли, определяемые строками,
+должны начинаться с префикса <tt class="docutils literal"><span class="pre">ROLE_</span></tt>, чтобы автоматически обрабатываться
+Symfony2.</p>
+<p>Роли используются менеджером разрешения доступа для защиты ресурсов. Прочитайте
+документ <a class="reference internal" href="authorization.html"><em>Авторизация</em></a>, чтобы узнать больше
+о контроле доступа, ролях и голосующих.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Если вы определили собственные роли при помощи внешнего класса Role,
+не используйте префикс <tt class="docutils literal"><span class="pre">ROLE_</span></tt>.</p>
+</div>
+<div class="section" id="index-10">
+<span id="id8"></span><h3>Иерархические роли<a class="headerlink" href="#index-10" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Вместо того чтобы ассоциировать множество ролей с пользователями, вы можете
+определить правила наследования ролей, путём создания их иерархии:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">role_hierarchy</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">ROLE_ADMIN</span><span class="p-Indicator">:</span>       <span class="l-Scalar-Plain">ROLE_USER</span>
+        <span class="l-Scalar-Plain">ROLE_SUPER_ADMIN</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">ROLE_USER</span><span class="p-Indicator">,</span> <span class="nv">ROLE_ADMIN</span><span class="p-Indicator">,</span> <span class="nv">ROLE_ALLOWED_TO_SWITCH</span><span class="p-Indicator">]</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;role-hierarchy&gt;</span>
+        <span class="nt">&lt;role</span> <span class="na">id=</span><span class="s">&quot;ROLE_ADMIN&quot;</span><span class="nt">&gt;</span>ROLE_USER<span class="nt">&lt;/role&gt;</span>
+        <span class="nt">&lt;role</span> <span class="na">id=</span><span class="s">&quot;ROLE_SUPER_ADMIN&quot;</span><span class="nt">&gt;</span>ROLE_USER,ROLE_ADMIN,ROLE_ALLOWED_TO_SWITCH<span class="nt">&lt;/role&gt;</span>
+    <span class="nt">&lt;/role-hierarchy&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;role_hierarchy&#39; =&gt; array(</span>
+<span class="x">        &#39;ROLE_ADMIN&#39;       =&gt; &#39;ROLE_USER&#39;,</span>
+<span class="x">        &#39;ROLE_SUPER_ADMIN&#39; =&gt; array(&#39;ROLE_USER&#39;, &#39;ROLE_ADMIN&#39;, &#39;ROLE_ALLOWED_TO_SWITCH&#39;),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>В этой конфигурации пользователи с ролью &#8216;ROLE_ADMIN&#8217; также будут иметь роль
+&#8216;ROLE_USER&#8217;, а роль &#8216;ROLE_SUPER_ADMIN&#8217; обладает множественным наследованием.</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

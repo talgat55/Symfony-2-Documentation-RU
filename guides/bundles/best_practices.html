@@ -1,0 +1,353 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SymfonyGuru | Symfony 2 documentation</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title=" v documentation" href="../../index.html" /> 
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/">Homepage</a>
+              </div>
+
+              <div class="right">
+                  <a href="/ru/" class="ru">RU</a> |
+                  <a href="/en/" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block">
+
+                  <h4>Скачать Symfony</h4>
+
+                  <p>Скачать последнюю версию Symfony можно <a target="_blank" href="http://symfony.com/download">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+              <div class="top_box_block">
+
+                  <h4>Документация Symfony</h4>
+
+                  <p>Документация по Symfony <a target="_blank" href="http://symfony.com/doc/current/">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+              <div class="top_box_block no_margin_r">
+
+                  <h4>Сообщество Symfony</h4>
+
+                  <p>Symfony коммьюнити тусуется <a target="_blank" href="http://symfony.com/community">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      
+
+      <div id="content">
+          
+  <div class="section" id="bundle-best-practices">
+<span id="index-0"></span><h1>Bundle Best Practices<a class="headerlink" href="#bundle-best-practices" title="Permalink to this headline">¶</a></h1>
+<p>A bundle is a directory that has a well-defined structure and can host anything
+from classes to controllers and web resources. Even if bundles are very
+flexible, you should follow some best practices if you want to distribute them.</p>
+<div class="section" id="bundle-name">
+<span id="index-1"></span><h2>Bundle Name<a class="headerlink" href="#bundle-name" title="Permalink to this headline">¶</a></h2>
+<p>A bundle is also a PHP namespace, composed of several segments:</p>
+<ul class="simple">
+<li>The <strong>main namespace</strong>: either <tt class="docutils literal"><span class="pre">Bundle</span></tt>, for reusable bundles, or
+<tt class="docutils literal"><span class="pre">Application</span></tt> for application specific bundles;</li>
+<li>The <strong>vendor namespace</strong> (optional for <tt class="docutils literal"><span class="pre">Application</span></tt> bundles): something
+unique to you or your company (like <tt class="docutils literal"><span class="pre">Sensio</span></tt>);</li>
+<li><em>(optional)</em> The <strong>category namespace(s)</strong> to better organize a large set of
+bundles;</li>
+<li>The <strong>bundle name</strong>.</li>
+</ul>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">The vendor namespace and the category namespaces are only possible as of
+Symfony2 PR3.</p>
+</div>
+<p>The bundle name must follow the following rules:</p>
+<ul class="simple">
+<li>Use only alphanumeric characters and underscores;</li>
+<li>Use a CamelCased name;</li>
+<li>Use a descriptive and short name (no more than 2 words);</li>
+<li>Prefix the name with the concatenation of the vendor and category
+namespaces;</li>
+<li>Suffix the name with <tt class="docutils literal"><span class="pre">Bundle</span></tt>.</li>
+</ul>
+<p>Some good bundle names:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="57%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Namespace</th>
+<th class="head">Bundle Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">Bundle\Sensio\BlogBundle</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">SensioBlogBundle</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">Bundle\Sensio\Social\BlogBundle</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">SensioSocialBlogBundle</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">Application\BlogBundle</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">BlogBundle</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="directory-structure">
+<h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h2>
+<p>The basic directory structure of a <tt class="docutils literal"><span class="pre">HelloBundle</span></tt> bundle must read as follows:</p>
+<div class="highlight-python"><pre>XXX/...
+    HelloBundle/
+        HelloBundle.php
+        Controller/
+        Resources/
+            meta/
+                LICENSE
+            config/
+            doc/
+                index.rst
+            translations/
+            views/
+            web/
+        Tests/</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">XXX</span></tt> directory(ies) reflects the namespace structure of the bundle.</p>
+<p>The following files are mandatory:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">HelloBundle.php</span></tt>;</li>
+<li><tt class="docutils literal"><span class="pre">Resources/meta/LICENSE</span></tt>: The full license for the code;</li>
+<li><tt class="docutils literal"><span class="pre">Resources/doc/index.rst</span></tt>: The root file for the Bundle documentation.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These conventions ensure that automated tools can rely on this default
+structure to work.</p>
+</div>
+<p>The depth of sub-directories should be kept to the minimal for most used
+classes and files (2 levels at a maximum). More levels can be defined for
+non-strategic, less-used files.</p>
+<p>The bundle directory is read-only. If you need to write temporary files, store
+them under the <tt class="docutils literal"><span class="pre">cache/</span></tt> or <tt class="docutils literal"><span class="pre">log/</span></tt> directory of the host application. Tools
+can generate files in the bundle directory structure, but only if the generated
+files are going to be part of the repository.</p>
+<p>The following classes and files have specific emplacements:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Directory</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Controllers</td>
+<td><tt class="docutils literal"><span class="pre">Controller/</span></tt></td>
+</tr>
+<tr><td>Translation files</td>
+<td><tt class="docutils literal"><span class="pre">Resources/translations/</span></tt></td>
+</tr>
+<tr><td>Templates</td>
+<td><tt class="docutils literal"><span class="pre">Resources/views/</span></tt></td>
+</tr>
+<tr><td>Unit and Functional Tests</td>
+<td><tt class="docutils literal"><span class="pre">Tests/</span></tt></td>
+</tr>
+<tr><td>Web Resources</td>
+<td><tt class="docutils literal"><span class="pre">Resources/web/</span></tt></td>
+</tr>
+<tr><td>Configuration</td>
+<td><tt class="docutils literal"><span class="pre">Resources/config/</span></tt></td>
+</tr>
+<tr><td>Commands</td>
+<td><tt class="docutils literal"><span class="pre">Command/</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<p>The bundle directory structure is used as the namespace hierarchy. For
+instance, a <tt class="docutils literal"><span class="pre">HelloController</span></tt> controller is stored in
+<tt class="docutils literal"><span class="pre">Bundle/HelloBundle/Controller/HelloController.php</span></tt> and the fully qualified
+class name is <tt class="docutils literal"><span class="pre">Bundle\HelloBundle\Controller\HelloController</span></tt>.</p>
+<p>All classes and files must follow the Symfony2 coding <tt class="xref doc docutils literal"><span class="pre">standards</span></tt>.</p>
+<p>Some classes should be seen as facades and should be as short as possible, like
+Commands, Helpers, Listeners, and Controllers.</p>
+<p>Classes that connects to the Event Dispatcher should be suffixed with
+<tt class="docutils literal"><span class="pre">Listener</span></tt>.</p>
+<p>Exceptions classes should be stored in an <tt class="docutils literal"><span class="pre">Exception</span></tt> sub-namespace.</p>
+</div>
+<div class="section" id="vendors">
+<h2>Vendors<a class="headerlink" href="#vendors" title="Permalink to this headline">¶</a></h2>
+<p>A bundle must not embed third-party PHP libraries. It should rely on the
+standard Symfony2 autoloading instead.</p>
+<p>A bundle should not embed third-party libraries written in JavaScript, CSS, or
+any other language.</p>
+</div>
+<div class="section" id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h2>
+<p>A bundle should come with a test suite written with PHPUnit and stored under
+the <tt class="docutils literal"><span class="pre">Tests/</span></tt> directory. Tests should follow the following principles:</p>
+<ul class="simple">
+<li>The test suite must be executable with a simple <tt class="docutils literal"><span class="pre">phpunit</span></tt> command run from
+a sample application;</li>
+<li>The functional tests should only be used to test the response output and
+some profiling information if you have some;</li>
+<li>The code coverage should at least covers 95% of the code base.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A test suite must not contain <tt class="docutils literal"><span class="pre">AllTests.php</span></tt> scripts, but must rely on the
+existence of a <tt class="docutils literal"><span class="pre">phpunit.xml.dist</span></tt> file.</p>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>All classes and functions must come with full PHPDoc.</p>
+<p>Extensive documentation should also be provided in the <a class="reference internal" href="../../contributing/documentation/format.html"><em>reStructuredText</em></a> format, under the <tt class="docutils literal"><span class="pre">Resources/doc/</span></tt>
+directory; the <tt class="docutils literal"><span class="pre">Resources/doc/index.rst</span></tt> file is the only mandatory file.</p>
+</div>
+<div class="section" id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h2>
+<p>If a bundle provides templates, they should be defined in plain PHP. A bundle
+must not provide a main layout, but extend a default <tt class="docutils literal"><span class="pre">base</span></tt> template (which
+must provide two slots: <tt class="docutils literal"><span class="pre">content</span></tt> and <tt class="docutils literal"><span class="pre">head</span></tt>).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The only other template engine supported is Twig, but only for specific
+cases.</p>
+</div>
+</div>
+<div class="section" id="translation-files">
+<h2>Translation Files<a class="headerlink" href="#translation-files" title="Permalink to this headline">¶</a></h2>
+<p>If a bundle provides message translations, they must be defined in the XLIFF
+format; the domain should be named after the bundle name (<tt class="docutils literal"><span class="pre">bundle.hello</span></tt>).</p>
+<p>A bundle must not override existing messages from another bundle.</p>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Configuration must be done via the Symfony2 built-in <a class="reference internal" href="configuration.html"><em>mechanism</em></a>. A bundle should provide all its default
+configurations in XML.</p>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/">Home</a></li>
+              <li><a href="/content/en/about/">About</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Created and maintained by <a href="http://hudson.su" target="_blank">Dmitry Bykadorov</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

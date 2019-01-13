@@ -1,0 +1,858 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Symfony2 против чистого PHP &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Книга" href="index.html" />
+    <link rel="next" title="Установка и настройка Symfony2" href="installation.html" />
+    <link rel="prev" title="Symfony2 и основы HTTP" href="http_fundamentals.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="symfony2-php">
+<h1>Symfony2 против чистого PHP<a class="headerlink" href="#symfony2-php" title="Ссылка на этот заголовок">¶</a></h1>
+<p><strong>Почему использовать Symfony2 лучше, чем простой PHP файл, который можно просто открыть и писать код не задумываясь?</strong></p>
+<p>Если раньше вы никогда не пользовались PHP-фреймворками, не знакомы с философией
+Model-View-Controller (здесь и далее MVC) или же удивлены <em>суматохой</em> вокруг Symfony2,
+то эта глава создана специально для вас! Вместо того чтобы <em>рассказать</em> вам о том, что
+Symfony2 позволит разрабатывать быстрее и качественнее, чем при использовании чистого PHP,
+мы просто покажем вам это.</p>
+<p>В этой главе, вы создадите простенькое приложение на чистом PHP и выполните его оптимизацию.
+Вы совершите своеобразное путешествие свозь время, наблюдая за развитием web-разработки на
+протяжении последних лет от плоского PHP до сегодняшнего уровня.</p>
+<p>В конце концов, вы увидите, как Symfony2 поможет вам избавиться от рутинных задач и вернуть
+вам контроль над кодом.</p>
+<div class="section" id="php">
+<h2>Простой блог на чистом PHP<a class="headerlink" href="#php" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В этой главе вы создадите простое приложение - блог, используя лишь обычный PHP.
+Чтобы начать, создайте страницу, которая отображает записи в блоге, которые
+были сохранены в базе данных. Писать на чистом PHP проще простого:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// index.php</span>
+
+<span class="nv">$link</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;myuser&#39;</span><span class="p">,</span> <span class="s1">&#39;mypassword&#39;</span><span class="p">);</span>
+<span class="nb">mysql_select_db</span><span class="p">(</span><span class="s1">&#39;blog_db&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s1">&#39;SELECT id, title FROM post&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>List of Posts<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>List of Posts<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nb">mysql_fetch_assoc</span><span class="p">(</span><span class="nv">$result</span><span class="p">))</span><span class="o">:</span> <span class="cp">?&gt;</span>
+            <span class="nt">&lt;li&gt;</span>
+                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/show.php?id=</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+                    <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span>
+                <span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">endwhile</span><span class="p">;</span> <span class="cp">?&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+<span class="cp">&lt;?php</span>
+<span class="nb">mysql_close</span><span class="p">(</span><span class="nv">$link</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Такой код быстро пишется, также быстро выполняется, и, по мере роста вашего приложения,
+становится совершенно неподдерживаемым. Таким образом, тут имеется несколько проблем,
+которые требуется решить:</p>
+<ul class="simple">
+<li><strong>Нет обработчика ошибок</strong>: А что, если подключение к базе данных отвалится?</li>
+<li><strong>Плохая организация кода</strong>: По мере роста приложения, этот файл будет все больше и больше,
+в то же время поддерживать его будет всё сложнее и сложнее. Где вы должны будете разместить код,
+который обрабатывает отправку формы? Как вы будете проверять входные данные? А куда разместить
+код для отправки email&#8217;ов?</li>
+<li><strong>Сложность (а скорее даже невозможность) повторного использования кода</strong>: Так как весь код
+располагается в одном файле, нет никакой возможности повторного использования любой части
+приложения для других страниц блога.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Другая проблема, не упомянутая выше, заключается в том, что вы фактически привязаны к
+базе данных MySQL. В данной главе этот вопрос не рассматривается, но, тем не менее,
+Symfony2 изначально интегрирована с ORM <a class="reference external" href="http://www.doctrine-project.org">Doctrine</a>, библиотекой, отвечающей за
+абстракцию от баз данных и соответствие данных между СУБД и вашими сущностями (mapping).</p>
+</div>
+<p>Давайте же поработаем над разрешением поставленных выше проблем.</p>
+<div class="section" id="id1">
+<h3>Изоляция представления<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>При разделении &#8220;логики&#8221; приложения от кода, который подготавливает HTML &#8220;представление&#8221;
+страницы - общая структура приложения сразу же выигрывает:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// index.php</span>
+
+<span class="nv">$link</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;myuser&#39;</span><span class="p">,</span> <span class="s1">&#39;mypassword&#39;</span><span class="p">);</span>
+<span class="nb">mysql_select_db</span><span class="p">(</span><span class="s1">&#39;blog_db&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s1">&#39;SELECT id, title FROM post&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span>
+
+<span class="nv">$posts</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nb">mysql_fetch_assoc</span><span class="p">(</span><span class="nv">$result</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$posts</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nb">mysql_close</span><span class="p">(</span><span class="nv">$link</span><span class="p">);</span>
+
+<span class="c1">// include the HTML presentation code</span>
+<span class="k">require</span> <span class="s1">&#39;templates/list.php&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>HTML код теперь расположен в отдельном файле (<tt class="docutils literal"><span class="pre">templates/list.php</span></tt>), который
+главным образом представляет собой HTML-файл, который использует PHP-синтаксис
+&#8220;для шаблонов&#8221;:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>List of Posts<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>List of Posts<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$posts</span> <span class="k">as</span> <span class="nv">$post</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+            <span class="nt">&lt;li&gt;</span>
+                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/read?id=</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+                    <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span>
+                <span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>По договорённости, файл, который содержит всю логику приложения - <tt class="docutils literal"><span class="pre">index.php</span></tt> -
+называется &#8220;контроллер&#8221;. Термин <em class="xref std std-term">controller</em> - это слово, которое вы будете
+частенько слышать вне зависимости от языка программирования или же фреймворка,
+который используете. В действительности же, речь идёт о части <em>вашего</em> кода,
+который обрабатывает пользовательский ввод и готовит ответ.</p>
+<p>В нашем случае, контроллер получает данные из базы и подключает шаблон, для того
+чтобы отобразить их. С изоляцией контроллера, вы получили возможность поменять
+<em>лишь</em> шаблон, если вам вдруг понадобится отобразить записи блога в другом формате
+(например <tt class="docutils literal"><span class="pre">list.json.php</span></tt> для использования JSON-формата).</p>
+</div>
+<div class="section" id="id2">
+<h3>Изоляция логики Приложения (Домена)<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Пока наше приложение содержало всего одну страницу. Но что же делать, если
+нужно добавить вторую страницу, которая использует то же подключение к базе
+данных или даже тот же массив постов из блога? Давайте преобразуем код,
+изолировав базовую логику от функций доступа к БД - поместим их в новый
+файл под названием <tt class="docutils literal"><span class="pre">model.php</span></tt>:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// model.php</span>
+
+<span class="k">function</span> <span class="nf">open_database_connection</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$link</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;myuser&#39;</span><span class="p">,</span> <span class="s1">&#39;mypassword&#39;</span><span class="p">);</span>
+    <span class="nb">mysql_select_db</span><span class="p">(</span><span class="s1">&#39;blog_db&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nv">$link</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">close_database_connection</span><span class="p">(</span><span class="nv">$link</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">mysql_close</span><span class="p">(</span><span class="nv">$link</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">get_all_posts</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$link</span> <span class="o">=</span> <span class="nx">open_database_connection</span><span class="p">();</span>
+
+    <span class="nv">$result</span> <span class="o">=</span> <span class="nb">mysql_query</span><span class="p">(</span><span class="s1">&#39;SELECT id, title FROM post&#39;</span><span class="p">,</span> <span class="nv">$link</span><span class="p">);</span>
+    <span class="nv">$posts</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nv">$row</span> <span class="o">=</span> <span class="nb">mysql_fetch_assoc</span><span class="p">(</span><span class="nv">$result</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$posts</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$row</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">close_database_connection</span><span class="p">(</span><span class="nv">$link</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nv">$posts</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Имя файла <tt class="docutils literal"><span class="pre">model.php</span></tt> использовано не случайно - логика и доступ к данным
+приложения традиционно известен как уровень &#8220;модели&#8221;. В правильно организованном
+приложении бОльшая часть кода представляющая собой &#8220;бизнес-логику&#8221; должна
+быть расположена в модели (в противовес расположению её в контроллере). И,
+в отличие от нашего примера, лишь часть модели отвечает за доступ к БД
+(а бывает и вообще не отвечает).</p>
+</div>
+<p>Контроллер (<tt class="docutils literal"><span class="pre">index.php</span></tt>) теперь выглядит очень просто:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;model.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$posts</span> <span class="o">=</span> <span class="nx">get_all_posts</span><span class="p">();</span>
+
+<span class="k">require</span> <span class="s1">&#39;templates/list.php&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Теперь, в обязанности контроллера вменяется получение данных из модели приложения
+и вызов шаблона для отображения данных. Это очень простой пример паттерна
+model-view-controller.</p>
+</div>
+<div class="section" id="layout">
+<h3>Изоляция разметки (Layout)<a class="headerlink" href="#layout" title="Ссылка на этот заголовок">¶</a></h3>
+<p>На текущий момент, приложение разделено на три различных части, предлагающих
+различные преимущества и возможности по повторному использованию почти любого кода
+для других страниц.</p>
+<p>Пока что мы <em>не можем</em> повторно использовать - это разметка страницы (layout).
+Исправим это упущение, создав файл <tt class="docutils literal"><span class="pre">layout.php</span></tt>:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- templates/layout.php --&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$title</span> <span class="cp">?&gt;</span><span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$content</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Шаблон (<tt class="docutils literal"><span class="pre">templates/list.php</span></tt>) может быть упрощён, так как будет &#8220;расширять&#8221;
+базовую разметку:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="nv">$title</span> <span class="o">=</span> <span class="s1">&#39;List of Posts&#39;</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nb">ob_start</span><span class="p">()</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>List of Posts<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$posts</span> <span class="k">as</span> <span class="nv">$post</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+        <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/read?id=</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+                <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span>
+            <span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$content</span> <span class="o">=</span> <span class="nb">ob_get_clean</span><span class="p">()</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="k">include</span> <span class="s1">&#39;layout.php&#39;</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Теперь вы знаете методологию, которая позволяет повторно использовать разметку-layout.
+К сожалению, для того чтобы достичь этого, вы вынуждены использовать несколько страшненьких
+PHP-функций (<tt class="docutils literal"><span class="pre">ob_start()</span></tt>, <tt class="docutils literal"><span class="pre">ob_get_clean()</span></tt>) в шаблоне. Symfony2 использует
+компонент <tt class="docutils literal"><span class="pre">Templating</span></tt>, который позволяет достичь этого просто и прозрачно. Скоро
+вы увидите - как именно.</p>
+</div>
+</div>
+<div class="section" id="show">
+<h2>Добавляем страницу блога &#8220;show&#8221;<a class="headerlink" href="#show" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Страница блога &#8220;list&#8221; была оптимизирована таким образом, чтобы код был лучше
+организован и позволял повторное использование. Для того чтобы доказать, что
+все оптимизации были не зря, добавим страницу &#8220;show&#8221;, которая отображает один пост
+идентифицируемый по параметру запроса - <tt class="docutils literal"><span class="pre">id</span></tt>.</p>
+<p>Для начала, создадим новую функцию в файле <tt class="docutils literal"><span class="pre">model.php</span></tt>, которая получает
+одиночную запись по её id:</p>
+<p>Далее, создадим новый файл, который назовем <tt class="docutils literal"><span class="pre">show.php</span></tt> - контроллер для
+нашей новой страницы:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;model.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$post</span> <span class="o">=</span> <span class="nx">get_post_by_id</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]);</span>
+
+<span class="k">require</span> <span class="s1">&#39;templates/show.php&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>И, наконец, создадим новый шаблон - <tt class="docutils literal"><span class="pre">templates/show.php</span></tt> - для отображения
+одного поста из блога:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="nv">$title</span> <span class="o">=</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nb">ob_start</span><span class="p">()</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;h1&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="nt">&lt;/h1&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;date&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$post</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$content</span> <span class="o">=</span> <span class="nb">ob_get_clean</span><span class="p">()</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="k">include</span> <span class="s1">&#39;layout.php&#39;</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Создание второй страницы выполнено легко и непринужденно, и мы избежали
+дублирования кода. Тем не менее, эта страница добавляет даже больше проблем,
+которые фреймворк может решить для вас. Например, отсутствующий или неверный
+параметр <tt class="docutils literal"><span class="pre">id</span></tt> вызовет фатальную ошибку приложения. Было бы лучше, если бы
+в этом случае отображалась страница 404, но сейчас мы не можем легко достичь
+такого эффекта. И ещё ложка дёгтя - ведь вы забыли &#8220;очистить&#8221; параметр <tt class="docutils literal"><span class="pre">id</span></tt>
+при помощи функции <tt class="docutils literal"><span class="pre">mysql_real_escape_string()</span></tt> - так что вся ваша база
+данных подвергается риску SQL-инъекции.</p>
+<p>Другая серьёзная проблема заключается в том, что каждый файл-контроллер
+должен подключать файл <tt class="docutils literal"><span class="pre">model.php</span></tt>. А что если к каждому контроллеру неожиданно
+придется подключить дополнительный файл или же выполнить другую глобальную операцию
+(например, связанную с безопасностью)? При нынешней организации, этот код необходимо
+добавить в каждый контроллер. Если вы забудете включить что-нибудь в один из файлов,
+остаётся лишь надеяться, что это не скажется на безопасности приложения...</p>
+</div>
+<div class="section" id="front-controller">
+<h2>&#8220;Front Controller&#8221; вам в помощь<a class="headerlink" href="#front-controller" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Решение указанных выше проблем является использование <em class="xref std std-term">front controller</em>:
+единственного PHP-файла, который будет обрабатывать <em>любой</em> запрос. При использовании
+front controller (далее просто фронт-контроллер) URI для вашего приложения изменяются
+незначительно, но становятся более гибкими:</p>
+<div class="highlight-text"><div class="highlight"><pre>Без фронт-контроллера
+/index.php          =&gt; Список постов (выполняется index.php)
+/show.php           =&gt; Отдельный пост (выполняется show.php)
+
+При использовании index.php в качестве фронт-контроллера
+/index.php          =&gt; Список постов (выполняется index.php)
+/index.php/show     =&gt; Отдельный пост (выполняется index.php)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Часть URI, включающая <tt class="docutils literal"><span class="pre">index.php</span></tt>, может быть опущена, при использовании
+rewrite rules веб-сервера Apache (или их эквивалента для прочих веб-серверов).
+В этом случае результирующий URI для страницы с постом блога будет просто <tt class="docutils literal"><span class="pre">/show</span></tt>.</p>
+</div>
+<p>При использовании фронт-контроллера, один PHP файл (<tt class="docutils literal"><span class="pre">index.php</span></tt> в нашем случае)
+обрабатывает <em>любой</em> запрос. Для страницы с одним постом <tt class="docutils literal"><span class="pre">/index.php/show</span></tt>
+будет выполнять файл <tt class="docutils literal"><span class="pre">index.php</span></tt>, который теперь несёт ответственность за
+маршрутизацию запроса, основываясь на полном URI. Как вы скоро увидите
+фронт-контроллер - это очень мощный инструмент.</p>
+<div class="section" id="id3">
+<h3>Создание фронт-контроллера<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Внимание! Прямо сейчас вы стоите на пороге <strong>большого</strong> шага для вашего приложения.
+Имея один файл, который принимает все запросы, вы можете централизованно обрабатывать
+вопросы, связанные, к примеру, с безопасностью, загрузкой конфигурации, маршрутизацией.
+В нашем приложении <tt class="docutils literal"><span class="pre">index.php</span></tt> теперь должен быть достаточно умён, чтобы отобразить
+страницу со списком постов <em>или</em> страницу отельного поста, основываясь на URI запроса:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// index.php</span>
+
+<span class="c1">// Загружаем и инициализируем глобальные библиотеки</span>
+<span class="k">require_once</span> <span class="s1">&#39;model.php&#39;</span><span class="p">;</span>
+<span class="k">require_once</span> <span class="s1">&#39;controllers.php&#39;</span><span class="p">;</span>
+
+<span class="c1">// Внутренняя маршрутизация</span>
+<span class="nv">$uri</span> <span class="o">=</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_URI&#39;</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$uri</span> <span class="o">==</span> <span class="s1">&#39;/index.php&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">list_action</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$uri</span> <span class="o">==</span> <span class="s1">&#39;/index.php/show&#39;</span> <span class="o">&amp;&amp;</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nx">show_action</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s1">&#39;Status: 404 Not Found&#39;</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="s1">&#39;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Page Not Found&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Для улучшения структуры приложения, оба контроллера (ранее <tt class="docutils literal"><span class="pre">index.php</span></tt> и <tt class="docutils literal"><span class="pre">show.php</span></tt>)
+превратились в функции, и каждая из них была помещена в файл <tt class="docutils literal"><span class="pre">controllers.php</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// controllers.php</span>
+
+<span class="k">function</span> <span class="nf">list_action</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$posts</span> <span class="o">=</span> <span class="nx">get_all_posts</span><span class="p">();</span>
+    <span class="k">require</span> <span class="s1">&#39;templates/list.php&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">show_action</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$post</span> <span class="o">=</span> <span class="nx">get_post_by_id</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+    <span class="k">require</span> <span class="s1">&#39;templates/show.php&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Став фронт-контроллером <tt class="docutils literal"><span class="pre">index.php</span></tt> получил совершенно новую роль, включая
+загрузку библиотек ядра и маршрутизацию, которая сейчас заключается в вызове
+одного из двух контроллеров (функции <tt class="docutils literal"><span class="pre">list_action()</span></tt> и <tt class="docutils literal"><span class="pre">show_action()</span></tt>).
+На самом деле, этот фронт-контроллер уже, в плане обработки запросов и маршрутизации,
+начинает себя вести сходным образом, как и контроллер Symfony2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Другое достоинство фронт-контроллера - это гибкие URL. Обратите внимание,
+что URL для страницы, отображающей отдельный пост блога, в любой момент
+может быть изменён с <tt class="docutils literal"><span class="pre">/show</span></tt> на <tt class="docutils literal"><span class="pre">/read</span></tt>, изменив код всего лишь в
+одном месте. Ранее же нам бы потребовалось переименовать файл целиком.
+В Symfony2 URLы ещё более гибки.</p>
+</div>
+<p>К этому времени, приложение разрослось с одного PHP-файла до целой структуры,
+которая хорошо организована и позволяет повторное использование кода. Вы
+должны быть счастливы, но до полного удовлетворения ещё далеко. К примеру,
+система &#8220;маршрутизации&#8221; ненадёжна и не может определить, что страница list
+(<tt class="docutils literal"><span class="pre">/index.php</span></tt>) должна быть доступна через <tt class="docutils literal"><span class="pre">/</span></tt> (если используются Apache
+rewrite rules). Также, вместо того чтобы разрабатывать блог, куча времени была
+потрачена на &#8220;архитектуру&#8221; кода (например, маршрутизация, вызовы контроллеров,
+шаблоны и т.п.). Еще больше времени нужно, чтобы обрабатывать отправку форм,
+валидацию введённых данных, логгирование и безопасность. Почему мы должны
+заново изобретать решения для этих рутинных проблем?</p>
+</div>
+<div class="section" id="symfony2">
+<h3>Прикосновение к Symfony2<a class="headerlink" href="#symfony2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Symfony2 идёт на помощь. Перед тем, как начать использовать Symfony2, вам
+нужно указать PHP как и где найти классы Symfony2. Это достигается путём
+использования автозагрузчика, который предоставляет Symfony. Автозагрузчик
+- это инструмент, который позволяет использовать PHP-классы, не подключая
+файлы их содержащие явно.</p>
+<p>Во-первых, <a class="reference external" href="http://symfony.com/download">скачать symfony</a> и поместите файлы в директорию <tt class="docutils literal"><span class="pre">vendor/symfony/</span></tt>.
+Затем, создайте файл <tt class="docutils literal"><span class="pre">app/bootstrap.php</span></tt>. Используйте его для подключения
+(<tt class="docutils literal"><span class="pre">require</span></tt>) двух файлов приложения и конфигурирования автозагрузчика:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// bootstrap.php</span>
+<span class="k">require_once</span> <span class="s1">&#39;model.php&#39;</span><span class="p">;</span>
+<span class="k">require_once</span> <span class="s1">&#39;controllers.php&#39;</span><span class="p">;</span>
+<span class="k">require_once</span> <span class="s1">&#39;vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Symfony\Component\ClassLoader\UniversalClassLoader</span><span class="p">();</span>
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">registerNamespaces</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Symfony&#39;</span> <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/symfony/src&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Это покажет автозагрузчику, где живут классы <tt class="docutils literal"><span class="pre">Symfony</span></tt>. Теперь вы можете
+начать пользоваться классами Symfony, не используя оператор <tt class="docutils literal"><span class="pre">require</span></tt> для
+файлов, содержащих требуемые классы.</p>
+<p>Ядром философии Symfony является идея, что основная задача приложения - это
+интерпретировать каждый запрос и возвратить ответ. Для этого Symfony2 предоставляет
+два класса: <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Request</span></tt> и
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Response</span></tt>. Эти классы являются
+объектно-ориентированным представлением необработанного HTTP-запроса, который
+подлежит обработке и соответствующего ему HTTP-ответа, который будет возвращен клиенту.
+Используйте их для улучшения блога:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// index.php</span>
+<span class="k">require_once</span> <span class="s1">&#39;app/bootstrap.php&#39;</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+
+<span class="nv">$request</span> <span class="o">=</span> <span class="nx">Request</span><span class="o">::</span><span class="na">createFromGlobals</span><span class="p">();</span>
+
+<span class="nv">$uri</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPathInfo</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$uri</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nx">list_action</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$uri</span> <span class="o">==</span> <span class="s1">&#39;/show&#39;</span> <span class="o">&amp;&amp;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nx">show_action</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">query</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nv">$html</span> <span class="o">=</span> <span class="s1">&#39;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Page Not Found&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&#39;</span><span class="p">;</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$html</span><span class="p">,</span> <span class="mi">404</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Вывод заголовков и отправка ответа</span>
+<span class="nv">$response</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Контроллеры теперь отвечают за возврат объекта <tt class="docutils literal"><span class="pre">Response</span></tt>. Для того чтобы
+упростить процесс создания ответа, вы можете добавить новую функцию <tt class="docutils literal"><span class="pre">render_template()</span></tt>,
+которая, между прочим, действует практически как движок шаблонов Symfony2:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// controllers.php</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+
+<span class="k">function</span> <span class="nf">list_action</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$posts</span> <span class="o">=</span> <span class="nx">get_all_posts</span><span class="p">();</span>
+    <span class="nv">$html</span> <span class="o">=</span> <span class="nx">render_template</span><span class="p">(</span><span class="s1">&#39;templates/list.php&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span> <span class="o">=&gt;</span> <span class="nv">$posts</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$html</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="nf">show_action</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$post</span> <span class="o">=</span> <span class="nx">get_post_by_id</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+    <span class="nv">$html</span> <span class="o">=</span> <span class="nx">render_template</span><span class="p">(</span><span class="s1">&#39;templates/show.php&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;post&#39;</span> <span class="o">=&gt;</span> <span class="nv">$post</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$html</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Функция-помощник для отображения шаблонов</span>
+<span class="k">function</span> <span class="nf">render_template</span><span class="p">(</span><span class="nv">$path</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">extract</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
+    <span class="nb">ob_start</span><span class="p">();</span>
+    <span class="k">require</span> <span class="nv">$path</span><span class="p">;</span>
+    <span class="nv">$html</span> <span class="o">=</span> <span class="nb">ob_get_clean</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nv">$html</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Получив в помощь небольшую часть Symfony2, приложение стало более гибким и
+надёжным. <tt class="docutils literal"><span class="pre">Request</span></tt> предоставляет надёжный способ получить информацию о запросе.
+К примеру, метод <tt class="docutils literal"><span class="pre">getPathInfo()</span></tt> возвращает &#8220;очищенный&#8221; URI (всегда возвращает
+<tt class="docutils literal"><span class="pre">/show</span></tt> и никогда <tt class="docutils literal"><span class="pre">/index.php/show</span></tt>). Таким образом, даже если пользователь
+откроет в браузере <tt class="docutils literal"><span class="pre">/index.php/show</span></tt>, приложение выполнит <tt class="docutils literal"><span class="pre">show_action()</span></tt>.</p>
+<p>Объект <tt class="docutils literal"><span class="pre">Response</span></tt> предоставляет гибкость в построении HTTP-ответа, позволяя добавлять
+HTTP заголовки и контент страницы посредством объектно-ориентированного интерфейса.
+И, хотя в этом приложении пока что ответы весьма просты, эта гибкость выплатит вам дивиденды
+по мере роста приложения.</p>
+</div>
+<div class="section" id="id4">
+<h3>Простое приложение на Symfony2<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Блог начал свой <em>длинный</em> путь, но он всё ещё содержит слишком много кода для
+такого небольшого приложения. Следуя по пути, мы изобрели простую систему
+маршрутизации и метод, использующий <tt class="docutils literal"><span class="pre">ob_start()</span></tt> и <tt class="docutils literal"><span class="pre">ob_get_clean()</span></tt> для
+отображения шаблонов. Если, по каким-либо соображениям, вы хотите продолжить
+создание этого &#8220;фреймворка&#8221; с нуля, вы можете по крайней мере использовать
+самостоятельные компоненты Symfony - <a class="reference external" href="https://github.com/symfony/Routing">Routing</a> и <a class="reference external" href="https://github.com/symfony/Templating">Templating</a>, которые решают
+эти проблемы.</p>
+<p>Вместо того чтобы заново решать типовые проблемы, вы можете предоставить
+Symfony2 заботу о них. Вот пример простого приложения, построенного с
+использованием Symfony2:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/BlogBundle/Controller/BlogController.php</span>
+
+<span class="k">namespace</span> <span class="nx">Acme\BlogBundle\Controller</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">BlogController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">listAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$posts</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getEntityManager</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">createQuery</span><span class="p">(</span><span class="s1">&#39;SELECT p FROM AcmeBlogBundle:Post p&#39;</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeBlogBundle:Post:list.html.php&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;posts&#39;</span> <span class="o">=&gt;</span> <span class="nv">$posts</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">showAction</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$post</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine&#39;</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">getEntityManager</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">getRepository</span><span class="p">(</span><span class="s1">&#39;AcmeBlogBundle:Post&#39;</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$post</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// cause the 404 page not found to be displayed</span>
+            <span class="k">throw</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createNotFoundException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeBlogBundle:Post:show.html.php&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;post&#39;</span> <span class="o">=&gt;</span> <span class="nv">$post</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Эти два контроллера всё ещё легковесны. Каждый из них использует библиотеку Doctrine
+ORM для получения объектов из базы данных и компонент <tt class="docutils literal"><span class="pre">Templating</span></tt> для отображения
+шаблона и возврата объекта <tt class="docutils literal"><span class="pre">Response</span></tt>. Шаблон list теперь стал ещё немного проще:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/BlogBundle/Resources/views/Blog/list.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;::layout.html.php&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;List of Posts&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>List of Posts<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$posts</span> <span class="k">as</span> <span class="nv">$post</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;li&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;router&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;blog_show&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">()))</span> <span class="cp">?&gt;</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">()</span> <span class="cp">?&gt;</span>
+        <span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+<p>Layout практически не изменился:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- app/Resources/views/layout.html.php --&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;Default title&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;_content&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Мы оставляем шаблон show вам в качестве самостоятельного упражнения,
+так как он будет не сложнее шаблона list.</p>
+</div>
+<p>Когда движок Symfony2 (который называется <tt class="docutils literal"><span class="pre">Kernel</span></tt> - ядро) загружается,
+он нуждается в &#8220;карте&#8221;, по которой он будет узнавать - какой контроллер требуется
+выполнить, основываясь на информации из запроса. Конфигурация маршрутизатора
+предоставляет ему эту информацию в следующем формате:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/routing.yml</span>
+<span class="l-Scalar-Plain">blog_list</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/blog</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">AcmeBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Blog</span><span class="p-Indicator">:</span><span class="nv">list</span> <span class="p-Indicator">}</span>
+
+<span class="l-Scalar-Plain">blog_show</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/blog/show/{id}</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">AcmeBlogBundle</span><span class="p-Indicator">:</span><span class="nv">Blog</span><span class="p-Indicator">:</span><span class="nv">show</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+<p>Теперь, когда Symfony2 берёт на себя повседневные задачи, фронт-контроллер
+стал предельно простым. Поскольку он теперь делает так мало, вам никогда
+не придется трогать его после создания (а если вы используете дистрибутив Symfony2,
+то вам даже не придётся создавать его!):</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// web/app.php</span>
+<span class="k">require_once</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/../app/bootstrap.php&#39;</span><span class="p">;</span>
+<span class="k">require_once</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/../app/AppKernel.php&#39;</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+
+<span class="nv">$kernel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppKernel</span><span class="p">(</span><span class="s1">&#39;prod&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+<span class="nv">$kernel</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nx">Request</span><span class="o">::</span><span class="na">createFromGlobals</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Единственная забота фронт-контроллера - инициализация движка Symfony2
+(<tt class="docutils literal"><span class="pre">Kernel</span></tt>) и передача ему объекта <tt class="docutils literal"><span class="pre">Request</span></tt> для последующей обработки.
+Ядро Symfony2 использует карту маршрутизации для определения - какой контроллер
+необходимо выполнить. Как и раньше, метод контроллера отвечает за возврат
+конечного объекта <tt class="docutils literal"><span class="pre">Response</span></tt>.</p>
+<p>Для визуального представления процесса обработки запроса в Symfony2 -
+посмотрите диаграмму <a class="reference internal" href="http_fundamentals.html#request-flow-figure"><em>процесс обработки запроса</em></a>.</p>
+</div>
+<div class="section" id="id5">
+<h3>В чём польза Symfony2<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В последующих главах вы узнаете больше обо всех аспектах работы с Symfony и
+рекомендуемой структуре проекта. Сейчас же давайте посмотрим - как миграция
+блога с обычного PHP на Symfony2 улучшает жизнь:</p>
+<ul class="simple">
+<li>Теперь ваше приложение имеет <strong>простой, понятный и единообразно организованный код</strong>
+(хотя Symfony не требует этого от вас). Это поощряет <strong>повторное использование</strong>
+и позволяет новым разработчикам становиться продуктивными быстрее.</li>
+<li>100% кода, который вы написали - для <em>вашего</em> приложения. Вам
+<strong>не нужно разрабатывать или поддерживать низкоуровневые инструменты</strong>,
+такие как <a class="reference internal" href="page_creation.html#autoloading-introduction-sidebar"><em>автозагрузка</em></a>,
+<a class="reference internal" href="routing.html"><em>маршрутизация</em></a>, или рендеринг <a class="reference internal" href="controller.html"><em>контроллеров</em></a>.</li>
+<li>Symfony2 предоставляет вам <strong>доступ к инструментам с открытым кодом</strong>,
+таким как Doctrine, и компонентам Templating, Security, Form, Validation and Translation.</li>
+<li>Приложение теперь использует <strong>гибчайшие URLы</strong> благодаря компоненту <tt class="docutils literal"><span class="pre">Routing</span></tt>.</li>
+<li>Архитектура Symfony2, центрированная на HTTP, дает вам доступ к
+мощным инструментам, таким как <strong>HTTP кеширование</strong>, базирующееся на
+<strong>внутреннем HTTP-кэше Symfony2</strong> или более ещё более мощным инструментам,
+таким как <a class="reference external" href="http://www.varnish-cache.org">Varnish</a>. Об этом будет рассказано в главе о
+<a class="reference internal" href="http_cache.html"><em>кэшировании</em></a>.</li>
+</ul>
+<p>И, возможно самое лучшее, используя Symfony2 вы получаете доступ к целому
+набору <strong>качественных инструментов с открытым исходным кодом, разработанных
+участниками коммьюнити</strong>! Дополнительную информацию вы можете получить на сайте
+<a class="reference external" href="http://symfony2bundles.org">Symfony2Bundles.org</a></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Лучшие шаблоны<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если вы выбрали Symfony2, то приготовьтесь встретиться с шаблонизатором
+<a class="reference external" href="http://twig.sensiolabs.org">Twig</a>, который делает шаблоны быстрыми в разработке и лёгкие в понимании.
+Это означает, что приложение будет содержать ещё меньше кода! Давайте,
+к примеру, взглянем на шаблон списка, написанный на Twig:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/BlogBundle/Resources/views/Blog/list.html.twig #}</span>
+
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;::layout.html.twig&quot;</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>List of Posts<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
+    <span class="nt">&lt;h1&gt;</span>List of Posts<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">post</span> <span class="k">in</span> <span class="nv">posts</span> <span class="cp">%}</span>
+        <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="s1">&#39;blog_show&#39;</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="nv">post.id</span> <span class="o">})</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+                <span class="cp">{{</span> <span class="nv">post.title</span> <span class="cp">}}</span>
+            <span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Соответствующий шаблон <tt class="docutils literal"><span class="pre">layout.html.twig</span></tt> ещё проще:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# app/Resources/views/layout.html.twig #}</span>
+
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Default title<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Twig отлично интегрирован с Symfony2. В то время, как PHP шаблоны будут
+всегда поддерживаться в Symfony2, мы также будем продолжать обсуждения преимуществ
+Twig. Больше информации о Twig вы найдете в <a class="reference internal" href="templating.html"><em>главе о шаблонах</em></a>.</p>
+</div>
+<div class="section" id="cookbook">
+<h2>Дополнительная информация в Cookbook<a class="headerlink" href="#cookbook" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../cookbook/templating/PHP.html"><em>Как использовать PHP шаблоны вмесро Twig</em></a></li>
+<li><a class="reference internal" href="../cookbook/controller/service.html"><em>Как определять Контроллеры в качестве сервисов</em></a></li>
+</ul>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

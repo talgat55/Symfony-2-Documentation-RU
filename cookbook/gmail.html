@@ -1,0 +1,237 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Как использовать Gmail для отправки электронных писем &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Cookbook" href="index.html" />
+    <link rel="next" title="Как смоделировать HTTP аутентификацию в Функциональном тесте" href="testing/http_authentication.html" />
+    <link rel="prev" title="Как отправлять электронную почту" href="email.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="gmail">
+<span id="index-0"></span><h1>Как использовать Gmail для отправки электронных писем<a class="headerlink" href="#gmail" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Во время разработки, отправка писем с помощью сервиса Gmail может оказаться
+более легким и практичным решением, нежели использование SMTP сервера.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Вместо того, чтобы использовать свою учетную запись Gmail, лучшим решением будет
+создать новый аккаунт, применительно для этих целей.</p>
+</div>
+<p>В конфигурационном файле для среды разработки, измените настройку <tt class="docutils literal"><span class="pre">transport</span></tt> на
+<tt class="docutils literal"><span class="pre">gmail</span></tt> и задайте настройки <tt class="docutils literal"><span class="pre">username</span></tt> и <tt class="docutils literal"><span class="pre">password</span></tt> согласно значениям из Gmail:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config_dev.yml</span>
+<span class="l-Scalar-Plain">swiftmailer</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">transport</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gmail</span>
+    <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ваш_gmail_логин</span>
+    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">ваш_gmail_пароль</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config_dev.xml --&gt;</span>
+
+<span class="c">&lt;!--</span>
+<span class="c">xmlns:swiftmailer=&quot;http://symfony.com/schema/dic/swiftmailer&quot;</span>
+<span class="c">http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd</span>
+<span class="c">--&gt;</span>
+
+<span class="nt">&lt;swiftmailer:config</span>
+    <span class="na">transport=</span><span class="s">&quot;gmail&quot;</span>
+    <span class="na">username=</span><span class="s">&quot;ваш_gmail_логин&quot;</span>
+    <span class="na">password=</span><span class="s">&quot;ваш_gmail_пароль&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/config_dev.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;swiftmailer&#39;, array(</span>
+<span class="x">    &#39;transport&#39; =&gt; &quot;gmail&quot;,</span>
+<span class="x">    &#39;username&#39;  =&gt; &quot;ваш_gmail_логин&quot;,</span>
+<span class="x">    &#39;password&#39;  =&gt; &quot;ваш_gmail_пароль&quot;,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>На этом настройка Gmail закончена!</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Транспорт <tt class="docutils literal"><span class="pre">gmail</span></tt> является всего лишь готовым шаблоном, который использует транспорт <tt class="docutils literal"><span class="pre">smtp</span></tt>
+и устанавливает поля <tt class="docutils literal"><span class="pre">encryption</span></tt>, <tt class="docutils literal"><span class="pre">auth_mode</span></tt> и <tt class="docutils literal"><span class="pre">host</span></tt> для работы с почтой Gmail.</p>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

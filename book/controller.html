@@ -1,0 +1,874 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Контроллер &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Книга" href="index.html" />
+    <link rel="next" title="Маршрутизация" href="routing.html" />
+    <link rel="prev" title="Создание страниц в Symfony2" href="page_creation.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Контроллер<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Контроллер - это PHP-функция, которую вы создаёте, чтобы получить
+информацию из HTTP запроса и на её основе создать HTTP ответ в виде
+объекта <tt class="docutils literal"><span class="pre">Response</span></tt>. Ответ может быть HTML страницей, XML-документом,
+сериализованным JSON-массивом, изображением, перенаправлением, ошибкой 404,
+всем чем угодно, о чём вы только могли мечтать. Контроллер содержит любую
+логику <em>вашего приложения</em>, необходимую для того, чтобы отобразить содержимое
+страницы.</p>
+<p>Для того чтобы увидеть, насколько просто этого можно добиться, давайте рассмотрим
+контроллер Symfony2 в действии. Следующий контроллер отобразит страницу, которая
+всего-навсего напечатает <tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">world!</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">helloAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;Hello world!&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Цель у контроллера всегда одна: создать и вернуть объект <tt class="docutils literal"><span class="pre">Response</span></tt>. Следуя
+этой цели, контроллер может читать информацию из запроса, загружать ресурсы из
+базы данных, отправлять email или же записывать информациюю в сессию пользователя.
+Но всегда, в конечном итоге, контроллер вернёт объект <tt class="docutils literal"><span class="pre">Response</span></tt>, который
+будет отправлен клиенту.</p>
+<p>Здесь нет никакой магии или других требований, о которых стоило бы беспокоиться!
+Вот несколько типичных примеров:</p>
+<ul class="simple">
+<li><em>Контроллер A</em> создаёт объект <tt class="docutils literal"><span class="pre">Response</span></tt>, содержащий контент для главной страницы сайта.</li>
+<li><em>Контроллер B</em> получает из запроса параметр <tt class="docutils literal"><span class="pre">slug</span></tt> для того, чтобы загрузить
+запись блога из базы данных и создать объект <tt class="docutils literal"><span class="pre">Response</span></tt>, отображающий
+этот блог. Если указанный <tt class="docutils literal"><span class="pre">slug</span></tt> не может быть найден в базе, он создаёт
+и возвращает объект <tt class="docutils literal"><span class="pre">Response</span></tt> со статус-кодом 404 (не найдено).</li>
+<li><em>Контроллер C</em> обрабатывает отправленную форму контактов. Он читает информацию о форме
+из запроса, сохраняет контактную информацию в базу данных и отправляет сообщение
+вебмастеру. Наконец, он создаёт объект <tt class="docutils literal"><span class="pre">Response</span></tt>, который перенаправляет браузер
+клиента на страницу &#8220;thank you&#8221;.</li>
+</ul>
+<div class="section" id="index-1">
+<span id="id2"></span><h2>Жизненный цикл Запрос-Контроллер-Ответ<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Каждый запрос, обрабатываемый проектом Symfony2, следует одному и тому же простому
+жизненному циклу. Фреймворк берёт на себя повторяющиеся задачи и, в конце концов
+выполняет контроллер, который содержит код вашего приложения:</p>
+<ol class="arabic simple">
+<li>Каждый запрос обрабатывается одним фронт-контроллером (например <tt class="docutils literal"><span class="pre">app.php</span></tt>
+или <tt class="docutils literal"><span class="pre">app_dev.php</span></tt>), который загружает приложение;</li>
+<li><tt class="docutils literal"><span class="pre">Router</span></tt> читает информацию из запроса (URI к примеру), ищет подходящий маршрут
+и получает параметр <tt class="docutils literal"><span class="pre">_controller</span></tt> из маршрута;</li>
+<li>Контроллер, соответствующий маршруту, выполняется и его код формирует объект
+<tt class="docutils literal"><span class="pre">Response</span></tt>;</li>
+<li>HTTP-заголовки и контент объекта <tt class="docutils literal"><span class="pre">Response</span></tt> отправляются обратно клиенту,
+отправившему изначальный запрос.</li>
+</ol>
+<p>Создание страницы - это по сути создание контроллера (#3) и маршрута, который ставит
+в соответствие контроллеру некий URL (#2).</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Не смотря на то что &#8220;фронт-контроллер&#8221; и &#8220;контроллер&#8221; названы похожим
+образом, они сильно различаются - об этом мы еще поговорим
+чуть позже в этой главе. Фронт-контроллер - это короткий PHP-файл, который
+находится в web-директории и который обрабатывает все входящие запросы.
+Типичное приложение имеет продуктовый контроллер (<tt class="docutils literal"><span class="pre">prod</span></tt>, как правило <tt class="docutils literal"><span class="pre">app.php</span></tt>)
+и контроллер для разработки (<tt class="docutils literal"><span class="pre">dev</span></tt>, как правило <tt class="docutils literal"><span class="pre">app_dev.php</span></tt>). И вам
+скорее всего никогда не придется модифицировать или вообще задумываться
+о фронт-контроллерах в вашем приложении.</p>
+</div>
+</div>
+<div class="section" id="index-2">
+<span id="id3"></span><h2>Простой контроллер<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В то время как контроллер может быть любой PHP-сущностью, которую можно вызвать (функцией,
+методом объекта, или же замыканием (<tt class="docutils literal"><span class="pre">Closure</span></tt>)), в Symfony2 контроллер - это как правило
+некий метод объекта контроллера. Контроллеры также называются <em>действиями</em> (actions).</p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="c1">// src/Acme/HelloBundle/Controller/HelloController.php</span>
+
+<span class="k">namespace</span> <span class="nx">Acme\HelloBundle\Controller</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">HelloController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;&lt;html&gt;&lt;body&gt;Hello &#39;</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">&#39;!&lt;/body&gt;&lt;/html&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Обратите внимание, что <em>контроллер</em> - это метод <tt class="docutils literal"><span class="pre">indexAction</span></tt>,
+который расположен внутри <em>класса контроллера</em> (<tt class="docutils literal"><span class="pre">HelloController</span></tt>).
+Смотрите не путайтесь: <em>класс контроллера</em> - это просто удобный способ
+сгруппировать несколько контроллеров/действий вместе. Обычно класс
+контроллера содержит несколько контроллеров/действий (например
+<tt class="docutils literal"><span class="pre">updateAction</span></tt>, <tt class="docutils literal"><span class="pre">deleteAction</span></tt> и т.д.).</p>
+</div>
+<p>Этом контроллере нет ничего сложного, но давайте разберём подробнее:</p>
+<ul class="simple">
+<li><em>строка 5</em>: Symfony2 использует преимущества пространств имён PHP 5.3.
+Ключевое слово  <tt class="docutils literal"><span class="pre">use</span></tt> импортирует класс <tt class="docutils literal"><span class="pre">Response</span></tt>, который контроллер
+должен вернуть.</li>
+<li><em>строка 8</em>: Имя класса это результат объединения имени контроллера (<tt class="docutils literal"><span class="pre">Hello</span></tt>)
+и слова <tt class="docutils literal"><span class="pre">Controller</span></tt>. Это очередная договорённость, которая позволяет обеспечить
+единообразие в именовании контроллеров и позволяет ссылаться на класс только по
+первой части наименования (здесь это будет <tt class="docutils literal"><span class="pre">Hello</span></tt>) в конфигурации маршрутизатора.</li>
+<li><em>line 10</em>: Каждое действие в классе контроллера имеет суффикс <tt class="docutils literal"><span class="pre">Action</span></tt> и
+упоминается в настройках маршрутизатора только по имени (<tt class="docutils literal"><span class="pre">index</span></tt>).
+В следующей секции вы создадите маршрут, который привяжет URI к
+этому действию. Вы узнаете как заполнитель для имени в маршруте - <tt class="docutils literal"><span class="pre">{name}</span></tt> -
+станет аргументом метода действия (<tt class="docutils literal"><span class="pre">$name</span></tt>).</li>
+<li><em>line 12</em>: Контроллер создаёт и возвращает объект <tt class="docutils literal"><span class="pre">Response</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="url">
+<span id="index-3"></span><h2>Соответствие URL Контроллеру<a class="headerlink" href="#url" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Новый контроллер возвращает простую HTML-страницу. Для того чтобы увидеть эту
+страницу в вашем браузере, вам надо создать маршрут, который устанавливает
+соответствие между некоторым шаблоном URL и контроллером:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/routing.yml</span>
+<span class="l-Scalar-Plain">hello</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>      <span class="l-Scalar-Plain">/hello/{name}</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span>     <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">AcmeHelloBundle</span><span class="p-Indicator">:</span><span class="nv">Hello</span><span class="p-Indicator">:</span><span class="nv">index</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/routing.xml --&gt;</span>
+<span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/hello/{name}&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>AcmeHelloBundle:Hello:index<span class="nt">&lt;/default&gt;</span>
+<span class="nt">&lt;/route&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/routing.php</span>
+<span class="x">$collection-&gt;add(&#39;hello&#39;, new Route(&#39;/hello/{name}&#39;, array(</span>
+<span class="x">    &#39;_controller&#39; =&gt; &#39;AcmeHelloBundle:Hello:index&#39;,</span>
+<span class="x">)));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Теперь при запросе URI <tt class="docutils literal"><span class="pre">/hello/ryan</span></tt> теперь выполняется контроллер
+<tt class="docutils literal"><span class="pre">HelloController::indexAction()</span></tt> и присваивает переменной <tt class="docutils literal"><span class="pre">$name</span></tt>
+значение <tt class="docutils literal"><span class="pre">ryan</span></tt>. Создание страницы по сути подразумевает всего лишь
+создание метода контроллера и соответствующего маршрута.</p>
+<p>Обратите внимание на синтаксис, при помощи которого маршрут ссылается
+на контроллер: <tt class="docutils literal"><span class="pre">AcmeHelloBundle:Hello:index</span></tt>. Symfony2 использует простую
+строковую нотацию для создания ссылок на различные контроллеры. Этот очень
+простой синтаксис сообщает Symfony2 что класс контроллера с именем
+<tt class="docutils literal"><span class="pre">HelloController</span></tt> расположен в пакете <tt class="docutils literal"><span class="pre">AcmeHelloBundle</span></tt>. Затем
+выполняется метод <tt class="docutils literal"><span class="pre">indexAction()</span></tt>.</p>
+<p>Более подробно о формате строк, используемых для создания ссылок на различные
+контроллеры можно почитать здесь: <a class="reference internal" href="routing.html#controller-string-syntax"><em>Шаблон Именования Контроллера</em></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">В этом примере конфигурация маршрутизатора выполняется непосредственно
+в директории <tt class="docutils literal"><span class="pre">app/config/</span></tt>. На практике более удобен способ, когда ваши
+маршруты размещаются в пакете, которому соответствуют. Более подробно этот
+способ рассматривается здесь: <a class="reference internal" href="routing.html#routing-include-external-resources"><em>Подключение внешних ресурсов для маршрутизации</em></a>.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Подробно вопросы маршрутизации рассматриваются в главе <a class="reference internal" href="routing.html"><em>Маршрутизация</em></a>.</p>
+</div>
+<div class="section" id="route-parameters-controller-arguments">
+<span id="index-4"></span><span id="id4"></span><h3>Параметры маршрута в качестве аргументов Контроллера<a class="headerlink" href="#route-parameters-controller-arguments" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Вы уже знаете, что параметр <tt class="docutils literal"><span class="pre">_controller</span></tt> со значением <tt class="docutils literal"><span class="pre">AcmeHelloBundle:Hello:index</span></tt>
+ссылается на метод <tt class="docutils literal"><span class="pre">HelloController::indexAction()</span></tt>, который расположен в пакете
+<tt class="docutils literal"><span class="pre">AcmeHelloBundle</span></tt>. Также интерес представляют аргументы, которые передаются в этот
+метод:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/HelloBundle/Controller/HelloController.php</span>
+
+<span class="k">namespace</span> <span class="nx">Acme\HelloBundle\Controller</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">HelloController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Контроллер имеет единственный аргумент - <tt class="docutils literal"><span class="pre">$name</span></tt>, который соответствует
+параметру <tt class="docutils literal"><span class="pre">{name}</span></tt> из маршрута (в нашем примере - <tt class="docutils literal"><span class="pre">ryan</span></tt>). Фактически,
+когда контроллер выполняется, Symfony2 каждому аргументу контроллера ставит
+в соответствие параметр из маршрута. Взгляните на пример:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/routing.yml</span>
+<span class="l-Scalar-Plain">hello</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>      <span class="l-Scalar-Plain">/hello/{first_name}/{last_name}</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span>     <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">AcmeHelloBundle</span><span class="p-Indicator">:</span><span class="nv">Hello</span><span class="p-Indicator">:</span><span class="nv">index</span><span class="p-Indicator">,</span> <span class="nv">color</span><span class="p-Indicator">:</span> <span class="nv">green</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/routing.xml --&gt;</span>
+<span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/hello/{first_name}/{last_name}&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>AcmeHelloBundle:Hello:index<span class="nt">&lt;/default&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;color&quot;</span><span class="nt">&gt;</span>green<span class="nt">&lt;/default&gt;</span>
+<span class="nt">&lt;/route&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// app/config/routing.php</span>
+<span class="nv">$collection</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="s1">&#39;/hello/{first_name}/{last_name}&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;_controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AcmeHelloBundle:Hello:index&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;color&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+<span class="p">)));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Контроллер для этого примера принимает несколько аргументов:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$first_name</span><span class="p">,</span> <span class="nv">$last_name</span><span class="p">,</span> <span class="nv">$color</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Обратите внимание, что оба заполнителя для переменных (<tt class="docutils literal"><span class="pre">{first_name}</span></tt>,
+<tt class="docutils literal"><span class="pre">{last_name}</span></tt>), как и переменная по умолчанию <tt class="docutils literal"><span class="pre">color</span></tt> - доступны
+в качестве аргументов в контроллере. Когда совпадает маршрут, заполнители
+переменных объединяются с <tt class="docutils literal"><span class="pre">defaults</span></tt> в один массив, который становится доступен
+в вашем контроллере.</p>
+<p>Настройка соответствия параметров маршрута аргументам контроллера проста, нужно
+лишь следовать нижеперечисленным рекомендациям во время разработки:</p>
+<ul>
+<li><p class="first"><strong>Порядок аргументов контроллера не имеет значения</strong></p>
+<blockquote>
+<div><p>Symfony в состоянии установить соответствие между именами параметров
+маршрута и сигнатурой метода в контроллере. Другими словами, это работает
+таким образом, что параметр <tt class="docutils literal"><span class="pre">{last_name}</span></tt> соответствует аргументу
+<tt class="docutils literal"><span class="pre">$last_name</span></tt>. Аргументы контроллера менять местами и он всё равно
+будет работать:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$last_name</span><span class="p">,</span> <span class="nv">$color</span><span class="p">,</span> <span class="nv">$first_name</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ..</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Каждый обязательный аргумент контроллера должен соответствовать параметру маршрута</strong></p>
+<blockquote>
+<div><p>Следующий пример вызовет исключение <tt class="docutils literal"><span class="pre">RuntimeException</span></tt>, так как в маршруте
+не определён параметр <tt class="docutils literal"><span class="pre">foo</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$first_name</span><span class="p">,</span> <span class="nv">$last_name</span><span class="p">,</span> <span class="nv">$color</span><span class="p">,</span> <span class="nv">$foo</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ..</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Для того чтобы это работало, нужно сделать параметр опциональным. Следующий
+пример не будет вызывать исключительной ситуации:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$first_name</span><span class="p">,</span> <span class="nv">$last_name</span><span class="p">,</span> <span class="nv">$color</span><span class="p">,</span> <span class="nv">$foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ..</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Параметры маршрута не обязательно должны быть представлены в виде аргументов контроллера</strong></p>
+<blockquote>
+<div><p>Если, к примеру, параметр <tt class="docutils literal"><span class="pre">last_name</span></tt> не нужен в контроллере, его можно
+опустить:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$first_name</span><span class="p">,</span> <span class="nv">$color</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ..</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Каждый маршрут имеет специализировнный параметр <tt class="docutils literal"><span class="pre">_route</span></tt>, который
+содержит значение равное его имени (например <tt class="docutils literal"><span class="pre">hello</span></tt>). Обычно это значение
+не используется, но, тем не менее, этот параметр также доступен в качестве
+аргумента контроллера.</p>
+</div>
+</div>
+<div class="section" id="request">
+<span id="book-controller-request-argument"></span><h3><tt class="docutils literal"><span class="pre">Request</span></tt> как аргумент Контроллера<a class="headerlink" href="#request" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Для большего удобства, вы также можете передать объект <tt class="docutils literal"><span class="pre">Request</span></tt> в качестве
+аргумента в ваш контроллер. Это особенно удобно при работе с формами:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">updateAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$form</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createForm</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+
+    <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">bindRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="index-5">
+<span id="id5"></span><h2>Базовый класс контроллера<a class="headerlink" href="#index-5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Symfony2 включает базовый класс <tt class="docutils literal"><span class="pre">Controller</span></tt>, который оказывает помощь в
+выполнении наиболее типичных задач контроллера и предоставляет вашему контроллеру
+доступ к любому ресурсу, который может портребоваться. Осуществляя наследование
+от класса <tt class="docutils literal"><span class="pre">Controller</span></tt> вы получите в своё распоряжение некоторое число
+методов-помощников.</p>
+<p>Добавьте выражение <tt class="docutils literal"><span class="pre">use</span></tt> в начале класса контроллера и модифицируйте
+<tt class="docutils literal"><span class="pre">HelloController</span></tt>, чтобы он наследовался от <tt class="docutils literal"><span class="pre">Controller</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/HelloBundle/Controller/HelloController.php</span>
+
+<span class="k">namespace</span> <span class="nx">Acme\HelloBundle\Controller</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Controller\Controller</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">HelloController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;&lt;html&gt;&lt;body&gt;Hello &#39;</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">&#39;!&lt;/body&gt;&lt;/html&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Эти изменения на самом деле ничего не меняют в логике работы вашего контроллера.
+В следующей секции вы узнаете о тех методах-помощниках, которые предоставляет
+базовый класс. Эти методы по сути являются обёртками для базового функционала
+Symfony2 который доступен вам в любом случае - с использованием базового класса
+<tt class="docutils literal"><span class="pre">Controller</span></tt> или же без него. Самый лучший путь для того чтобы увидеть базовые
+функции в действии - заглянуть в код класса
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Bundle\FrameworkBundle\Controller\Controller</span></tt> самостоятельно.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Наследование от базового класса совершенно <em>не обязательно</em> в Symfony2.
+Этот касс содержит удобные методы-ярлыки, но ничего обязательного. Вы также
+можете отнаследоваться от класса <tt class="docutils literal"><span class="pre">Symfony\Component\DependencyInjection\ContainerAware</span></tt>.
+Объект service container&#8217;а будет доступен черз свойство <tt class="docutils literal"><span class="pre">container</span></tt>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Вы также можете объявить контроллер в качестве сервиса: <tt class="xref doc docutils literal"><span class="pre">&lt;/cookbook/controller/service&gt;</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="index-6">
+<span id="id6"></span><h2>Контроллер, Базовые операции<a class="headerlink" href="#index-6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Хотя, виртуально контроллер ничего делать не обязан, в основном контроллеры
+выполняют одни и те же задачи снова и снова. Эти задачи, такие как перенаправление,
+переадресация, отображение шаблона и доступ к основным сервисам, в Symfony2
+выполнять очень легко.</p>
+<div class="section" id="redirecting">
+<span id="index-7"></span><h3>Перенаправление (redirecting)<a class="headerlink" href="#redirecting" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Если вы хотите перенаправить пользователя на другую страницу, используйте метод
+<tt class="docutils literal"><span class="pre">redirect()</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateUrl</span><span class="p">(</span><span class="s1">&#39;homepage&#39;</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">generateUrl()</span></tt>, это всего-лишь функция помощник, которая генерирует URL
+для заданного маршрута. Более подробно этот вопрос рассматривается в главе
+<a class="reference internal" href="routing.html"><em>Маршрутизация</em></a>.</p>
+<p>По умолчанию, метод <tt class="docutils literal"><span class="pre">redirect()</span></tt> выполняет перенаправление с HTTP статус-кодом 302
+(временное перенаправление). Для того, чтобы выполнить постоянное перенаправление
+(со статус-кодом 301), необходимо добавить второй аргумент:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateUrl</span><span class="p">(</span><span class="s1">&#39;homepage&#39;</span><span class="p">),</span> <span class="mi">301</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Метод <tt class="docutils literal"><span class="pre">redirect()</span></tt> - это просто ярлычок для операции создания объекта
+<tt class="docutils literal"><span class="pre">Response</span></tt>, который специализируется на перенаправлении пользователя.
+Он эквивалентен следующему коду:</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\RedirectResponse</span><span class="p">;</span>
+
+<span class="k">return</span> <span class="k">new</span> <span class="nx">RedirectResponse</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateUrl</span><span class="p">(</span><span class="s1">&#39;homepage&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="forwarding">
+<span id="index-8"></span><h3>Контроллер, Переадресация (forwarding)<a class="headerlink" href="#forwarding" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Вы также легко можете переадресовать запрос на другой контроллер внутри
+системы, используя метод <tt class="docutils literal"><span class="pre">forward()</span></tt>. Вместо того, чтобы выполнить
+перенаправление браузера пользователя, этот метод выполняет внутренний
+подзапрос и вызывает указанный контроллер. Метод <tt class="docutils literal"><span class="pre">forward()</span></tt> возвращает
+объект <tt class="docutils literal"><span class="pre">Response</span></tt>, который возвращает контроллер, на который осуществлялась
+переадресация:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">forward</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle:Hello:fancy&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
+        <span class="s1">&#39;color&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;green&#39;</span>
+    <span class="p">));</span>
+
+    <span class="c1">// Здесь можно модифицировать $response или же сразу вернуть его пользователю</span>
+
+    <span class="k">return</span> <span class="nv">$response</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Обратите внимание, что метод <cite>forward()</cite> использует для указания контроллера
+тот же формат строки, который используется в конфигурации маршрутов. Таким
+образом, целью переадресации будет <tt class="docutils literal"><span class="pre">HelloController</span></tt> из пакета <tt class="docutils literal"><span class="pre">AcmeHelloBundle</span></tt>.
+Массив, передаваемый методу в качестве параметра, будет конвертирован в параметры
+целевого контроллера. Такой же интерфейс используется при встраивании контроллеров
+в шаблоны (см. <a class="reference internal" href="templating.html#templating-embedding-controller"><em>Внедрение контроллеров</em></a>). Метод целевого контроллера
+должен выглядеть следующим образом:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">fancyAction</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$color</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ... create and return a Response object</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>И, как и в случае создания контроллера для маршрута, порядок аргументов
+для <tt class="docutils literal"><span class="pre">fancyAction</span></tt> не имеет значения. Symfony2 устанавливает соответствие по
+именам ключей (например <tt class="docutils literal"><span class="pre">name</span></tt>) и именам параметров (например <tt class="docutils literal"><span class="pre">$name</span></tt>).
+Если вы изменяете порядок следования аргументов, Symfony2 также будет присваивать
+верные значения каждой переменной.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Как и прочие методы базового контроллера, метод <tt class="docutils literal"><span class="pre">forward</span></tt> - это просто
+ярлык к базовому функционалу Symfony2. Переадресация может быть выполнена
+напрямую через сервис <tt class="docutils literal"><span class="pre">http_kernel</span></tt>. При переадресации возвращается
+объект <tt class="docutils literal"><span class="pre">Response</span></tt>:</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$httpKernel</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;http_kernel&#39;</span><span class="p">);</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$httpKernel</span><span class="o">-&gt;</span><span class="na">forward</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle:Hello:fancy&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span>
+    <span class="s1">&#39;color&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="controller-rendering-templates">
+<span id="index-9"></span><span id="id7"></span><h3>Рендеринг Шаблонов<a class="headerlink" href="#controller-rendering-templates" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Хотя это и не является требованием, большинство контроллеров в конце концов
+будут отображать (рендерить) шаблон, который отвечает за генерацию HTML (или
+данных в другом формате) для контроллера. Метод <tt class="docutils literal"><span class="pre">renderView()</span></tt> рендерит
+шаблон и возвращает его содержимое. Контент из шаблона может быть использован для
+создания объекта <tt class="docutils literal"><span class="pre">Response</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$content</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">renderView</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle:Hello:index.html.twig&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">));</span>
+
+<span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$content</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Эти операции могут быть выполнены за один шаг при помощи метода <tt class="docutils literal"><span class="pre">render()</span></tt>,
+который возвращает объект <tt class="docutils literal"><span class="pre">Response</span></tt>, содержащий контент шаблона:</p>
+<p>В обоих случаях, будет отображен шаблон <tt class="docutils literal"><span class="pre">Resources/views/Hello/index.html.twig</span></tt> из
+пакета <tt class="docutils literal"><span class="pre">AcmeHelloBundle</span></tt>.</p>
+<p>Шаблонизатор Symfony более подробно рассматривается в главе о <a class="reference internal" href="templating.html"><em>Шаблонах</em></a></p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Метод <tt class="docutils literal"><span class="pre">renderView</span></tt> - это по сути ярлык для быстрого использования шаблонизатора.
+Шаблонизатор также можно использовать напрямую:</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$templating</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;templating&#39;</span><span class="p">);</span>
+<span class="nv">$content</span> <span class="o">=</span> <span class="nv">$templating</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle:Hello:index.html.twig&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="index-10">
+<span id="id8"></span><h3>Доступ к сервисам<a class="headerlink" href="#index-10" title="Ссылка на этот заголовок">¶</a></h3>
+<p>При наследовании от базового контроллера, вы можете получить доступ к любому
+сервису Symfony2 при помощи метода <tt class="docutils literal"><span class="pre">get()</span></tt>. Ниже представлены основные сервисы, которые
+вам могут быть полезны:</p>
+<div class="highlight-python"><pre>$request = $this-&gt;getRequest();
+
+$templating = $this-&gt;get('templating');
+
+$router = $this-&gt;get('router');
+
+$mailer = $this-&gt;get('mailer');</pre>
+</div>
+<p>В Symfony2 по умолчанию определена куча сервисов и вы вольны определить ещё столько
+же собственных. Для того чтобы отобразить список доступных сервисов, используйте
+консольную команду <tt class="docutils literal"><span class="pre">container:debug</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console container:debug
+</pre></div>
+</div>
+<p>Больше данных о сервисах вы можете почерпнуть из главы  <a class="reference internal" href="service_container.html"><em>Service container</em></a>.</p>
+</div>
+</div>
+<div class="section" id="index-11">
+<span id="id9"></span><h2>Разбираемся с ошибками и 404 страница<a class="headerlink" href="#index-11" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Когда что-либо не может быть найдено, вы должны вернуть статус-код 404.
+Для того чтобы это сделать, вы можете сгенерировать особый тип исключения.
+Если вы унаследовали контроллер от базового, выполните следующее:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$product</span> <span class="o">=</span> <span class="c1">// тут получаем объект из базы данных</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$product</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createNotFoundException</span><span class="p">(</span><span class="s1">&#39;Продукт не существует&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">createNotFoundException()</span></tt> создаёт особый объект <tt class="docutils literal"><span class="pre">NotFoundHttpException</span></tt>,
+который в конечном итоге провоцирует возврат HTTP 404 внутри Symfony.</p>
+<p>Конечно, вы вольны вызывать любую исключительную ситуацию в вашем контроллере -
+Symfony2 автоматически вернёт HTTP статус-код 500.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">throw new \Exception(&#39;Что-то пошло не так!&#39;);</span>
+</pre></div>
+</div>
+<p>В любом случае, пользователь увидит страницу с той или иной ошибкой, а
+разработчику (при использовании dev-окружения) будет показана страница
+с полной отладочной информацией. Эти страницы ошибок могут быть изменены.
+Более подробно об этом написано в &#8220;книге рецептов&#8221;: &#8220;<a class="reference internal" href="../cookbook/controller/error_pages.html"><em>Как создать собственные страницы ошибок</em></a>&#8221;.</p>
+</div>
+<div class="section" id="index-12">
+<span id="id10"></span><h2>Работа с Сессиями<a class="headerlink" href="#index-12" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Symfony2 предоставляет вам объект, для работы с сессиями, который вы можете
+использовать для хранения информации о пользователе (если он реальный человек, автоматический бот
+или же веб-сервис) между запросами. По умолчанию, Symfony2 сохраняет атрибуты в куках (cookie),
+используя нативные сессии PHP.</p>
+<p>Сохранение и получение информации из сессии можно использовать из любого
+контроллера:</p>
+<div class="highlight-python"><pre>$session = $this-&gt;getRequest()-&gt;getSession();
+
+// store an attribute for reuse during a later user request
+$session-&gt;set('foo', 'bar');
+
+// in another controller for another request
+$foo = $session-&gt;get('foo');
+
+// set the user locale
+$session-&gt;setLocale('fr');</pre>
+</div>
+<p>Эти атрибуты будут соответствовать конкретному пользователю, пока существует его
+сессия.</p>
+<div class="section" id="flash">
+<span id="index-13"></span><h3>Flash-сообщения<a class="headerlink" href="#flash" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Вы также можете сохранять небольшие сообщения, которые сохраняются в пользовательской
+сессии между двумя запросами. Эти сообщения удобно использовать при обработке форм:
+вы хотите выполнить перенаправление и отобразить особое сообщение при <em>следующем</em>
+запросе. Такие сообщения называются flash-сообщениями.</p>
+<p>Например, представьте, что вы обрабатываете отправку формы:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">updateAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$form</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createForm</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+
+    <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">bindRequest</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">());</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span> <span class="p">{</span>
+        <span class="c1">// do some sort of processing</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;session&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setFlash</span><span class="p">(</span><span class="s1">&#39;notice&#39;</span><span class="p">,</span> <span class="s1">&#39;Your changes were saved!&#39;</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateUrl</span><span class="p">(</span><span class="o">...</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>После обработки запроса контроллер устанавливает flash-сообщение <tt class="docutils literal"><span class="pre">notice</span></tt>
+и выполняет перенаправление. Имя (<tt class="docutils literal"><span class="pre">notice</span></tt>) не устанавливается жёстко - это лишь
+обозначение типа сообщения.</p>
+<p>В шаблоне следующего действия вы можете использовать следующий код для
+отображения сообщения <tt class="docutils literal"><span class="pre">notice</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">app.session.hasFlash</span><span class="o">(</span><span class="s1">&#39;notice&#39;</span><span class="o">)</span> <span class="cp">%}</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;flash-notice&quot;</span><span class="nt">&gt;</span>
+        <span class="cp">{{</span> <span class="nv">app.session.flash</span><span class="o">(</span><span class="s1">&#39;notice&#39;</span><span class="o">)</span> <span class="cp">}}</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">hasFlash</span><span class="p">(</span><span class="s1">&#39;notice&#39;</span><span class="p">))</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    &lt;div class=&quot;flash-notice&quot;&gt;</span>
+<span class="x">        </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getFlash</span><span class="p">(</span><span class="s1">&#39;notice&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    &lt;/div&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>По умолчанию, flash-сообщения должны жить ровно один запрос. Они разработаны именно
+для того, чтобы использоваться во время перенаправлениями так как показано в этом примере.</p>
+</div>
+</div>
+<div class="section" id="index-14">
+<span id="id11"></span><h2>Объект Ответа<a class="headerlink" href="#index-14" title="Ссылка на этот заголовок">¶</a></h2>
+<p>К контроллеру предъявляется лишь одно требование - вернуть объект <tt class="docutils literal"><span class="pre">Response</span></tt>.
+Класс <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Response</span></tt> представляет собой
+PHP-абстракцию HTTP-ответа - текстового сообщения, состоящего из HTTP-заголовков и
+контента, который возвращается клиенту:</p>
+<div class="highlight-python"><pre>// создаётся простой объект Response со статус-кодом 200 (по умолчанию)
+$response = new Response('Hello '.$name, 200);
+
+// создаётся JSON-ответ со статус-кодом 2000
+$response = new Response(json_encode(array('name' =&gt; $name)));
+$response-&gt;headers-&gt;set('Content-Type', 'application/json');</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last"><tt class="docutils literal"><span class="pre">headers</span></tt> - это объект <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\HeaderBag</span></tt>,
+содержащий методы для чтения и изменения заголовков ответа <tt class="docutils literal"><span class="pre">Response</span></tt>.
+Имена заголовков нормализованы, так что <tt class="docutils literal"><span class="pre">Content-Type</span></tt>, <tt class="docutils literal"><span class="pre">content-type</span></tt> и
+даже <tt class="docutils literal"><span class="pre">content_type</span></tt> эквивалентны.</p>
+</div>
+</div>
+<div class="section" id="index-15">
+<span id="id12"></span><h2>Объект запроса<a class="headerlink" href="#index-15" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Помимо значений заполнителей из маршрута, контроллер также имеет доступ
+к объекту <tt class="docutils literal"><span class="pre">Request</span></tt>, когда он является наследником базового класса <tt class="docutils literal"><span class="pre">Controller</span></tt>:</p>
+<div class="highlight-python"><pre>$request = $this-&gt;getRequest();
+
+$request-&gt;isXmlHttpRequest(); // is it an Ajax request?
+
+$request-&gt;getPreferredLanguage(array('en', 'fr'));
+
+$request-&gt;query-&gt;get('page'); // get a $_GET parameter
+
+$request-&gt;request-&gt;get('page'); // get a $_POST parameter</pre>
+</div>
+<p>Подобно объекту <tt class="docutils literal"><span class="pre">Response</span></tt>, заголовки запроса хранятся в объекте <tt class="docutils literal"><span class="pre">HeaderBag</span></tt>
+и также легко доступны.</p>
+</div>
+<div class="section" id="id13">
+<h2>Заключение<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Когда вы создаёте страницу, в конечном итоге должны написать код, который
+содержит логику этой страницы. В Symfony эта логика называется &#8220;контроллером&#8221;,
+и представляет собой PHP-функцию, которая выполняет все необходимые действия
+для того чтобы вернуть объект <tt class="docutils literal"><span class="pre">Response</span></tt>, который будет отправлен пользователю.</p>
+<p>Для того, чтобы сделать жизнь легче, вы можете отнаследоваться от класса <tt class="docutils literal"><span class="pre">Controller</span></tt>,
+который содержит методы для типичных задач, решаемых контроллером. Например, так как
+вы должны вернуть HTML код - вы можете использовать метод <tt class="docutils literal"><span class="pre">render()</span></tt> и
+вернуть контент шаблона.</p>
+<p>В других главах вы узнаете как контроллер может быть использован для сохранения
+и получения объектов из базы данных, обрабатывать отправку форм, работать с кэшем
+и многое другое.</p>
+</div>
+<div class="section" id="id14">
+<h2>Дополнительно в книге рецептов:<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../cookbook/controller/error_pages.html"><em>Как создать собственные страницы ошибок</em></a></li>
+<li><a class="reference internal" href="../cookbook/controller/service.html"><em>Как определять Контроллеры в качестве сервисов</em></a></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

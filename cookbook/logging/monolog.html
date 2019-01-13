@@ -1,0 +1,383 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Как использовать Monolog для журналирования &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" />
+    <link rel="up" title="Cookbook" href="../index.html" />
+    <link rel="next" title="Как автоматически загружать классы" href="../tools/autoloader.html" />
+    <link rel="prev" title="Как использовать PHP шаблоны вмесро Twig" href="../templating/PHP.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="monolog">
+<span id="index-0"></span><h1>Как использовать Monolog для журналирования<a class="headerlink" href="#monolog" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Библиотека <a class="reference external" href="https://github.com/Seldaek/monolog">Monolog</a> предназначена для ведения журналов в PHP 5.3
+и используется Symfony2. Её прототипом послужила библиотека LogBook
+в Python.</p>
+<div class="section" id="id1">
+<h2>Использование<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В Монологе, каждый элемент журналирования(логгер) определяет свой
+канал журналирования(logger). Каждый канал имеет стек обработчиков
+которые пишут журнал (лог) (причем обработчики могут быть общими).</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">При установке логгера в сервис, можно использовать <a class="reference internal" href="../../reference/dic_tags.html#dic-tags-monolog"><em>свой канал</em></a>
+и легко просматривать какая часть приложения оставила сообщение в журнале.</p>
+</div>
+<p>Простейшим обработчиком является <tt class="docutils literal"><span class="pre">StreamHandler</span></tt>, который пишет журнал
+в поток (по-умолчанию в <tt class="docutils literal"><span class="pre">app/logs/prod.log</span></tt> в production среде и
+<tt class="docutils literal"><span class="pre">app/logs/dev.log</span></tt> в среде разработки).</p>
+<p>В состав Monolog также входит мощный обработчик, предназначенный для журналирования
+в production среде: <tt class="docutils literal"><span class="pre">FingersCrossedHandler</span></tt>. Он позволяет хранить сообщения в буфере
+и записывать их в журнал только при условии того, что оно доходит до уровня контроллера
+(ERROR в конфигурации стандартной редакции)  перенаправляя их к другому обработчику.</p>
+<p>Чтобы записать сообщение в журнал, просто получите доступ к сервису логгера
+из контейнера в вашем контроллере:</p>
+<div class="highlight-python"><pre>$logger = $this-&gt;get('logger');
+$logger-&gt;info('We just go the logger');
+$logger-&gt;err('An error occured');</pre>
+</div>
+<div class="section" id="id2">
+<h3>Использование нескольких обработчиков<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Логер использует стек обработчиков которые вызываются последовательно.
+Данная особенность позволяет легко записывать сообщения в журнал
+различными способами.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">monolog</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">handlers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">syslog</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">stream</span>
+            <span class="l-Scalar-Plain">path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/log/symfony.log</span>
+            <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">error</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fingerscrossed</span>
+            <span class="l-Scalar-Plain">action_level</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">warning</span>
+            <span class="l-Scalar-Plain">handler</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">file</span>
+        <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">stream</span>
+            <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">debug</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:monolog=</span><span class="s">&quot;http://symfony.com/schema/dic/monolog&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd</span>
+<span class="s">                        http://symfony.com/schema/dic/monolog http://symfony.com/schema/dic/monolog/monolog-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;monolog:config&gt;</span>
+        <span class="nt">&lt;monolog:handler</span>
+            <span class="na">name=</span><span class="s">&quot;syslog&quot;</span>
+            <span class="na">type=</span><span class="s">&quot;stream&quot;</span>
+            <span class="na">path=</span><span class="s">&quot;/var/log/symfony.log&quot;</span>
+            <span class="na">level=</span><span class="s">&quot;error&quot;</span>
+        <span class="nt">/&gt;</span>
+        <span class="nt">&lt;monolog:handler</span>
+            <span class="na">name=</span><span class="s">&quot;main&quot;</span>
+            <span class="na">type=</span><span class="s">&quot;fingerscrossed&quot;</span>
+            <span class="na">action-level=</span><span class="s">&quot;warning&quot;</span>
+            <span class="na">handler=</span><span class="s">&quot;file&quot;</span>
+        <span class="nt">/&gt;</span>
+        <span class="nt">&lt;monolog:handler</span>
+            <span class="na">name=</span><span class="s">&quot;file&quot;</span>
+            <span class="na">type=</span><span class="s">&quot;stream&quot;</span>
+            <span class="na">level=</span><span class="s">&quot;debug&quot;</span>
+        <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/monolog:config&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Конфигурация выше, определяет стек обработчиков которые будут вызваны в порядке
+в котором они объявлены.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Обработчик &#8220;file&#8221; не будет включен в стек, так как он сам используется в
+качестве вложенного обработчика в production среде.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Если у вас появиться желание изменить настройки MonologBundle в другом
+файле настроек, то необходимо будет полностью переопределить весь стек.
+Он не может быть объединен с текущими настройками, т.к. в результате
+объединения настроек невозможно управлять порядком вызова обработчиков.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Изменение форматирования<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Обработчик использует <tt class="docutils literal"><span class="pre">Formatter</span></tt> для форматирования записей, перед записью их в журнал.
+Все обработчики Monolog по-умолчанию используют экземпляр <tt class="docutils literal"><span class="pre">Monolog\Formatter\LineFormatter</span></tt>,
+но его легко заменить своим собственным. Ваш собственный форматировщик должен использовать интерфейс
+<tt class="docutils literal"><span class="pre">Monolog\Formatter\LineFormatterInterface</span></tt>.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">my_formatter</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Monolog\Formatter\JsonFormatter</span>
+<span class="l-Scalar-Plain">monolog</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">handlers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">file</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">stream</span>
+            <span class="l-Scalar-Plain">level</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">debug</span>
+            <span class="l-Scalar-Plain">formatter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">my_formatter</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://symfony.com/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:monolog=</span><span class="s">&quot;http://symfony.com/schema/dic/monolog&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd</span>
+<span class="s">                        http://symfony.com/schema/dic/monolog http://symfony.com/schema/dic/monolog/monolog-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;services&gt;</span>
+        <span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;my_formatter&quot;</span> <span class="na">class=</span><span class="s">&quot;Monolog\Formatter\JsonFormatter&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/services&gt;</span>
+    <span class="nt">&lt;monolog:config&gt;</span>
+        <span class="nt">&lt;monolog:handler</span>
+            <span class="na">name=</span><span class="s">&quot;file&quot;</span>
+            <span class="na">type=</span><span class="s">&quot;stream&quot;</span>
+            <span class="na">level=</span><span class="s">&quot;debug&quot;</span>
+            <span class="na">formatter=</span><span class="s">&quot;my_formatter&quot;</span>
+        <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/monolog:config&gt;</span>
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Дополнительная информация в сообщениях журнала<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Monolog позволяет добавлять дополнительные данные в сообщения
+перед их записью в журнал. Процессор может быть применен как ко всему стеку
+так и к какому-либо определенному обработчику из его состава.</p>
+<p>Процессор - это сервис получающий запись в качестве первого аргумента и
+логгер или обработчик в качестве второго, в зависимости от того на каком уровне
+он вызывается.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre>services:
+    my_processor:
+        class: Monolog\Processor\WebProcessor
+monolog:
+    handlers:
+        file:
+            type: stream
+            level: debug
+            processors:
+                - Acme\MyBundle\MyProcessor::process
+    processors:
+        - @my_processor</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><pre>&lt;container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:monolog="http://symfony.com/schema/dic/monolog"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                        http://symfony.com/schema/dic/monolog http://symfony.com/schema/dic/monolog/monolog-1.0.xsd"&gt;
+
+    &lt;services&gt;
+        &lt;service id="my_processor" class="Monolog\Processor\WebProcessor" /&gt;
+    &lt;/services&gt;
+    &lt;monolog:config&gt;
+        &lt;monolog:handler
+            name="file"
+            type="stream"
+            level="debug"
+            formatter="my_formatter"
+        &gt;
+            &lt;monolog:processor callback="Acme\MyBundle\MyProcessor::process" /&gt;
+        &lt;/monolog:handler /&gt;
+        &lt;monolog:processor callback="@my_processor" /&gt;
+    &lt;/monolog:config&gt;
+&lt;/container&gt;</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Если вашему процессору требуются зависимости, то можно объявить
+сервис и реализовать метод <tt class="docutils literal"><span class="pre">__invoke</span></tt> в классе, с тем чтобы сделать
+его вызываемым. После изменений процессор можно добавить в стек.</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

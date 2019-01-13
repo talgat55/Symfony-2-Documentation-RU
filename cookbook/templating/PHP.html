@@ -1,0 +1,426 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Как использовать PHP шаблоны вмесро Twig &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" />
+    <link rel="up" title="Cookbook" href="../index.html" />
+    <link rel="next" title="Как использовать Monolog для журналирования" href="../logging/monolog.html" />
+    <link rel="prev" title="Внедрение переменных во все шаблоны (т.н. Глобальные переменные)" href="global_variables.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="php-twig">
+<span id="index-0"></span><h1>Как использовать PHP шаблоны вмесро Twig<a class="headerlink" href="#php-twig" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Не смотря на то, что Symfony2 по умолчанию использует шаблоны Twig в частве
+шаблонного движка, вы можете использовать PHP шаблоны, если захотите. Оба шаблонных
+движка одинаково поддерживаются в Symfony2. Symfony2 также добавляет к PHP
+шаблонам несколько удобных фич, чтобы сделать их более мощными.</p>
+<div class="section" id="php">
+<h2>Отображение PHP шаблонов<a class="headerlink" href="#php" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если вы хотите использовать PHP шаблоны, во-первых, убедитесь что вы их активировали
+в настройках приложения:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">framework</span><span class="p-Indicator">:</span>
+    <span class="c1"># ...</span>
+    <span class="l-Scalar-Plain">templating</span><span class="p-Indicator">:</span>    <span class="p-Indicator">{</span> <span class="nv">engines</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&#39;twig&#39;</span><span class="p-Indicator">,</span> <span class="s">&#39;php&#39;</span><span class="p-Indicator">]</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><pre>&lt;!-- app/config/config.xml --&gt;
+&lt;framework:config ... &gt;
+    &lt;!-- ... --&gt;
+    &lt;framework:templating ... &gt;
+        &lt;framework:engine id="twig" /&gt;
+        &lt;framework:engine id="php" /&gt;
+    &lt;/framework:templating&gt;
+&lt;/framework:config&gt;</pre>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">$container-&gt;loadFromExtension(&#39;framework&#39;, array(</span>
+<span class="x">    // ...</span>
+<span class="x">    &#39;templating&#39;      =&gt; array(</span>
+<span class="x">        &#39;engines&#39; =&gt; array(&#39;twig&#39;, &#39;php&#39;),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Теперь вы можете использовать PHP шаблоны взамен Twig, просто указывая
+расширение <tt class="docutils literal"><span class="pre">.php</span></tt> для ваших шаблонов, а не <tt class="docutils literal"><span class="pre">.twig</span></tt>. Контроллер из
+примера ниже отображает шаблон <tt class="docutils literal"><span class="pre">index.html.php</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/HelloBundle/Controller/HelloController.php</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle:Hello:index.html.php&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="index-1">
+<span id="id1"></span><h2>Декорирование шаблонов<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Чаще всего, шаблоны используют некоторые общие элементы, например всем известные
+header и footer. В Symfony2 этот вопрос решается несколько иначе - шаблон может
+быть декорирован другим шаблоном.</p>
+<p>Шаблон <tt class="docutils literal"><span class="pre">index.html.php</span></tt> будет декорироваться шаблоном <tt class="docutils literal"><span class="pre">layout.html.php</span></tt>
+благодаря вызову метода <tt class="docutils literal"><span class="pre">extend()</span></tt>:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle::layout.html.php&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+Hello <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$name</span> <span class="cp">?&gt;</span>!
+</pre></div>
+</div>
+<p>Нотация <tt class="docutils literal"><span class="pre">AcmeHelloBundle::layout.html.php</span></tt> выглядит знакомо, не так ли? Это
+такая же нотация, которая используется для ссылки на шаблон. Часть <tt class="docutils literal"><span class="pre">::</span></tt>
+означает, что элемент &#8220;контроллер&#8221;, таким образом соответствующий файл
+распложен напрямую в директории <tt class="docutils literal"><span class="pre">views/</span></tt>.</p>
+<p>Теперь давайте взглянем на файл <tt class="docutils literal"><span class="pre">layout.html.php</span></tt>:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/HelloBundle/Resources/views/layout.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;::base.html.php&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>Hello Application<span class="nt">&lt;/h1&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;_content&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Декорирующий шаблон (layout) в свою очередь декорирован другим шаблоном (<tt class="docutils literal"><span class="pre">::base.html.php</span></tt>).
+Symfony2 поддерживает множественные уровни декорирования: layout может быть декорирован
+другим шаблоном более высокого уровня. Когда часть &#8220;bundle&#8221; в наименовании шаблона
+пуста, он ищется в директории <tt class="docutils literal"><span class="pre">app/Resources/views/</span></tt>. Она содержит глобальные
+шаблоны уровня приложения:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- app/Resources/views/base.html.php --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span><span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello Application&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;_content&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Для обоих шаблонов, выражение <tt class="docutils literal"><span class="pre">$view['slots']-&gt;output('_content')</span></tt> заменяется
+контентом дочернего шаблона: <tt class="docutils literal"><span class="pre">index.html.php</span></tt> и <tt class="docutils literal"><span class="pre">layout.html.php</span></tt> соответственно
+(о слотах подробнее поговорим в следующей секции).</p>
+<p>Как вы можете видеть, Symfony2 предоставляет методы посредством объекта <tt class="docutils literal"><span class="pre">$view</span></tt>.
+В шаблоне переменная <tt class="docutils literal"><span class="pre">$view</span></tt>  всегда доступна и представляет собой специальный объект,
+которые предоставляет пакет методов, которые собственно и крутят винтики в движке
+шаблонизатора.</p>
+</div>
+<div class="section" id="index-2">
+<span id="id2"></span><h2>Работаем со Слотами<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Слот - это некоторый кусочек кода, определённый в шаблоне и который можно
+повторно использовать в любом декорирующем шаблоне. В шаблоне <tt class="docutils literal"><span class="pre">index.html.php</span></tt>
+определён слот <tt class="docutils literal"><span class="pre">title</span></tt>:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle::layout.html.php&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello World Application&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+Hello <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$name</span> <span class="cp">?&gt;</span>!
+</pre></div>
+</div>
+<p>Базовый шаблон уже имеет код для вывода заголовка:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- app/Resources/views/base.html.php --&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span><span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello Application&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</pre></div>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">output()</span></tt> вставляет контент слота и опционально принимает значение по умолчанию,
+которое будет использовано, если слот не будет определён. <tt class="docutils literal"><span class="pre">_content</span></tt> - это
+особый слот, который содержит рендер дочернего шаблона.</p>
+<p>Для больших слотов можно использовать расширенный синтаксис:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+    Some large amount of HTML
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">stop</span><span class="p">()</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="index-3">
+<span id="id3"></span><h2>Включение других шаблонов<a class="headerlink" href="#index-3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Наилучшим способом сделать доступным в других шаблонах некоторый кусочек кода -
+это включить его в другие шаблорны.</p>
+<p>Создадим шаблон <tt class="docutils literal"><span class="pre">hello.html.php</span></tt>:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/HelloBundle/Resources/views/Hello/hello.html.php --&gt;</span>
+Hello <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$name</span> <span class="cp">?&gt;</span>!
+</pre></div>
+</div>
+<p>И изменим шаблон <tt class="docutils literal"><span class="pre">index.html.php</span></tt> таким образом чтобы он его подключал:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle::layout.html.php&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle:Hello:hello.html.php&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">))</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">render()</span></tt> вычисляет и возвращает значение другого шаблона (это такой
+же метод, который используется в контроллере).</p>
+</div>
+<div class="section" id="index-4">
+<span id="id4"></span><h2>Встраивание Контроллеров<a class="headerlink" href="#index-4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Что, если вы захотите встроить результат выполнения другого контроллера в шаблон?
+Это очень удобно при работе с Ajax, или же когда встраиваемый шаблон требует
+некоторые переменные, не доступные в главном шаблоне.</p>
+<p>Если вы создадите действие <tt class="docutils literal"><span class="pre">fancy</span></tt> и захотите включить его в
+шаблон <tt class="docutils literal"><span class="pre">index.html.php</span></tt>, просто используйте такой код:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/HelloBundle/Resources/views/Hello/index.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle:Hello:fancy&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;green&#39;</span><span class="p">))</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Строка <tt class="docutils literal"><span class="pre">AcmeHelloBundle:Hello:fancy</span></tt> ссылается на действие <tt class="docutils literal"><span class="pre">fancy</span></tt> контроллера <tt class="docutils literal"><span class="pre">Hello</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/HelloBundle/Controller/HelloController.php</span>
+
+<span class="k">class</span> <span class="nc">HelloController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">fancyAction</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$color</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// create some object, based on the $color variable</span>
+        <span class="nv">$object</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeHelloBundle:Hello:fancy.html.php&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$name</span><span class="p">,</span> <span class="s1">&#39;object&#39;</span> <span class="o">=&gt;</span> <span class="nv">$object</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Но где же определён элемент массива <tt class="docutils literal"><span class="pre">$view['actions']</span></tt>? Как и <tt class="docutils literal"><span class="pre">$view['slots']</span></tt>,
+здесь вызывается хелпер и в следующей секции об этом будет чуть подробнее.</p>
+</div>
+<div class="section" id="index-5">
+<span id="id5"></span><h2>Использование хелперов в шаблонах<a class="headerlink" href="#index-5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Система шаблонов Symfony2 может быть легко и просто при помощи хелперов. Хелперы
+это PHP объекты, которые предоставляют удобные фичи в контексте шаблонов. <tt class="docutils literal"><span class="pre">actions</span></tt>
+и <tt class="docutils literal"><span class="pre">slots</span></tt> - это два хелпера из числа встроенных в Symfony2.</p>
+<div class="section" id="id6">
+<h3>Создание ссылок между страницами<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Говоря о веб-приложениях, создание ссылок между страницами - это крайне необходимая
+функция. Вместо того, чтобы хордкодить URLы в шаблонах, нужно использовать
+хелпер <tt class="docutils literal"><span class="pre">router</span></tt>, который знает как генерировать URL, основываясь на конфигурацию
+маршрутизатора. Если использовать этот подход, любой URL может быть легко
+обновлён при помощи изменения конфигурации:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;router&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Thomas&#39;</span><span class="p">))</span> <span class="cp">?&gt;</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+    Greet Thomas!
+<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">generate()</span></tt> принимает имя маршрута и массив параметров в качестве аргументов.
+Имя маршрута - это ключ, по которому определяется маршрут, а параметры - это значения
+плэйсхолдеров из шаблона маршрута:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># src/Acme/HelloBundle/Resources/config/routing.yml</span>
+<span class="l-Scalar-Plain">hello</span><span class="p-Indicator">:</span> <span class="c1"># The route name</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/hello/{name}</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">AcmeHelloBundle</span><span class="p-Indicator">:</span><span class="nv">Hello</span><span class="p-Indicator">:</span><span class="nv">index</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="javascript-css">
+<h3>Работа с ресурсами: картинки, JavaScript, CSS<a class="headerlink" href="#javascript-css" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Чем бы был интернет без картинок, джаваскриптов и стилей? Symfony2 предоставляет
+вам таг <tt class="docutils literal"><span class="pre">assets</span></tt> для работы с ними:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;assets&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">(</span><span class="s1">&#39;css/blog.css&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="s">&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;assets&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">(</span><span class="s1">&#39;images/logo.png&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="s">&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Главной обязанностью хелпера <tt class="docutils literal"><span class="pre">assets</span></tt> - сделать ваше приложение более
+портируемым. Благодаря этому хелперу вы можете перемещать корень вашего
+приложения внутри web root не меняя ничего у коде шаблонов.</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>Экранирование<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>При использовании PHP шаблонов необходимо экранировать все переменные:</p>
+<div class="highlight-python"><pre>&lt;?php echo $view-&gt;escape($var) ?&gt;</pre>
+</div>
+<p>По умолчанию, метод <tt class="docutils literal"><span class="pre">escape()</span></tt> полагает, что переменная выводится в контексте HTML.
+Второй аргумент метода позволяет изменить контекст. Например, выводя что-то в JavaScript,
+используйте <tt class="docutils literal"><span class="pre">js</span></tt> контекст:</p>
+<div class="highlight-python"><pre>&lt;?php echo $view-&gt;escape($var, 'js') ?&gt;</pre>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

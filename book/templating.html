@@ -1,0 +1,1313 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Создание и использование Шаблонов &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Книга" href="index.html" />
+    <link rel="next" title="Базы данных и Doctrine (“Модель”)" href="doctrine.html" />
+    <link rel="prev" title="Маршрутизация" href="routing.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Создание и использование Шаблонов<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Как вам известно, <a class="reference internal" href="controller.html"><em>контроллер</em></a> отвечает за
+обработку запросов, получаемых приложением Symfony2. Фактически же,
+контроллер делегирует большую часть тяжёлой работы другим частям
+Фреймворка, чтобы код можно было тестировать и использовать повторно.
+Когда контроллеру требуется сгенерировать HTML, CSS или любой другой
+контент, он поручает эту работу шаблонизатору. В этой главе вы узнаете
+как создавать мощные и функциональные шаблоны, которые могут быть
+использованы для того, чтобы вернуть контент пользователю, создавать
+тело email-сообщений и многое другое. Вы узнаете, как наследовать шаблоны
+и как повторно использовать код шаблонов.</p>
+<div class="section" id="index-1">
+<span id="id2"></span><h2>Шаблоны<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Шаблон - это просто текстовый файл, который может генерировать любой текстовый
+формат (HTML, XML, CSV, LaTeX и т.д.). Наиболее простой тип шаблона - это <em>PHP</em>
+шаблон - текстовый файл, обрабатываемый PHP, который содержит как собственно текст,
+так и PHP-код:</p>
+<div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Welcome to Symfony!<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$page_title</span> <span class="cp">?&gt;</span><span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;navigation&quot;</span><span class="nt">&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$navigation</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+                <span class="nt">&lt;li&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$item</span><span class="o">-&gt;</span><span class="na">getHref</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+                        <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$item</span><span class="o">-&gt;</span><span class="na">getCaption</span><span class="p">()</span> <span class="cp">?&gt;</span>
+                    <span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p id="index-2">В состав Symfony2 входит мощный язык шаблонов, называемый <a class="reference external" href="http://twig.sensiolabs.org">Twig</a>. Twig
+позволяет создавать лаконичные и читабельные шаблоны, которые более удобны
+для веб-дизайнеров и, во многом, более функциональны, нежели PHP шаблоны:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Welcome to Symfony!<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span><span class="cp">{{</span> <span class="nv">page_title</span> <span class="cp">}}</span><span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;navigation&quot;</span><span class="nt">&gt;</span>
+            <span class="cp">{%</span> <span class="k">for</span> <span class="nv">item</span> <span class="k">in</span> <span class="nv">navigation</span> <span class="cp">%}</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">item.href</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">item.caption</span> <span class="cp">}}</span><span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Twig определяет два типа специальных синтаксических конструкций:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">{{</span> <span class="pre">...</span> <span class="pre">}}</span></tt>: &#8220;Напечатать что-либо&#8221;: отображает переменную или результат некоторого
+выражения;</li>
+<li><tt class="docutils literal"><span class="pre">{%</span> <span class="pre">...</span> <span class="pre">%}</span></tt>: &#8220;Выполнить что-либо&#8221;: <strong>таг</strong>, который контролирует логику шаблона;
+он используется для выполнения выражений, таких как циклы <tt class="docutils literal"><span class="pre">for</span></tt>.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Есть также третий тип синтаксической конструкции для создания комментариев:
+<tt class="docutils literal"><span class="pre">{#</span> <span class="pre">это</span> <span class="pre">комментарий</span> <span class="pre">#}</span></tt>. Этот синтаксис может быть использован в качестве
+многострочного комментария как PHP-аналог <tt class="docutils literal"><span class="pre">/*</span> <span class="pre">comment</span> <span class="pre">*/</span></tt>.</p>
+</div>
+<p>Twig также содержит <strong>фильтры</strong>, которые модифицируют контент перед его
+отображением. Следующий пример выведет переменную <tt class="docutils literal"><span class="pre">title</span></tt> в верхнем
+регистре:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">title</span> <span class="o">|</span> <span class="nf">upper</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Twig по умолчанию содержит много тагов (<a class="reference external" href="http://twig.sensiolabs.org/doc/tags/index.html">tags</a>) и фильтров (<a class="reference external" href="http://twig.sensiolabs.org/doc/templates.html#filters">filters</a>).
+Кроме этого вы можете также <a class="reference external" href="http://twig.sensiolabs.org/doc/advanced.html">создавать свои собственные расширения</a> Twig,
+если это потребуется.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Зарегистрировать расширение Twig просто: нужно создать сервис и указать ему
+<a class="reference internal" href="../reference/dic_tags.html#reference-dic-tags-twig-extension"><em>таг</em></a> <tt class="docutils literal"><span class="pre">twig.extension</span></tt>.</p>
+</div>
+<p>Как вы увидите далее, Twig также поддерживает функции, и вы сможете легко
+добавлять новые функции. Например, следующий код использует стандартный
+таг цикла <tt class="docutils literal"><span class="pre">for</span></tt> и функцию <tt class="docutils literal"><span class="pre">cycle</span></tt> для того, чтобы вывести десять тагов
+<tt class="docutils literal"><span class="pre">div</span></tt> с css-классами <tt class="docutils literal"><span class="pre">odd</span></tt> и <tt class="docutils literal"><span class="pre">even</span></tt>:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">for</span> <span class="nv">i</span> <span class="k">in</span> <span class="m">0.</span><span class="nv">.10</span> <span class="cp">%}</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">cycle</span><span class="o">([</span><span class="s1">&#39;odd&#39;</span><span class="o">,</span> <span class="s1">&#39;even&#39;</span><span class="o">],</span> <span class="nv">i</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- some HTML here --&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>На протяжении всей главы, примеры шаблонов будут отображаться как в Twig-формате,
+так и PHP.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Почему Twig?</p>
+<p>Twig шаблоны выглядят проще и не обрабатывают PHP код. Это сделано намеренно:
+система шаблонов Twig задумана для быстрого создания представления, а не
+для программной логики. Чем больше вы используете Twig, тем более вы будете
+ценить его и тем более будете получать пользы от такого разделения. И вас
+будут уважать все веб-дизайнеры в мире.</p>
+<p>Twig также умеет делать то, что не умеет PHP, например полноценное
+наследование шаблонов (Twig-шаблоны компилируются в PHP-классы, которые
+наследуются как любые другие классы), контроль пробельных символов,
+песочница (для контроля выполнения &#8220;подозрительного&#8221; кода в шаблонах),
+расширение пользовательскими фильтрами и функциями. Twig имеет много
+небольших особенностей, которые делают написание шаблонов проще и
+лаконичнее. Взгляните на следующий пример, который комбинирует цикл
+с логическим выражением <tt class="docutils literal"><span class="pre">if</span></tt>:</p>
+<div class="last highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;ul&gt;</span>
+    <span class="cp">{%</span> <span class="k">for</span> <span class="nv">user</span> <span class="k">in</span> <span class="nv">users</span> <span class="cp">%}</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span> <span class="cp">}}</span><span class="nt">&lt;/li&gt;</span>
+    <span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+        <span class="nt">&lt;li&gt;</span>No users found<span class="nt">&lt;/li&gt;</span>
+    <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="twig">
+<span id="index-3"></span><h3>Кэширование Шаблонов в Twig<a class="headerlink" href="#twig" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Twig быстр. Каждый Twig-шаблон компилируется в обычный PHP-класс, который
+и отображается во время выполнения. Компилированные классы расположены в
+директории <tt class="docutils literal"><span class="pre">app/cache/{environment}/twig</span></tt> (здесь <tt class="docutils literal"><span class="pre">{environment}</span></tt> - это
+название окружения, например <tt class="docutils literal"><span class="pre">dev</span></tt> или <tt class="docutils literal"><span class="pre">prod</span></tt>) и в некоторых случаях
+может быть полезен при отладке. Об окружениях подробнее написано в разделе
+<a class="reference internal" href="page_creation.html#environments-summary"><em>Окружения</em></a>.</p>
+<p>Когда активен режим <tt class="docutils literal"><span class="pre">debug</span></tt> (как правило, в <tt class="docutils literal"><span class="pre">dev</span></tt> окружении), шаблон
+Twig будет автоматически перекомпилироваться каждый раз, когда в нём
+были произведены изменения. Это означает, что в процессе разработки вы
+спокойно можете выполнять изменения в шаблонах и видеть эти изменения
+без необходимости постоянно чистить кэш.</p>
+<p>Когда <tt class="docutils literal"><span class="pre">debug</span></tt> отключен (как правило, в <tt class="docutils literal"><span class="pre">prod</span></tt> окружении), вы должны
+очищать кэш в директории Twig для того чтобы шаблоны перекомпилировались.
+Помните об этом при выкладке вашего приложения на сервер.</p>
+</div>
+</div>
+<div class="section" id="layout">
+<span id="index-4"></span><h2>Наследование шаблонов и Layout<a class="headerlink" href="#layout" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Обычно в проекте шаблоны используют некоторое количество общих элементов, таких
+как &#8220;шапка&#8221; (header), &#8220;подвал&#8221; (footer), боковые панели и т.п. В Symfony2 мы
+решаем эту проблему по другому: шаблон может быть декорирован другим шаблоном.
+Это работает точно также как с классами PHP: наследование шаблонов позволяет
+вам создавать базовый шаблон - т.н. <strong>layout</strong>, который содержит все базовые
+элементы вашего сайта, называемые <strong>блоками</strong> (аналогично &#8220;PHP-классу с
+базовыми методами&#8221;). Дочерний шаблон может расширять базовый шаблон и
+переопределять любой его блок (аналогично &#8220;дочерний PHP-класс может
+переопределять некоторые методы родительского класса&#8221;).</p>
+<p>Сначала создайте файл базового шаблона (layout):</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# app/Resources/views/base.html.twig #}</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Test Application<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;sidebar&quot;</span><span class="nt">&gt;</span>
+            <span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}</span>
+            <span class="nt">&lt;ul&gt;</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog&quot;</span><span class="nt">&gt;</span>Blog<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;/ul&gt;</span>
+            <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+        <span class="nt">&lt;/div&gt;</span>
+
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+            <span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;!-- app/Resources/views/base.html.php --&gt;</span>
+<span class="x">&lt;!DOCTYPE html&gt;</span>
+<span class="x">&lt;html&gt;</span>
+<span class="x">    &lt;head&gt;</span>
+<span class="x">        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</span>
+<span class="x">        &lt;title&gt;</span><span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;Test Application&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x">&lt;/title&gt;</span>
+<span class="x">    &lt;/head&gt;</span>
+<span class="x">    &lt;body&gt;</span>
+<span class="x">        &lt;div id=&quot;sidebar&quot;&gt;</span>
+<span class="x">            </span><span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="s1">&#39;sidebar&#39;</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                </span><span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;sidebar&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">            </span><span class="cp">&lt;?php</span> <span class="k">else</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">                &lt;ul&gt;</span>
+<span class="x">                    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                    &lt;li&gt;&lt;a href=&quot;/blog&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">                &lt;/ul&gt;</span>
+<span class="x">            </span><span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">        &lt;/div&gt;</span>
+
+<span class="x">        &lt;div id=&quot;content&quot;&gt;</span>
+<span class="x">            </span><span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">output</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">        &lt;/div&gt;</span>
+<span class="x">    &lt;/body&gt;</span>
+<span class="x">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Хотя обсуждение наследования шаблонов будет вестись в терминах Twig,
+в PHP шаблонах используется та же философия.</p>
+</div>
+<p>Этот шаблон определяет базовый скелетон HTML-документа для простой страницы
+с двумя колонками. В этом примере определено три области <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">%}</span></tt> (
+<tt class="docutils literal"><span class="pre">title</span></tt>, <tt class="docutils literal"><span class="pre">sidebar</span></tt> и <tt class="docutils literal"><span class="pre">body</span></tt>). Каждый блок может быть переопределён
+дочерним шаблоном, иначе будет сохранена изначальная реализация этих блоков.
+Это шаблон может также быть отображен самостоятельно. В этом случае блоки <tt class="docutils literal"><span class="pre">title</span></tt>,
+<tt class="docutils literal"><span class="pre">sidebar</span></tt> и <tt class="docutils literal"><span class="pre">body</span></tt> будут содержать свои значения по умолчанию.</p>
+<p>Дочерний шаблон может выглядеть следующим образом:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/BlogBundle/Resources/views/Blog/index.html.twig #}</span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;::base.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>My cool blog posts<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">for</span> <span class="nv">entry</span> <span class="k">in</span> <span class="nv">blog_entries</span> <span class="cp">%}</span>
+        <span class="nt">&lt;h2&gt;</span><span class="cp">{{</span> <span class="nv">entry.title</span> <span class="cp">}}</span><span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">entry.body</span> <span class="cp">}}</span><span class="nt">&lt;/p&gt;</span>
+    <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;!-- src/Acme/BlogBundle/Resources/views/Blog/index.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;::base.html.php&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;My cool blog posts&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    </span><span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$blog_entries</span> <span class="k">as</span> <span class="nv">$entry</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">        &lt;h2&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$entry</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x">&lt;/h2&gt;</span>
+<span class="x">        &lt;p&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$entry</span><span class="o">-&gt;</span><span class="na">getBody</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x">&lt;/p&gt;</span>
+<span class="x">    </span><span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">stop</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Родительский шаблон определяется благодаря специальному синтаксису (
+<tt class="docutils literal"><span class="pre">::base.html.twig</span></tt>), который указывает, что шаблон расположен в
+директории проекта <tt class="docutils literal"><span class="pre">app/Resources/views</span></tt>. Этот синтаксис будет рассматриваться
+в секции <a class="reference internal" href="#template-naming-locations"><em>Правила именования и расположения Шаблонов</em></a>.</p>
+</div>
+<p>Ключом к наследованию шаблонов является таг <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">%}</span></tt>. Он сообщает
+движку шаблонизатора, что необходимо сначала выполнить базовый шаблон, который
+настроит общую разметку и определит некоторое количество блоков. После этого
+будет отображаться дочерний шаблон, который указывает, что блоки родителя
+<tt class="docutils literal"><span class="pre">title</span></tt> и <tt class="docutils literal"><span class="pre">body</span></tt> будут замещаться аналогичными блоками потомка. В
+зависимости от значение переменной <tt class="docutils literal"><span class="pre">blog_entries</span></tt>, результат может быть
+таким:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span>My cool blog posts<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;sidebar&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;ul&gt;</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;/blog&quot;</span><span class="nt">&gt;</span>Blog<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h2&gt;</span>My first post<span class="nt">&lt;/h2&gt;</span>
+            <span class="nt">&lt;p&gt;</span>The body of the first post.<span class="nt">&lt;/p&gt;</span>
+
+            <span class="nt">&lt;h2&gt;</span>Another post<span class="nt">&lt;/h2&gt;</span>
+            <span class="nt">&lt;p&gt;</span>The body of the second post.<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Обратите внимание, что дочерний шаблон не определяет блок <tt class="docutils literal"><span class="pre">sidebar</span></tt>, поэтому
+используется значение из родительского шаблона. Контент тага <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">%}</span></tt>
+внутри родительского шаблона всегда будет использоваться по умолчанию.</p>
+<p>Вы можете использовать столько уровней наследования, сколько вам требуется. В
+следующей секции будет разобрано типичное трёхуровневое наследование, а
+также будет рассказано о том, как шаблоны располагаются внутри Symfony2 проекта.</p>
+<p>При работе с наследованием шаблонов есть несколько правил, о которых нужно помнить:</p>
+<ul>
+<li><p class="first">Если вы используете таг <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">%}</span></tt> в шаблоне, он должен быть первым
+тагом в этом шаблоне.</p>
+</li>
+<li><p class="first">Чем больше тагов <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">%}</span></tt> у вас в базовом шаблоне, тем лучше. Запомните,
+дочерний шаблон не обязан реализовывать все блоки родителя, поэтому создавайте
+столько блоков в базовом шаблоне, сколько хотите и указывайте для них разумный
+контент по умолчанию. Чем больше блоков имеет ваш базовый шаблон, тем более
+гибким будет ваш layout.</p>
+</li>
+<li><p class="first">Если вы обнаружите повторяющийся контент в нескольких шаблонах, вероятно
+это означает, что лучше бы переместить этот контент в <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">%}</span></tt>
+родительского шаблона. В некоторых случаях, более удачным решением будет
+создание нового шаблона и его подключение (см. <a class="reference internal" href="#including-templates"><em>Подключение других шаблонов</em></a>).</p>
+</li>
+<li><p class="first">Если вам нужен контент блока из родительского шаблона, вы можете использовать
+функцию <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">parent()</span> <span class="pre">}}</span></tt>. Это удобно, в случае если вы хотите добавить
+к контенту родительского блока что-либо, вместо того, чтобы полностью
+заменять его.</p>
+<blockquote>
+<div><div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">block</span> <span class="nv">sidebar</span> <span class="cp">%}</span>
+    <span class="nt">&lt;h3&gt;</span>Table of Contents<span class="nt">&lt;/h3&gt;</span>
+    ...
+    <span class="cp">{{</span> <span class="nv">parent</span><span class="o">()</span> <span class="cp">}}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="template-naming-locations">
+<span id="index-5"></span><span id="id3"></span><h2>Правила именования и расположения Шаблонов<a class="headerlink" href="#template-naming-locations" title="Ссылка на этот заголовок">¶</a></h2>
+<p>По умолчанию, шаблону могут располагаться в двух различных местах:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">app/Resources/views/</span></tt>: Директория <tt class="docutils literal"><span class="pre">views</span></tt> может содержать
+шаблоны, общие для всего приложения (например layout приложения), а также
+шаблоны, которые переопределяют шаблоны пакетов (см. <a class="reference internal" href="#overriding-bundle-templates"><em>Переопределение шаблонов пакета</em></a>);</li>
+<li><tt class="docutils literal"><span class="pre">путь/к/пакету/Resources/views/</span></tt>: Каждый пакет содержит свои собственные шаблоны
+в директории <tt class="docutils literal"><span class="pre">Resources/views</span></tt> (и её поддиректориях). Большинство шаблонов будет
+располагаться внутри пакета.</li>
+</ul>
+<p>Symfony2 использует синтаксис <strong>bundle</strong>:<strong>controller</strong>:<strong>template</strong> для шаблонов.
+Это позволяет определять место расположения для различных типов шаблонов,
+каждый из которых располагается в определённом месте:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">AcmeBlogBundle:Blog:index.html.twig</span></tt>: Эта форма записи используется для
+шаблона определённой страницы. Эти три строки, разделённые двоеточием (<tt class="docutils literal"><span class="pre">:</span></tt>)
+означает следующее:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt>: (<em>пакет</em>), шаблон расположен внутри пакета
+<tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt> (например <tt class="docutils literal"><span class="pre">src/Acme/BlogBundle</span></tt>);</li>
+<li><tt class="docutils literal"><span class="pre">Blog</span></tt>: (<em>контроллер</em>), указывает, что шаблон расположен внутри субдиректории <tt class="docutils literal"><span class="pre">Blog</span></tt>
+директории <tt class="docutils literal"><span class="pre">Resources/views</span></tt>;</li>
+<li><tt class="docutils literal"><span class="pre">index.html.twig</span></tt>: (<em>шаблон</em>), собственно имя файла - <tt class="docutils literal"><span class="pre">index.html.twig</span></tt>.</li>
+</ul>
+</div></blockquote>
+<p>При условии что <tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt> расположен в директории <tt class="docutils literal"><span class="pre">src/Acme/BlogBundle</span></tt>,
+полный путь к файлу шаблона будет следующий:
+<tt class="docutils literal"><span class="pre">src/Acme/BlogBundle/Resources/views/Blog/index.html.twig</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">AcmeBlogBundle::layout.html.twig</span></tt>: Эта форма записи сообщает, что это базовый
+шаблон для пакета <tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt>. Так как наименование контроллера не указано,
+шаблон располагается в директории <tt class="docutils literal"><span class="pre">Resources/views/layout.html.twig</span></tt> пакета
+<tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">::base.html.twig</span></tt>:  Эта форма записи ссылается на шаблон или мастер-шаблон
+(layout) уровня всего приложения. Обратите внимание, что эта строка начинается
+с двух двоеточий (<tt class="docutils literal"><span class="pre">::</span></tt>), что означает следующее: шаблон не принадлежит никакому
+пакету и расположен он в директории <tt class="docutils literal"><span class="pre">app/Resources/views/</span></tt>.</p>
+</li>
+</ul>
+<p>В секции <a class="reference internal" href="#overriding-bundle-templates"><em>Переопределение шаблонов пакета</em></a> вы узнаете как любой шаблон, находящийся,
+например, в пакете <tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt>, может быть переопределён путём размещения шаблона
+с тем же именем в директории <tt class="docutils literal"><span class="pre">app/Resources/AcmeBlogBundle/views/</span></tt>. Это даёт
+возможность переопределять любые шаблоны любого стороннего пакета.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Надеемся синтаксис именования шаблонов показался вам знакомым - такой же
+формат используется и для контроллеров (см. <a class="reference internal" href="routing.html#controller-string-syntax"><em>Шаблон Именования Контроллера</em></a>).</p>
+</div>
+<div class="section" id="id4">
+<h3>Суффиксы Шаблонов<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Формат <strong>bundle</strong>:<strong>controller</strong>:<strong>template</strong> имени шаблона указывает <em>где</em>
+шаблон находится. Каждое имя шаблона также имеет два расширения, которые
+определяют <em>формат</em> и <em>тип шаблонизатора</em> для этого шаблона.</p>
+<ul class="simple">
+<li><strong>AcmeBlogBundle:Blog:index.html.twig</strong> - HTML формат, шаблонизатор - Twig;</li>
+<li><strong>AcmeBlogBundle:Blog:index.html.php</strong> - HTML формат, шаблонизатор - PHP;</li>
+<li><strong>AcmeBlogBundle:Blog:index.css.twig</strong> - CSS формат, шаблонизатор - Twig.</li>
+</ul>
+<p>По умолчанию, любой шаблон в Symfony2 может быть написан либо на Twig либо
+на PHP и последняя часть расширения (<tt class="docutils literal"><span class="pre">.twig</span></tt> или <tt class="docutils literal"><span class="pre">.php</span></tt>) указывает,
+какой из этих двух шаблонизаторов будет использован. Первая часть расширения
+(<tt class="docutils literal"><span class="pre">.html</span></tt>, <tt class="docutils literal"><span class="pre">.css</span></tt> и т.д.) - это конечный формат, который шаблон будет
+генерировать. В отличие от типа шаблонизатора, который определяет как Symfony2
+будет анализировать шаблон, указание формата всего лишь способ организации
+шаблонов, в случае если один ресурс может быть отображен и как HTML
+(<tt class="docutils literal"><span class="pre">index.html.twig</span></tt>), и как XML (<tt class="docutils literal"><span class="pre">index.xml.twig</span></tt>) и в любом другом
+формате, который может потребоваться. Дополнительную информацию ищите
+в секции <a class="reference internal" href="#template-formats"><em>Форматы шаблонов</em></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Доступные &#8220;движки&#8221; шаблонизаторов можно настроить и даже добавить новые.
+Дополнительную информацию ищите в секции о
+<a class="reference internal" href="#template-configuration"><em>Настройке шаблонизатора</em></a></p>
+</div>
+</div>
+</div>
+<div class="section" id="index-6">
+<span id="id5"></span><h2>Таги и Хелперы<a class="headerlink" href="#index-6" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Примечание переводчика: здесь и далее функция-&#8220;помощник&#8221; (<tt class="docutils literal"><span class="pre">helper</span></tt>) будет
+обозначена как <strong>хелпер</strong>.</p>
+</div>
+<p>Вы уже узнали основы создания шаблонов, как они именуются и как работает
+наследование шаблонов. Самое тяжелое уже позади. В этой секции вы узнаете
+о множестве инструментов, помогающих выполнять типичные для шаблонов задачи,
+такие как подключение других шаблонов, создание ссылок на страницы и
+вставку изображений.</p>
+<p>Symfony2 содержит много специализированных тагов и функций Twig, которые упрощают
+работу дизайнера шаблонов. PHP шаблонизатор предоставляет расширяемую систему
+<em>хелперов</em>, которая предоставляет полезные функции в рамках шаблона.</p>
+<p>Мы уже видели несколько встроенных в Twig тагов (<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">block</span> <span class="pre">%}</span></tt> &amp; <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">%}</span></tt>),
+а также пример PHP-хелпера (<tt class="docutils literal"><span class="pre">$view['slots']</span></tt>). Давайте же узнаем и о других.</p>
+<div class="section" id="including-templates">
+<span id="index-7"></span><span id="id6"></span><h3>Подключение других шаблонов<a class="headerlink" href="#including-templates" title="Ссылка на этот заголовок">¶</a></h3>
+<p>На практике у вас часто будет возникать потребность подключить один и тот
+же шаблон или же фрагмент кода для многих страниц. Например, в приложении с
+некоторыми статьями, код шаблона, отображающий одну статью, может быть
+использован на странице статьи, на странице, отображающей наиболее популярные
+статьи или же на странице со списком последних статей.</p>
+<p>Когда вам необходимо использовать некоторый блок PHP-кода, вы выносите этот
+код в класс или в функцию. Тоже верно и для шаблонов. Переместив код шаблона,
+используемый в нескольких местах, в отдельный файл, впоследствии он может быть
+подключен к любому другому шаблону. Сначала создайте шаблон, который хотите
+использовать в нескольких местах:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/ArticleBundle/Resources/views/Article/articleDetails.html.twig #}</span>
+<span class="nt">&lt;h2&gt;</span><span class="cp">{{</span> <span class="nv">article.title</span> <span class="cp">}}</span><span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">&quot;byline&quot;</span><span class="nt">&gt;</span>by <span class="cp">{{</span> <span class="nv">article.authorName</span> <span class="cp">}}</span><span class="nt">&lt;/h3&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>
+  <span class="cp">{{</span> <span class="nv">article.body</span> <span class="cp">}}</span>
+<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;!-- src/Acme/ArticleBundle/Resources/views/Article/articleDetails.html.php --&gt;</span>
+<span class="x">&lt;h2&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x">&lt;/h2&gt;</span>
+<span class="x">&lt;h3 class=&quot;byline&quot;&gt;by </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">getAuthorName</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x">&lt;/h3&gt;</span>
+
+<span class="x">&lt;p&gt;</span>
+<span class="x">  </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">getBody</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;/p&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Подключить этот шаблон к любому другому несложно:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/ArticleBundle/Resources/Article/list.html.twig #}</span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;AcmeArticleBundle::layout.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
+    <span class="nt">&lt;h1&gt;</span>Recent Articles<span class="nt">&lt;h1&gt;</span>
+
+    <span class="cp">{%</span> <span class="k">for</span> <span class="nv">article</span> <span class="k">in</span> <span class="nv">articles</span> <span class="cp">%}</span>
+        <span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;AcmeArticleBundle:Article:articleDetails.html.twig&#39;</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;article&#39;</span><span class="o">:</span> <span class="nv">article</span><span class="o">}</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;!-- src/Acme/ArticleBundle/Resources/Article/list.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">extend</span><span class="p">(</span><span class="s1">&#39;AcmeArticleBundle::layout.html.php&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    &lt;h1&gt;Recent Articles&lt;/h1&gt;</span>
+
+<span class="x">    </span><span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$articles</span> <span class="k">as</span> <span class="nv">$article</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">        </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeArticleBundle:Article:articleDetails.html.php&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;article&#39;</span> <span class="o">=&gt;</span> <span class="nv">$article</span><span class="p">))</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    </span><span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="cp">&lt;?php</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;slots&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">stop</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Шаблон подключается при помощи тага <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">include</span> <span class="pre">%}</span></tt>. Обратите внимание, что
+имя шаблона следует типовым конвенциям об именовании. Шаблон <tt class="docutils literal"><span class="pre">articleDetails.html.twig</span></tt>
+использует переменную <tt class="docutils literal"><span class="pre">article</span></tt>. Она передаётся в него из шаблона <tt class="docutils literal"><span class="pre">list.html.twig</span></tt>
+при помощи команды <tt class="docutils literal"><span class="pre">with</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Выражение <tt class="docutils literal"><span class="pre">{'article':</span> <span class="pre">article}</span></tt> - это стандартный синтаксис для
+хэшей (ассоциативных массивов) в Twig. Если вам нужно передать много
+элементов - массив будет выглядеть следующим образом: <tt class="docutils literal"><span class="pre">{'foo':</span> <span class="pre">foo,</span> <span class="pre">'bar':</span> <span class="pre">bar}</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="templating-embedding-controller">
+<span id="index-8"></span><span id="id7"></span><h3>Внедрение контроллеров<a class="headerlink" href="#templating-embedding-controller" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В некоторых случаях, вам может потребоваться нечто большее, нежели просто
+подключение шаблонов. Положим, у вас есть боковая панель в шаблоне, которая содержит
+три самых последних статьи. Получение этих трёх статей может включать запросы к
+базе данных или же выполнение некоторых других операций, которые нельзя
+выполнить непосредственно из шаблона.</p>
+<p>Решением в данном случае является встраивание в ваш шаблон результата контроллера
+целиком. Во-первых, создайте контроллер, который будет отображать некое число последних
+статей:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/ArticleBundle/Controller/ArticleController.php</span>
+
+<span class="k">class</span> <span class="nc">ArticleController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">recentArticlesAction</span><span class="p">(</span><span class="nv">$max</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// make a database call or other logic to get the &quot;$max&quot; most recent articles</span>
+        <span class="nv">$articles</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeArticleBundle:Article:recentList.html.twig&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;articles&#39;</span> <span class="o">=&gt;</span> <span class="nv">$articles</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Шаблон <tt class="docutils literal"><span class="pre">recentList</span></tt> очень прост:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">article</span> <span class="k">in</span> <span class="nv">articles</span> <span class="cp">%}</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;/article/</span><span class="cp">{{</span> <span class="nv">article.slug</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+      <span class="cp">{{</span> <span class="nv">article.title</span> <span class="cp">}}</span>
+  <span class="nt">&lt;/a&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$articles</span> <span class="k">as</span> <span class="nv">$article</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    &lt;a href=&quot;/article/</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">getSlug</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x">&quot;&gt;</span>
+<span class="x">        </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    &lt;/a&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Обратите внимание, что мы слукавили и захардкодили URL статьи в этом примере
+(<tt class="docutils literal"><span class="pre">/article/*slug*</span></tt>). Это очень плохая практика. В следующей секции вы
+узнаете, как правильно создавать ссылки на страницы приложения.</p>
+</div>
+<p>Для того чтобы подключить контроллер, вам необходимо сослаться на него,
+используя стандартный синтаксис логического имени котроллера
+(<strong>bundle</strong>:<strong>controller</strong>:<strong>action</strong>):</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# app/Resources/views/base.html.twig #}</span>
+...
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;sidebar&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{%</span> <span class="k">render</span> <span class="s2">&quot;AcmeArticleBundle:Article:recentArticles&quot;</span> <span class="k">with</span> <span class="o">{</span><span class="s1">&#39;max&#39;</span><span class="o">:</span> <span class="m">3</span><span class="o">}</span> <span class="cp">%}</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;!-- app/Resources/views/base.html.php --&gt;</span>
+<span class="x">...</span>
+
+<span class="x">&lt;div id=&quot;sidebar&quot;&gt;</span>
+<span class="x">    </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeArticleBundle:Article:recentArticles&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">))</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;/div&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Всякий раз, когда вы понимаете, что вам нужна переменная или данные, к
+которым вы не можете получить доступ из шаблона, обязательно рассмотрите
+вариант с встраиванием контроллера. Контроллеры быстро выполняются и
+способствуют хорошей организации кода и его повторному
+использованию.</p>
+</div>
+<div class="section" id="index-9">
+<span id="id8"></span><h3>Создание ссылок на страницы<a class="headerlink" href="#index-9" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Создание ссылок на другие страницы вашего приложения - это одна из типичных
+операций в шаблоне. Вместо того, чтобы хардкодить URL в шаблоне, используйте
+Twig-функцию <tt class="docutils literal"><span class="pre">path</span></tt> (в PHP - хелпер <tt class="docutils literal"><span class="pre">router</span></tt>) для создания URL, основанных
+на конфигурации маршрутизатора. Потом, если вы захотите изменить URL некоторой
+страницы, вам всего лишь потребуется изменить конфигурацию маршрутизатора. Шаблоны
+автоматически сгенерируют новый URL.</p>
+<p>Сначала создадим ссылку на страницу &#8220;_welcome&#8221;, которая определяется следующей конфигураций
+маршрутизатора:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">_welcome</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">AcmeDemoBundle</span><span class="p-Indicator">:</span><span class="nv">Welcome</span><span class="p-Indicator">:</span><span class="nv">index</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;_welcome&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>AcmeDemoBundle:Welcome:index<span class="nt">&lt;/default&gt;</span>
+<span class="nt">&lt;/route&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$collection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RouteCollection</span><span class="p">();</span>
+<span class="nv">$collection</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;_welcome&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;_controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AcmeDemoBundle:Welcome:index&#39;</span><span class="p">,</span>
+<span class="p">)));</span>
+
+<span class="k">return</span> <span class="nv">$collection</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Для создания ссылки на страницу используйте функцию <tt class="docutils literal"><span class="pre">path</span></tt> и маршрут:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="s1">&#39;_welcome&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;a href=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;router&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;_welcome&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x">&quot;&gt;Home&lt;/a&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Как и ожидалось, она сгенерирует URL <tt class="docutils literal"><span class="pre">/</span></tt>. Давайте теперь посмотрим, как это
+работает для более сложных маршрутов:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">article_show</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/article/{slug}</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">AcmeArticleBundle</span><span class="p-Indicator">:</span><span class="nv">Article</span><span class="p-Indicator">:</span><span class="nv">show</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;article_show&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/article/{slug}&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>AcmeArticleBundle:Article:show<span class="nt">&lt;/default&gt;</span>
+<span class="nt">&lt;/route&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$collection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">RouteCollection</span><span class="p">();</span>
+<span class="nv">$collection</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;article_show&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Route</span><span class="p">(</span><span class="s1">&#39;/article/{slug}&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;_controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AcmeArticleBundle:Article:show&#39;</span><span class="p">,</span>
+<span class="p">)));</span>
+
+<span class="k">return</span> <span class="nv">$collection</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>В этом случае, вам нужно указать и имя маршрута (<tt class="docutils literal"><span class="pre">article_show</span></tt>) и значение
+параметра <tt class="docutils literal"><span class="pre">{slug}</span></tt>. Используя этот маршрут, давайте вернёмся к шаблону
+<tt class="docutils literal"><span class="pre">recentList</span></tt> из предыдущей секции и создадим ссылку на статью правильно:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/ArticleBundle/Resources/views/Article/recentList.html.twig #}</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">article</span> <span class="k">in</span> <span class="nv">articles</span> <span class="cp">%}</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="s1">&#39;article_show&#39;</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;slug&#39;</span><span class="o">:</span> <span class="nv">article.slug</span> <span class="o">})</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+      <span class="cp">{{</span> <span class="nv">article.title</span> <span class="cp">}}</span>
+  <span class="nt">&lt;/a&gt;</span>
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;!-- src/Acme/ArticleBundle/Resources/views/Article/recentList.html.php --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$articles</span> <span class="nx">in</span> <span class="nv">$article</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    &lt;a href=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;router&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;article_show&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span> <span class="o">=&gt;</span> <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">getSlug</span><span class="p">())</span> <span class="cp">?&gt;</span><span class="x">&quot;&gt;</span>
+<span class="x">        </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$article</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">    &lt;/a&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Для генерации абсолютных URL необходимо использовать Twig-функцию <tt class="docutils literal"><span class="pre">url</span></tt>:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">url</span><span class="o">(</span><span class="s1">&#39;_welcome&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>Home<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+</div>
+<p>В PHP-шаблонах для этого нужно передать третий аргумент в метод <tt class="docutils literal"><span class="pre">generate()</span></tt>:</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="x">&lt;a href=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;router&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;_welcome&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="k">true</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x">&quot;&gt;Home&lt;/a&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="assets">
+<span id="index-10"></span><h3>Ссылки на ресурсы (assets)<a class="headerlink" href="#assets" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Шаблоны также часто ссылаются на картинки, скрипты, страницы стилей и прочие
+ресурсы (здесь и далее вместо asset будет использован термин <em>ресурс</em>). Конечно,
+вы можете хардкодить пути к ресурсам (например так <tt class="docutils literal"><span class="pre">/images/logo.png</span></tt>), но
+Symfony2 предлагает использовать более гибкую Twig-функцию <tt class="docutils literal"><span class="pre">asset</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;images/logo.png&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">alt=</span><span class="s">&quot;Symfony!&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;css/blog.css&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">&lt;img src=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;assets&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">(</span><span class="s1">&#39;images/logo.png&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x">&quot; alt=&quot;Symfony!&quot; /&gt;</span>
+
+<span class="x">&lt;link href=&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;assets&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">(</span><span class="s1">&#39;css/blog.css&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="x">&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Главная задача функции <tt class="docutils literal"><span class="pre">asset</span></tt> - сделать ваше приложение по возможности более
+переносимым. Если приложение находится в корне домена (<a class="reference external" href="http://example.com">http://example.com</a>),
+тогда будет отображен путь <tt class="docutils literal"><span class="pre">/images/logo.png</span></tt>. Но, если ваше приложение
+находится в поддиректории (<a class="reference external" href="http://example.com/my_app">http://example.com/my_app</a>), путь к ресурсам будет
+учитывать эту поддиректорию (<tt class="docutils literal"><span class="pre">/my_app/images/logo.png</span></tt>). Функция <tt class="docutils literal"><span class="pre">asset</span></tt>
+берёт на себя заботу по определению того, как именно ваше приложение используется
+и генерирует соответствующие пути.</p>
+<p>В дополнение к этому, если использовать функцию <tt class="docutils literal"><span class="pre">asset</span></tt>, Symfony сможет
+автоматически добавлять строку запроса к ресурсам, чтобы исключить их кеширование
+при выгрузке на сервер. Например, <tt class="docutils literal"><span class="pre">/images/logo.png</span></tt> может выглядеть так:
+<tt class="docutils literal"><span class="pre">/images/logo.png?v2</span></tt>. Подробнее об этом смотрите тут: <em class="xref std std-ref">ref-framework-assets-version</em>.</p>
+</div>
+</div>
+<div class="section" id="css-javascript-twig">
+<span id="index-11"></span><h2>Подключение CSS и Javascript файлов в Twig<a class="headerlink" href="#css-javascript-twig" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Ни один современный сайт не может обойтись без подключения CSS и Javascript
+файлов. В Symfony, подключение этих ресурсов элегантно обрабатывается, опираясь
+на возможности наследования шаблонов.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">В этой секции вы узнаете философию подключения CSS и Javascript файлов
+в Symfony. Symfony также содержит библиотеку Assetic, которая следует
+той же философии, но позволяет вам также выполнять много интересных
+операций над этими ресурсами. Дополнительную информацию можно получить
+в книге рецептов: <tt class="xref doc docutils literal"><span class="pre">/cookbook/assetic/asset_management</span></tt>.</p>
+</div>
+<p>Давайте начнём с добавления двух блоков к базовому шаблону, который будет
+подключать ваши ресурсы: один назовём <tt class="docutils literal"><span class="pre">stylesheets</span></tt>, располагаться он
+будет внутри HTML-тага <tt class="docutils literal"><span class="pre">head</span></tt>, другой назовём <tt class="docutils literal"><span class="pre">javascripts</span></tt> и размещаться
+он будет перед закрывающим HTML-тагом <tt class="docutils literal"><span class="pre">body</span></tt>. Эти блоки будут содержать
+все стили и скрипты, которые вам требуются для сайта:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# &#39;app/Resources/views/base.html.twig&#39; #}</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="c">{# ... #}</span>
+
+        <span class="cp">{%</span> <span class="k">block</span> <span class="nv">stylesheets</span> <span class="cp">%}</span>
+            <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;/css/main.css&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="nt">/&gt;</span>
+        <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="c">{# ... #}</span>
+
+        <span class="cp">{%</span> <span class="k">block</span> <span class="nv">javascripts</span> <span class="cp">%}</span>
+            <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;/js/main.js&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Проще некуда! Но что, если вам потребуется включить дополнительный файл
+стилей или скрипт в дочернем шаблоне? Например, положим у вас есть
+страница контактов и вам нужно подключить файл стилей <tt class="docutils literal"><span class="pre">contact.css</span></tt>
+<em>лишь на одной этой странице</em>. Внутри шаблона страницы contact необходимо
+выполнить следующее:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/DemoBundle/Resources/views/Contact/contact.html.twig #}</span>
+<span class="c">{# extends &#39;::base.html.twig&#39; #}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">stylesheets</span> <span class="cp">%}</span>
+    <span class="cp">{{</span> <span class="nv">parent</span><span class="o">()</span> <span class="cp">}}</span>
+
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;/css/contact.css&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="nt">/&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+
+<span class="c">{# ... #}</span>
+</pre></div>
+</div>
+<p>В дочернем шаблоне вы просто переопределяете блок <tt class="docutils literal"><span class="pre">stylesheets</span></tt> и
+размещаете новый стиль внутри этого блока. Конечно же, поскольку вам
+нужно добавить стиль, а не изменить его, вы должны использовать функцию
+<tt class="docutils literal"><span class="pre">parent()</span></tt> для того, чтобы получить все стили из родительского шаблона.</p>
+<p>Вы также можете включать ресурсы, расположенные в директории <tt class="docutils literal"><span class="pre">Resources/public</span></tt>
+ваших пакетов. Вам нужно будет выполнить команду <tt class="docutils literal"><span class="pre">php</span> <span class="pre">app/console</span> <span class="pre">assets:install</span> <span class="pre">target</span> <span class="pre">[--symlink]</span></tt>,
+которая скопирует (или создаст символическую ссылку) файлы в нужное место (target
+по умолчанию имеет значение &#8220;web&#8221;.</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">asset</span><span class="o">(</span><span class="s1">&#39;bundles/acmedemo/css/contact.css&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Конечным результатом является страница, которая включает как <tt class="docutils literal"><span class="pre">main.css</span></tt>,
+так и <tt class="docutils literal"><span class="pre">contact.css</span></tt></p>
+</div>
+<div class="section" id="index-12">
+<span id="id9"></span><h2>Настройка и использование сервиса <tt class="docutils literal"><span class="pre">шаблонизатора</span></tt><a class="headerlink" href="#index-12" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Сердцем системы шаблонов Symfony2 является её &#8220;движок&#8221; (<tt class="docutils literal"><span class="pre">Engine</span></tt>).
+Это специализированный объект, который отвечает за отображение шаблонов
+и возврат их контента. Например, когда вы отображаете шаблон из контроллера,
+вы используете сервис шаблонизатора:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeArticleBundle:Article:index.html.twig&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Этот код эквивалентен следующему:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$engine</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;templating&#39;</span><span class="p">);</span>
+<span class="nv">$content</span> <span class="o">=</span> <span class="nv">$engine</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeArticleBundle:Article:index.html.twig&#39;</span><span class="p">);</span>
+
+<span class="k">return</span> <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$content</span><span class="p">);</span>
+</pre></div>
+</div>
+<p id="template-configuration">Сервис шаблонизатора предварительно настроен для автоматической работы внутри
+Symfony2. Естественно он может быть настроен через файл с настройками
+приложения:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">framework</span><span class="p-Indicator">:</span>
+    <span class="c1"># ...</span>
+    <span class="l-Scalar-Plain">templating</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">engines</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&#39;twig&#39;</span><span class="p-Indicator">]</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;framework:templating&gt;</span>
+    <span class="nt">&lt;framework:engine</span> <span class="na">id=</span><span class="s">&quot;twig&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/framework:templating&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// app/config/config.php</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">loadFromExtension</span><span class="p">(</span><span class="s1">&#39;framework&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="c1">// ...</span>
+    <span class="s1">&#39;templating&#39;</span>      <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;engines&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">),</span>
+    <span class="p">),</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Для настройки доступно много разных опций, которые описаны в
+<tt class="xref doc docutils literal"><span class="pre">Приложении</span> <span class="pre">о</span> <span class="pre">Конфигурации</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last"><tt class="docutils literal"><span class="pre">Twig</span></tt> необходим для использования веб-профайлера (а также многих
+пакетов от сторонних разработчиков).</p>
+</div>
+</div>
+<div class="section" id="overriding-bundle-templates">
+<span id="index-13"></span><span id="id10"></span><h2>Переопределение шаблонов пакета<a class="headerlink" href="#overriding-bundle-templates" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Сообщество Symfony2 гордится собой за то, что его энтузиастами создано и
+поддерживается много различных качественных пакетов (см. <a class="reference external" href="http://symfony2bundles.org">Symfony2Bundles.org</a>)
+на любой случай жизни. Если вы используете сторонние пакеты, вам может
+потребоваться изменять их шаблоны.</p>
+<p>Предположим, вы подключили воображаемый пакет с открытым исходным кодом
+<tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt>. Вы, в общем-то, всем довольны, но вам хотелось бы заменить
+страницу &#8220;list&#8221; для блога, чтобы настроить её отображение под ваше приложение.
+Если вы залезете в контроллер <tt class="docutils literal"><span class="pre">Blog</span></tt> пакета <tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt>, вы найдёте
+следующий код:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$blogs</span> <span class="o">=</span> <span class="c1">// получение записей в блоге</span>
+
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeBlogBundle:Blog:index.html.twig&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;blogs&#39;</span> <span class="o">=&gt;</span> <span class="nv">$blogs</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Когда отображается шаблон <tt class="docutils literal"><span class="pre">AcmeBlogBundle:Blog:index.html.twig</span></tt> Symfony2 на самом деле
+ищет его в двух местах:</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">app/Resources/AcmeBlogBundle/views/Blog/index.html.twig</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">src/Acme/BlogBundle/Resources/views/Blog/index.html.twig</span></tt></li>
+</ol>
+<p>Для того чтобы переопределить шаблон из пакета, просто скопируйте его
+в директорию <tt class="docutils literal"><span class="pre">app/Resources/AcmeBlogBundle/views/Blog/index.html.twig</span></tt>
+(директорию <tt class="docutils literal"><span class="pre">app/Resources/AcmeBlogBundle</span></tt> нужно создать, так как по умолчанию
+её там не будет). Теперь вы можете настраивать шаблон по вашему усмотрению.</p>
+<p>Эта логика также применима к базовому шаблону пакета. Положим что каждый
+шаблон в пакете <tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt> наследуется от базового шаблона
+<tt class="docutils literal"><span class="pre">AcmeBlogBundle::layout.html.twig</span></tt>. Как и ранее, Symfony2 будет искать</p>
+<blockquote>
+<div>этот шаблон в двух местах:</div></blockquote>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">app/Resources/AcmeBlogBundle/views/layout.html.twig</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">src/Acme/BlogBundle/Resources/views/layout.html.twig</span></tt></li>
+</ol>
+<p>Как и ранее, для переопределения шаблона, просто скопируйте его из
+пакета <tt class="docutils literal"><span class="pre">app/Resources/AcmeBlogBundle/views/layout.html.twig</span></tt>.
+После этого вы вольны править его по своему усмотрению.</p>
+<p>Если вы сделаете шаг назад, вы увидите, что Symfony2 всегда начинает искать
+файл шаблона в директории <tt class="docutils literal"><span class="pre">app/Resources/{BUNDLE_NAME}/views/</span></tt>. Если
+там его нет, поиск продолжается в директории <tt class="docutils literal"><span class="pre">Resources/views</span></tt> пакета.
+Это значит, что все шаблоны любого пакета могут быть переопределены в директории
+пакета внутри <tt class="docutils literal"><span class="pre">app/Resources</span></tt>.</p>
+<span class="target" id="templating-overriding-core-templates"></span><div class="section" id="index-14">
+<span id="id11"></span><h3>Переопределение шаблонов ядра<a class="headerlink" href="#index-14" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Так как Symfony2 это тоже пакет, его шаблоны также можно переопределить
+тем же образом. Например, <tt class="docutils literal"><span class="pre">TwigBundle</span></tt> содержит несколько шаблонов для
+различных исключительных ситуаций и ошибок, которые могут быть переопределены,
+если их скопировать из директории <tt class="docutils literal"><span class="pre">Resources/views/Exception</span></tt> пакета
+<tt class="docutils literal"><span class="pre">TwigBundle</span></tt> в директорию <tt class="docutils literal"><span class="pre">app/Resources/TwigBundle/views/Exception</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="index-15">
+<span id="id12"></span><h2>Трёхуровневое наследование<a class="headerlink" href="#index-15" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Один из способов использовать наследование - трёхуровневый подход. Этот
+метод замечательно работает с тремя различными типами шаблонов, которые
+мы уже рассмотрели:</p>
+<ul>
+<li><p class="first">Создайте файл <tt class="docutils literal"><span class="pre">app/Resources/views/base.html.twig</span></tt>, который содержит
+базовую разметку приложения (как в предыдущем примере). Внутри приложения
+такой шаблон называется <tt class="docutils literal"><span class="pre">::base.html.twig</span></tt>;</p>
+</li>
+<li><p class="first">Создайте файл для каждой секции сайта. Например <tt class="docutils literal"><span class="pre">AcmeBlogBundle</span></tt> будет содержать
+шаблон <tt class="docutils literal"><span class="pre">AcmeBlogBundle::layout.html.twig</span></tt>, который включает только элементы
+специфичные для блога;</p>
+<blockquote>
+<div><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/BlogBundle/Resources/views/layout.html.twig #}</span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;::base.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">body</span> <span class="cp">%}</span>
+    <span class="nt">&lt;h1&gt;</span>Blog Application<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Создайте шаблоны для каждой страницы и унаследуйте из от шаблона соответствующей
+секции (пакета). Например, страница &#8220;index&#8221; будет вызывать что-то типа
+<tt class="docutils literal"><span class="pre">AcmeBlogBundle:Blog:index.html.twig</span></tt> и отображать записи блога:</p>
+<blockquote>
+<div><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# src/Acme/BlogBundle/Resources/views/Blog/index.html.twig #}</span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;AcmeBlogBundle::layout.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">for</span> <span class="nv">entry</span> <span class="k">in</span> <span class="nv">blog_entries</span> <span class="cp">%}</span>
+        <span class="nt">&lt;h2&gt;</span><span class="cp">{{</span> <span class="nv">entry.title</span> <span class="cp">}}</span><span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">entry.body</span> <span class="cp">}}</span><span class="nt">&lt;/p&gt;</span>
+    <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>Обратите внимание, что этот шаблон наследуется от шаблона секции
+<tt class="docutils literal"><span class="pre">AcmeBlogBundle::layout.html.twig</span></tt>, который, в свою очередь, наследуется
+от базового шаблона приложения (<tt class="docutils literal"><span class="pre">::base.html.twig</span></tt>). Это и есть типичное
+трёхуровневое наследование.</p>
+<p>При создании приложения вы можете выбрать - будете ли вы следовать этому
+методу иди же каждый шаблон будет наследоваться напрямую от базового шаблона
+приложения (<tt class="docutils literal"><span class="pre">{%</span> <span class="pre">extends</span> <span class="pre">'::base.html.twig'</span> <span class="pre">%}</span></tt>).  Трёхуровневая модель
+является проверенным и хорошо зарекомендовавшим себя методом в сторонних
+пакетах, так как базовый шаблон пакета может быть легко переопределён для
+того чтобы использовать шаблон вашего приложения.</p>
+</div>
+<div class="section" id="index-16">
+<span id="id13"></span><h2>Экранирование<a class="headerlink" href="#index-16" title="Ссылка на этот заголовок">¶</a></h2>
+<p>При создании HTML из шаблона, всегда есть риск, что переменная шаблона
+будет содержать HTML-код или опасный клиентский скрипт. В результате этот
+контент может сломать HTML разметку страницы или же позволить злоумышленнику
+выполнить <a class="reference external" href="http://en.wikipedia.org/wiki/Cross-site_scripting">Cross Site Scripting</a> (XSS) атаку. Вот классический пример этого:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="x">Hello </span><span class="cp">{{</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">Hello </span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$name</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Представьте, что пользователь ввёл следующий код в качестве имени:</p>
+<div class="highlight-python"><pre>&lt;script&gt;alert('hello!')&lt;/script&gt;</pre>
+</div>
+<p>Без экранирования, шаблон отобразит:</p>
+<div class="highlight-python"><pre>Hello &lt;script&gt;alert('hello!')&lt;/script&gt;</pre>
+</div>
+<p>а клиент (браузер) выполнит JavaScript код и отобразит окошко alert.</p>
+<p>Этот пример выглядит безобидным, но этот же пользователь может также
+написать скрипт, который выполнит вредоносные действия в защищённой
+зоне приложения как будто бы у него были права на это.</p>
+<p>Ответом на данную проблему является экранирование (output escaping). При
+наличии экранирования, тот же код будет отображен совершенно безобидно:</p>
+<div class="highlight-python"><pre>Hello &amp;lt;script&amp;gt;alert(&amp;#39;helloe&amp;#39;)&amp;lt;/script&amp;gt;</pre>
+</div>
+<p>Twig и PHP шаблонизаторы решают эту проблему различным образом. Если
+вы используете Twig, экранирование включено по умолчанию и ваши шаблоны
+защищены. В PHP экранирование не автоматическое и подразумевает что вы
+вручную будете экранировать данные при необходимости.</p>
+<div class="section" id="id14">
+<h3>Экранирование в Twig<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Если вы используете шаблоны Twig, экранирование включено по умолчанию. Это
+означает, что ваш код защищён от неожиданных действий пользователей &#8220;из коробки&#8221;.
+По умолчанию, экранирование подразумевает, что контент будет экранирован для HTML.</p>
+<p>В некоторых случаях вам может потребоваться отключить экранирование, когда вы
+отображаете переменную, которой доверяете и которая содержит HTML-разметку,
+которую не нужно экранировать. Положим, что администратор имеет возможность писать
+статьи, которые содержат HTML-код. По умолчанию Twig будет экранировать тело
+статьи. Для того чтобы отобразить его обычным образом необходимо добавить фильтр
+<tt class="docutils literal"><span class="pre">raw</span></tt>: <tt class="docutils literal"><span class="pre">{{</span> <span class="pre">article.body</span> <span class="pre">|</span> <span class="pre">raw</span> <span class="pre">}}</span></tt>.</p>
+<p>Вы также можете отключить экранирование внутри блока или же для шаблона
+целиком. Подробнее это описано в документации Twig: <a class="reference external" href="http://twig.sensiolabs.org">Output Escaping</a>.</p>
+</div>
+<div class="section" id="php">
+<h3>Экранирование в PHP<a class="headerlink" href="#php" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Экранирование в PHP шаблонах не автоматическое. Это означает, что если
+вы не экранировали переменную - вы не защищены. Для экранирования необходимо
+использовать специальный метод <tt class="docutils literal"><span class="pre">escape()</span></tt>:</p>
+<div class="highlight-python"><pre>Hello &lt;?php echo $view-&gt;escape($name) ?&gt;</pre>
+</div>
+<p>По умолчанию, метод <tt class="docutils literal"><span class="pre">escape()</span></tt> полагает, что переменная отображается в HTML
+контексте (и соответственно переменная экранируется чтобы быть безопасной в HTML).
+Второй аргумент позволяет вам изменить контекст. Например, чтобы вывести что-либо
+в JavaScript используйте контекст <tt class="docutils literal"><span class="pre">js</span></tt>:</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myMsg</span> <span class="o">=</span> <span class="s1">&#39;Hello &lt;?php echo $view-&gt;escape($name, &#39;</span><span class="nx">js</span><span class="s1">&#39;) ?&gt;&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="template-formats">
+<span id="index-17"></span><span id="id15"></span><h2>Форматы шаблонов<a class="headerlink" href="#template-formats" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Шаблоны - это основной способ для отображения контента в <em>любом</em> формате.
+В большинстве случаев вы будете отображать HTML контент, но шаблон также
+может быть использован для генерации JavaScript, CSS, XML или же любого
+другого формата на ваш выбор.</p>
+<p>Например, один и тот же ресурс может отображаться в разных форматах. Для отображения
+индексной страницы статей в XML формате, просто добавьте формат в имя шаблона:</p>
+<ul class="simple">
+<li><em>XML template name</em>: <tt class="docutils literal"><span class="pre">AcmeArticleBundle:Article:index.xml.twig</span></tt></li>
+<li><em>XML template filename</em>: <tt class="docutils literal"><span class="pre">index.xml.twig</span></tt></li>
+</ul>
+<p>По сути это всего лишь соглашение по именованию шаблонов - шаблоны разных форматов
+не будут отображаться разными способами.</p>
+<p>Во многих случаях вам может потребоваться один и тот же контроллер отобразить
+в нескольких форматах в зависимости от формата запроса. Вы можете выполнить это
+следующим образом:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$format</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRequestFormat</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeBlogBundle:Blog:index.&#39;</span><span class="o">.</span><span class="nv">$format</span><span class="o">.</span><span class="s1">&#39;.twig&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">getRequestFormat</span></tt> объекта <tt class="docutils literal"><span class="pre">Request</span></tt> по умолчанию возвращает <tt class="docutils literal"><span class="pre">html</span></tt>,
+но может также возвращать любой формат запрошенный пользователем.
+Формат запроса часто управляется маршрутизатором, где маршрут может быть
+настроен таким образом чтобы URL <tt class="docutils literal"><span class="pre">/contact</span></tt> возвращал HTML а
+<tt class="docutils literal"><span class="pre">/contact.xml</span></tt> устанавливал бы формат запроса XML и контроллер
+будет возвращать XML. Более подробно этот вопрос рассматривается в главе
+о Маршрутизации - <a class="reference internal" href="routing.html#advanced-routing-example"><em>Продвинутая маршрутизация</em></a>.</p>
+<p>Для создания ссылок, которые используют параметр формата - добавьте ключ
+<tt class="docutils literal"><span class="pre">_format</span></tt> к хешу параметров:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="s1">&#39;article_show&#39;</span><span class="o">,</span> <span class="o">{</span><span class="s1">&#39;id&#39;</span><span class="o">:</span> <span class="m">123</span><span class="o">,</span> <span class="s1">&#39;_format&#39;</span><span class="o">:</span> <span class="s1">&#39;pdf&#39;</span><span class="o">})</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+    PDF Version
+<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;router&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;article_show&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span> <span class="s1">&#39;_format&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;pdf&#39;</span><span class="p">))</span> <span class="cp">?&gt;</span><span class="s">&quot;</span><span class="nt">&gt;</span>
+    PDF Version
+<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>Заключение<a class="headerlink" href="#id16" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Шаблонизатор Symfony - это мощный инструмент, который может быть
+использован каждый раз, когда вам необходимо сгенерировать контент в
+HTML, XML или любом другом формате. И, не смотря на то, что шаблоны - это
+обычный способ генерации контента в контроллере, он не обязателен. Объект
+<tt class="docutils literal"><span class="pre">Response</span></tt>, возвращаемый контроллером может быть создан как с
+использованием шаблонизатора, так и без него:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// creates a Response object whose content is the rendered template</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;AcmeArticleBundle:Article:index.html.twig&#39;</span><span class="p">);</span>
+
+<span class="c1">// creates a Response object whose content is simple text</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="s1">&#39;response content&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Шаблонизатор Symfony - гибок и позволяет по умолчанию использовать
+два различных &#8220;визуализатора&#8221;: традиционные <em>PHP</em> шаблоны и мощные <em>Twig</em>
+шаблоны. Оба этих типа шаблонов поддерживают иерархию и укомплектованы
+богатым набором функций-помощников, предназначенных для выполнения
+повседневных задач.</p>
+<p>В целом, шаблоны следует рассматривать как мощный инструмент в вашем распоряжении.
+В некоторых случаях вам может и не потребоваться отображать шаблон - и в Symfony2
+это тоже совершенно нормальная ситуация.</p>
+</div>
+<div class="section" id="id17">
+<h2>Читайте в книге рецептов<a class="headerlink" href="#id17" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../cookbook/templating/PHP.html"><em>Как использовать PHP шаблоны вмесро Twig</em></a></li>
+<li><a class="reference internal" href="../cookbook/controller/error_pages.html"><em>Как создать собственные страницы ошибок</em></a></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

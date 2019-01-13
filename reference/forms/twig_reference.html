@@ -1,0 +1,257 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Справочник функций Twig для работы с формами &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" />
+    <link rel="up" title="Reference Documents" href="../index.html" />
+    <link rel="next" title="Таги Dependency Injection" href="../dic_tags.html" />
+    <link rel="prev" title="Поле date" href="types/date.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="twig">
+<span id="index-0"></span><h1>Справочник функций Twig для работы с формами<a class="headerlink" href="#twig" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Это справочное руководство содержит все функции Twig, доступные при
+отображении форм. Имеется несколько таких функций, каждая из которых
+отвечает за отображение своей части формы (метки, ошибки, виджеты и т.д.).</p>
+<div class="section" id="form-label-form-name-label-variables">
+<h2>form_label(form.name, label, variables)<a class="headerlink" href="#form-label-form-name-label-variables" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Отображает метку для данного поля. Опционально вы можете передать
+свой текст для метки в качестве второго аргумента.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_label</span><span class="o">(</span><span class="nv">form.name</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="c">{# Эти две формы записи эквивалентны #}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">form_label</span><span class="o">(</span><span class="nv">form.name</span><span class="o">,</span> <span class="s1">&#39;Your Name&#39;</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;attr&#39;</span><span class="o">:</span> <span class="o">{</span><span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span><span class="o">}</span> <span class="o">})</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">form_label</span><span class="o">(</span><span class="nv">form.name</span><span class="o">,</span> <span class="nv">null</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;label&#39;</span><span class="o">:</span> <span class="s1">&#39;Your name&#39;</span><span class="o">,</span> <span class="s1">&#39;attr&#39;</span><span class="o">:</span> <span class="o">{</span><span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span><span class="o">}</span> <span class="o">})</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="form-errors-form-name">
+<h2>form_errors(form.name)<a class="headerlink" href="#form-errors-form-name" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Отображает ошибки для данного поля.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">form.name</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+
+<span class="c">{# отображает &quot;глобальные&quot; ошибки формы #}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="form-widget-form-name-variables">
+<h2>form_widget(form.name, variables)<a class="headerlink" href="#form-widget-form-name-variables" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Отображает HTML виджет для данного поля. Если вы используете этот
+хелпер для всей формы или набора полей, они будут полностью отображены.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# отображает виджет и добавляет ему класс &quot;foo&quot; #}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">form_widget</span><span class="o">(</span><span class="nv">form.name</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;attr&#39;</span><span class="o">:</span> <span class="o">{</span><span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span><span class="o">}</span> <span class="o">})</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Второй аргумент <tt class="docutils literal"><span class="pre">form_widget</span></tt> - это массив переменных. Наиболее типичной
+из них является <tt class="docutils literal"><span class="pre">attr</span></tt>, который представляет собой мссив HTML-атрибутов,
+которые будут применены к HTML-виджету. В некоторых случаях, ряд типов полей
+также имеют другие опции, относящиеся к отображению шаблона. Эти опции описаны
+для каждого из таких типов полей.</p>
+</div>
+<div class="section" id="form-row-form-name-variables">
+<h2>form_row(form.name, variables)<a class="headerlink" href="#form-row-form-name-variables" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Отображает &#8220;строку&#8221; для заданного поля, которая является комбинацией метки,
+ошибок и виджета.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="c">{# отображаем строку, метку заменяем на &quot;foo&quot; #}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nv">form_row</span><span class="o">(</span><span class="nv">form.name</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;label&#39;</span><span class="o">:</span> <span class="s1">&#39;foo&#39;</span> <span class="o">})</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Второй аргумент <tt class="docutils literal"><span class="pre">form_row</span></tt> - это массив. Шаблоны, предоставляемые в Symfony
+позволяют изменять лишь метку, как, и показано в примере выше.</p>
+</div>
+<div class="section" id="form-rest-form-variables">
+<h2>form_rest(form, variables)<a class="headerlink" href="#form-rest-form-variables" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Отображает все поля формы, которые ещё не были отображены. Хорошим подходом
+является всегда использовать этот хелпер в ваших формах для отображения
+скрытых полей, а также полей, которые вы могли случайно забыть.</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_rest</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="form-enctype-form">
+<h2>form_enctype(form)<a class="headerlink" href="#form-enctype-form" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если поле содержит хоть одно поле для загрузки файла, этот хелпер
+отобразит атрибут формы <tt class="docutils literal"><span class="pre">enctype=&quot;multipart/form-data&quot;</span></tt>. Хорошей
+практикой является его использование во всех формах:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="s1">&#39;form_submit&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="cp">{{</span> <span class="nv">form_enctype</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

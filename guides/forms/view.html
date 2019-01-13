@@ -1,0 +1,645 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Формы в шаблонах &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Формы в шаблонах<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p><a class="reference internal" href="overview.html"><em>Формы</em></a> в Symfony2 состоят из полей. Поля описывают семантику форм, а не отображение для пользователей; это означает, что форма не обязательно будет привязана к HTML. Вместо этого, на веб-дизайнера ложится ответственность за отображение каждого поля формы. Таким образом, отображение формы в Symfony2 может легко быть сделано вручную. Но Symfony2 облегчает интеграцию и настройку форм, используя помощников для PHP и Twig шаблонов.</p>
+<div class="section" id="id2">
+<h2>Отображение формы вручную<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Прежде, чем погружаться в изучение обёрток Symfony2 и того, как они помогут вам с отображением форм - легко, быстро и безопасно, вам следует знать, что внутри системы ничего особенного не происходит. Для отображения форм Symfony2 можно использовать даже HTML:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+<p>Если происходит ошибка валидации, следует отображать её и заполнить поля с представленными значениями для облегчения быстрого исправления проблемы. Просто используйте методы для форм:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">error</span> <span class="k">in</span> <span class="nv">form.name.errors</span> <span class="cp">%}</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">{{</span> <span class="nv">error.0</span> <span class="cp">}}</span><span class="nt">&lt;/li&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">form.name.data</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getErrors</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$error</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$error</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="cp">?&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="s">&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Использование помощников Symfony2 сделает ваш шаблон коротким, а слой формы - легко настраиваемым, поддерживающим многие локализации, защиту CSRF, загрузку файлов и многое другое сразу &#8220;из коробки&#8221;. Следующие подразделы расскажут вам всё об этом.</p>
+</div>
+<div class="section" id="id3">
+<h2>Отображение формы<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Поскольку глобальная структура формы (тэг формы, кнопка &#8220;отправить&#8221;) не определяется самой формой, можно использовать любой HTML код. Простой шаблон формы выглядит следующим образом:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Display the form fields --&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+<p>Кроме глобальной структуры форм, вам потребуется способ отображения глобальных ошибок и скрытых файлов. С выполнением этих функций в Symfony2 прекрасно справляются помощники. В шаблонах Twig эти помощники реализованы как глобальные функции, которые могут быть применены к формам и полям форм. В шаблонах PHP помощник &#8220;form&#8221; реализует тот же функционал, используя публичные методы, которые принимают форму или поле формы за параметр.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+
+    <span class="c">&lt;!-- Display the form fields --&gt;</span>
+
+    <span class="cp">{{</span> <span class="nv">form_hidden</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">(</span><span class="nv">$form</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+    <span class="c">&lt;!-- Display the form fields --&gt;</span>
+
+    <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">hidden</span><span class="p">(</span><span class="nv">$form</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Как видите, функции Twig реализуются с префиксом &#8220;form_&#8221;. В отличие от методов помощника &#8220;form&#8221;, это - глобальные функции, использование которых может привести к конфликтам имён.</p>
+<p>По умолчанию помощник <tt class="docutils literal"><span class="pre">error</span></tt> создает список <tt class="docutils literal"><span class="pre">&lt;ul&gt;</span></tt>, но это можно легко перенастроить; как - увидите чуть позже.</p>
+<p>Последнее, но не по важности: форма, содержащая файл ввода, должна также включать в себя атрибут <tt class="docutils literal"><span class="pre">enctype</span></tt>; используйте помощник <tt class="docutils literal"><span class="pre">enctype</span></tt> для начала рендеринга:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="cp">{{</span> <span class="nv">form_enctype</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">enctype</span><span class="p">(</span><span class="nv">$form</span><span class="p">)</span> <span class="cp">?&gt;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Отображение полей<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Можно легко получить доступ к полям формы, ибо формы Symfony2 работают как массив:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form.title</span> <span class="cp">}}</span>
+
+<span class="c">{# access a field (first_name) nested in a group (user) #}</span>
+<span class="cp">{{</span> <span class="nv">form.user.first_name</span> <span class="cp">}}</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span>
+
+<span class="c">&lt;!-- access a field (first_name) nested in a group (user) --&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">][</span><span class="s1">&#39;first_name&#39;</span><span class="p">]</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Поскольку каждое поле является экземпляром Field, оно не может отображаться как показано выше; вместо этого используйте один из существующих помощников.</p>
+<p>Помощник <tt class="docutils literal"><span class="pre">render</span></tt> рендерит HTML-представление поля:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">form.title</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Шаблон поля выбирается, основываясь на имени класса поля; как - узнаете позже.</p>
+<p>Помощник <tt class="docutils literal"><span class="pre">label</span></tt> рендерит тэг &lt;label&gt;, ассоциированный с полем:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_label</span><span class="o">(</span><span class="nv">form.title</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">label</span><span class="p">(</span><span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>По умолчанию Symfony2 &#8220;очеловечивает&#8221; имя поля, но вы можете дать свое название:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_label</span><span class="o">(</span><span class="nv">form.title</span><span class="o">,</span> <span class="s1">&#39;Give me a title&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">label</span><span class="p">(</span><span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span> <span class="s1">&#39;Give me a title&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Symfony2 автоматически интернационализирует все названия полей и сообщения об ошибках.</p>
+</div>
+<p>Помощник <tt class="docutils literal"><span class="pre">errors</span></tt> рендерит все ошибки в полях:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">form.title</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">(</span><span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="html">
+<h2>Определение HTML-отображения<a class="headerlink" href="#html" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Помощники основываются на шаблонах при рендеринге HTML. По умолчанию Symfony2 выходит с комплектом шаблонов для всех встроенных полей.</p>
+<p>В шаблонах Twig каждый помощник ассоциируется с одним блоком шаблона. К примеру, функцие <tt class="docutils literal"><span class="pre">form_errors``требуется</span> <span class="pre">блок</span> <span class="pre">``errors</span></tt>. Встроенный блок работает так:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# TwigBundle::form.html.twig #}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">errors</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">if</span> <span class="nv">errors</span> <span class="cp">%}</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">error</span> <span class="k">in</span> <span class="nv">errors</span> <span class="cp">%}</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">{%</span> <span class="k">trans</span> <span class="nv">error.0</span> <span class="k">with</span> <span class="nv">error.1</span> <span class="nv">from</span> <span class="nv">validators</span> <span class="cp">%}</span><span class="nt">&lt;/li&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">errors</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>В PHP-шаблонах, с другой стороны, каждый помощник ассоциируется с одним PHP шаблоном. Помощник <tt class="docutils literal"><span class="pre">errors()</span></tt> ищет шаблон <tt class="docutils literal"><span class="pre">errors.php</span></tt>, который читается так:</p>
+<div class="highlight-html+php"><div class="highlight"><pre>{# FrameworkBundle:Form:errors.php #}
+
+<span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$errors</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$errors</span> <span class="k">as</span> <span class="nv">$error</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+            <span class="nt">&lt;li&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;translator&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$error</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nv">$error</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;validators&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+<p>Вот полный список помощников и ассоциирующихся с ними блоков/шаблонов:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="29%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Помощник</th>
+<th class="head">Блок Twig</th>
+<th class="head">Имя шаблона в PHP</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">errors</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">errors</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">FrameworkBundle:Form:errors.php</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">hidden</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">hidden</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">FrameworkBundle:Form:hidden.php</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">label</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">label</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">FrameworkBundle:Form:label.php</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">render</span></tt></td>
+<td>see below</td>
+<td>see below</td>
+</tr>
+</tbody>
+</table>
+<p>Помощник <tt class="docutils literal"><span class="pre">render</span></tt> - слегка другой, потому что он выбирает шаблон для рендеринга, основываясь на версии имени класса поля с подчеркиванием. Например, он будет искать блок <tt class="docutils literal"><span class="pre">textarea_field</span></tt> или шаблон <tt class="docutils literal"><span class="pre">textarea_field.php</span></tt> в процессе рендеринга <tt class="docutils literal"><span class="pre">TextareaField</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# TwigBundle::form.html.twig #}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">textarea_field</span> <span class="cp">%}</span>
+    <span class="nt">&lt;textarea</span> <span class="cp">{%</span> <span class="k">display</span> <span class="nv">field_attributes</span> <span class="cp">%}</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">field.displayedData</span> <span class="cp">}}</span><span class="nt">&lt;/textarea&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">textarea_field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- FrameworkBundle:Form:textarea_field.php --&gt;</span>
+<span class="nt">&lt;textarea</span> <span class="na">id=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$field</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="s">&quot;</span> <span class="na">name=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$field</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">()</span> <span class="cp">?&gt;</span><span class="s">&quot;</span> <span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$field</span><span class="o">-&gt;</span><span class="na">isDisabled</span><span class="p">())</span><span class="o">:</span> <span class="cp">?&gt;</span><span class="na">disabled=</span><span class="s">&quot;disabled&quot;</span><span class="cp">&lt;?php</span> <span class="k">endif</span> <span class="cp">?&gt;</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="o">-&gt;</span><span class="na">escape</span><span class="p">(</span><span class="nv">$field</span><span class="o">-&gt;</span><span class="na">getDisplayedData</span><span class="p">())</span> <span class="cp">?&gt;</span>
+<span class="nt">&lt;/textarea&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Если блок или шаблон не существуют, метод будет искать в родительских классах поля. Поэтому нет блока <tt class="docutils literal"><span class="pre">collection_field</span></tt> по умолчанию - его представление точно такое же, как в его родительском классе (<tt class="docutils literal"><span class="pre">field_group</span></tt>).</p>
+</div>
+<div class="section" id="id5">
+<h2>Настройка представления полей<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Самый легкий способ настроить поле - путем передачи пользовательских HTML-атрибутов в качестве аргументов для помощника <tt class="docutils literal"><span class="pre">render</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">form.title</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;class&#39;</span><span class="o">:</span> <span class="s1">&#39;important&#39;</span> <span class="o">})</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;important&#39;</span>
+<span class="p">))</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Некоторые поля, например, <tt class="docutils literal"><span class="pre">ChoiceField</span></tt>, принимают параметры для настройки представления поля. Их можно передать в следующем аргументе.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">form.country</span><span class="o">,</span> <span class="o">{},</span> <span class="o">{</span> <span class="s1">&#39;separator&#39;</span><span class="o">:</span> <span class="s1">&#39; -- Other countries -- &#39;</span> <span class="o">})</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">],</span> <span class="k">array</span><span class="p">(),</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;separator&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39; -- Other countries -- &#39;</span>
+<span class="p">))</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Все помощники принимают имя шаблона в последнем аргументе, что позволяет вам полностью изменить вывод HTML помощника:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">form.title</span><span class="o">,</span> <span class="o">{},</span> <span class="o">{},</span> <span class="s1">&#39;HelloBundle::form.html.twig&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span> <span class="k">array</span><span class="p">(),</span> <span class="k">array</span><span class="p">(),</span>
+    <span class="s1">&#39;HelloBundle:Form:text_field.php&#39;</span>
+<span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="twig">
+<h3>Темы оформления форм (только в Twig)<a class="headerlink" href="#twig" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В последнем примере <tt class="docutils literal"><span class="pre">HelloBundle::form.html.twig</span></tt> - регулярный шаблон Twig, содержащий блоки, определяющие HTML представление для полей, которые вы хотели бы переопределить:
+.. code-block:: html+jinja</p>
+<blockquote>
+<div><p>{# HelloBundle/Resources/views/form.html.twig #}</p>
+<dl class="docutils">
+<dt>{% block textarea_field %}</dt>
+<dd><dl class="first docutils">
+<dt>&lt;div class=&#8221;textarea_field&#8221;&gt;</dt>
+<dd>&lt;textarea {% display field_attributes %}&gt;{{ field.displayedData }}&lt;/textarea&gt;</dd>
+</dl>
+<p class="last">&lt;/div&gt;</p>
+</dd>
+</dl>
+<p>{% endblock textarea_field %}</p>
+</div></blockquote>
+<p>В этом примере переопределяется блок <tt class="docutils literal"><span class="pre">textarea_field</span></tt>. Вместо того, чтобы заменить представление по умолчанию, вы также можете расширить его, используя нативную особенность наследования Twig:</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# HelloBundle/Resources/views/form.html.twig #}</span>
+
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;TwigBundle::form.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">date_field</span> <span class="cp">%}</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;important_date_field&quot;</span><span class="nt">&gt;</span>
+        <span class="cp">{{</span> <span class="nv">parent</span><span class="o">()</span> <span class="cp">}}</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">date_field</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>Если вы хотите настроить все поля данной формы, используйте тэг <tt class="docutils literal"><span class="pre">form_theme</span></tt>:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">form_theme</span> <span class="nv">form</span> <span class="s1">&#39;HelloBundle::form.html.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Когда бы вы не вызвали функцию <tt class="docutils literal"><span class="pre">form</span></tt> - <tt class="docutils literal"><span class="pre">form_field</span></tt>, Symfony2 будет искать представление в вашем шаблоне прежде, чем откатываться до того, что установлен по умолчанию.</p>
+<p>Если блоки поля определены в нескольких шаблонах, добавьте их как упорядоченный массив:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">form_theme</span> <span class="nv">form</span> <span class="o">[</span><span class="s1">&#39;HelloBundle::form.html.twig&#39;</span><span class="o">,</span> <span class="s1">&#39;HelloBundle::form.html.twig&#39;</span><span class="o">,</span> <span class="s1">&#39;HelloBundle::hello_form.html.twig&#39;</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Тема может быть присоединена к форме целиком (как выше) или только к группе полей:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">form_theme</span> <span class="nv">form.user</span> <span class="s1">&#39;HelloBundle::form.html.twig&#39;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+<p>Наконец, настроить представление всех форм приложения можно с помощью конфигурации:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">twig.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">form</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">resources</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">BlogBundle</span><span class="p-Indicator">::</span><span class="nv">form.html.twig</span><span class="p-Indicator">,</span> <span class="nv">TwigBundle</span><span class="p-Indicator">::</span><span class="nv">form.html.twig</span><span class="p-Indicator">]</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;twig:config&gt;</span>
+    <span class="nt">&lt;twig:form&gt;</span>
+        <span class="nt">&lt;twig:resource&gt;</span>BlogBundle::form.html.twig<span class="nt">&lt;/twig:resource&gt;</span>
+        <span class="nt">&lt;twig:resource&gt;</span>TwigBundle::form.html.twig<span class="nt">&lt;/twig:resource&gt;</span>
+    <span class="nt">&lt;/twig:form&gt;</span>
+<span class="nt">&lt;/twig:config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/config.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;twig&#39;, &#39;config&#39;, array(&#39;form&#39; =&gt; array(</span>
+<span class="x">    &#39;resources&#39; =&gt; array(&#39;BlogBundle::form.html.twig&#39;, &#39;TwigBundle::form.html.twig),</span>
+<span class="x">)));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Когда бы функция формы или тэг не принимали имя шаблона как аргумент, можно вместо них использовать <tt class="docutils literal"><span class="pre">_self</span></tt> и определять настройки непосредственно в текущем шаблоне:</p>
+<div class="last highlight-jinja"><pre>{% form_theme form _self %}
+
+{% block textarea_field %}
+    ...
+{% endblock %}
+
+{{ form_field(form.description, {}, {}, _self) }}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Прототипы<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Когда вы используете прототип формы, можно применять помощник render в форме вместо того, чтобы рендерить вручную все поля:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="cp">{{</span> <span class="nv">form_enctype</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">enctype</span><span class="p">(</span><span class="nv">$form</span><span class="p">)</span> <span class="cp">?&gt;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="nv">$form</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Поскольку нет блока или шаблона, определенного для класса <tt class="docutils literal"><span class="pre">Form</span></tt>, вместо них используется один из родительских классов - <tt class="docutils literal"><span class="pre">FieldGroup</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Twig</em><div class="highlight-html+jinja"><div class="highlight"><pre><span class="c">{# TwigBundle::form.html.twig #}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">field_group</span> <span class="cp">%}</span>
+    <span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">field</span><span class="o">)</span> <span class="cp">}}</span>
+    <span class="cp">{%</span> <span class="k">for</span> <span class="nv">child</span> <span class="k">in</span> <span class="nv">field</span> <span class="cp">%}</span>
+        <span class="cp">{%</span> <span class="k">if</span> <span class="k">not</span> <span class="nv">child.ishidden</span> <span class="cp">%}</span>
+            <span class="nt">&lt;div&gt;</span>
+                <span class="cp">{{</span> <span class="nv">form_label</span><span class="o">(</span><span class="nv">child</span><span class="o">)</span> <span class="cp">}}</span>
+                <span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">child</span><span class="o">)</span> <span class="cp">}}</span>
+                <span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">child</span><span class="o">)</span> <span class="cp">}}</span>
+            <span class="nt">&lt;/div&gt;</span>
+        <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+    <span class="cp">{{</span> <span class="nv">form_hidden</span><span class="o">(</span><span class="nv">field</span><span class="o">)</span> <span class="cp">}}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">field_group</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="c">&lt;!-- FrameworkBundle:Form:group/table/field_group.php --&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">(</span><span class="nv">$field</span><span class="p">)</span> <span class="cp">?&gt;</span>
+
+<span class="nt">&lt;div&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">foreach</span> <span class="p">(</span><span class="nv">$field</span><span class="o">-&gt;</span><span class="na">getVisibleFields</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$child</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+        <span class="nt">&lt;div&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">label</span><span class="p">(</span><span class="nv">$child</span><span class="p">)</span> <span class="cp">?&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">(</span><span class="nv">$child</span><span class="p">)</span> <span class="cp">?&gt;</span>
+            <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="nv">$child</span><span class="p">)</span> <span class="cp">?&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;?php</span> <span class="k">endforeach</span><span class="p">;</span> <span class="cp">?&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">hidden</span><span class="p">(</span><span class="nv">$field</span><span class="p">)</span> <span class="cp">?&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p class="last">Метод <tt class="docutils literal"><span class="pre">render</span></tt> - не очень гибкий, и должен использоваться лишь для постройки прототипов.</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

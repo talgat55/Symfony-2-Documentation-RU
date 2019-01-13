@@ -1,0 +1,403 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Контроллер &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Контроллер<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Всё ещё с нами после первых двух частей? Вы становитесь ярым приверженцем Symfony2!
+Давайте, без лишней суеты, узнаем что контроллеры могут сделать для вас.</p>
+<div class="section" id="index-1">
+<span id="id2"></span><h2>Использование форматов<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В наши дни, web приложение должно уметь выдавать не только HTML страницы.
+Начиная с XML для RSS каналов и Web служб, заканчивая JSON для Ajax запросов,
+существует множество различных форматов. Поддержка этих форматов в Symfony2
+проста. Измените <tt class="docutils literal"><span class="pre">routing.yml</span></tt>, добавив <tt class="docutils literal"><span class="pre">_format</span></tt> со значением <tt class="docutils literal"><span class="pre">xml</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># src/Application/HelloBundle/Resources/config/routing.yml</span>
+<span class="l-Scalar-Plain">hello</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">/hello/{name}</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">HelloBundle</span><span class="p-Indicator">:</span><span class="nv">Hello</span><span class="p-Indicator">:</span><span class="nv">index</span><span class="p-Indicator">,</span> <span class="nv">_format</span><span class="p-Indicator">:</span> <span class="nv">xml</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- src/Application/HelloBundle/Resources/config/routing.xml --&gt;</span>
+<span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/hello/{name}&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>HelloBundle:Hello:index<span class="nt">&lt;/default&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_format&quot;</span><span class="nt">&gt;</span>xml<span class="nt">&lt;/default&gt;</span>
+<span class="nt">&lt;/route&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Application/HelloBundle/Resources/config/routing.php</span>
+<span class="x">$collection-&gt;add(&#39;hello&#39;, new Route(&#39;/hello/{name}&#39;, array(</span>
+<span class="x">    &#39;_controller&#39; =&gt; &#39;HelloBundle:Hello:index&#39;,</span>
+<span class="x">    &#39;_format&#39;     =&gt; &#39;xml&#39;,</span>
+<span class="x">)));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Затем, наряду с <tt class="docutils literal"><span class="pre">index.twig.html</span></tt> добавьте шаблон <tt class="docutils literal"><span class="pre">index.twig.xml</span></tt>:</p>
+<div class="highlight-xml+php"><div class="highlight"><pre><span class="c">&lt;!-- src/Application/HelloBundle/Resources/views/Hello/index.twig.xml --&gt;</span>
+<span class="nt">&lt;hello&gt;</span>
+    <span class="nt">&lt;name&gt;</span>{{ name }}<span class="nt">&lt;/name&gt;</span>
+<span class="nt">&lt;/hello&gt;</span>
+</pre></div>
+</div>
+<p>И наконец, т.к. шаблон должен быть выбран в соответствии с форматом, внесите
+следующие изменения в контроллер:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Application/HelloBundle/Controller/HelloController.php</span>
+<span class="x">public function indexAction($name, $_format)</span>
+<span class="x">{</span>
+<span class="x">    return $this-&gt;render(</span>
+<span class="x">        &#39;HelloBundle:Hello:index.twig.&#39;.$_format,</span>
+<span class="x">        array(&#39;name&#39; =&gt; $name)</span>
+<span class="x">    );</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Вот и всё что для этого нужно. Нет нужды изменять контроллер. Для стандартных
+форматов Symfony2 автоматически подбирает заголовок <tt class="docutils literal"><span class="pre">Content-Type</span></tt> для ответа.
+Если хотите поддержку форматов лишь для одного действия, тогда используйте
+заполнитель <tt class="docutils literal"><span class="pre">{_format}</span></tt> в паттерне:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># src/Application/HelloBundle/Resources/config/routing.yml</span>
+<span class="l-Scalar-Plain">hello</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>      <span class="l-Scalar-Plain">/hello/{name}.{_format}</span>
+    <span class="l-Scalar-Plain">defaults</span><span class="p-Indicator">:</span>     <span class="p-Indicator">{</span> <span class="nv">_controller</span><span class="p-Indicator">:</span> <span class="nv">HelloBundle</span><span class="p-Indicator">:</span><span class="nv">Hello</span><span class="p-Indicator">:</span><span class="nv">index</span><span class="p-Indicator">,</span> <span class="nv">_format</span><span class="p-Indicator">:</span> <span class="nv">html</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">requirements</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">_format</span><span class="p-Indicator">:</span> <span class="nv">(html|xml|json)</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- src/Application/HelloBundle/Resources/config/routing.xml --&gt;</span>
+<span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;hello&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/hello/{name}.{_format}&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>HelloBundle:Hello:index<span class="nt">&lt;/default&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_format&quot;</span><span class="nt">&gt;</span>html<span class="nt">&lt;/default&gt;</span>
+    <span class="nt">&lt;requirement</span> <span class="na">key=</span><span class="s">&quot;_format&quot;</span><span class="nt">&gt;</span>(html|xml|json)<span class="nt">&lt;/requirement&gt;</span>
+<span class="nt">&lt;/route&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Application/HelloBundle/Resources/config/routing.php</span>
+<span class="x">$collection-&gt;add(&#39;hello&#39;, new Route(&#39;/hello/{name}.{_format}&#39;, array(</span>
+<span class="x">    &#39;_controller&#39; =&gt; &#39;HelloBundle:Hello:index&#39;,</span>
+<span class="x">    &#39;_format&#39;     =&gt; &#39;html&#39;,</span>
+<span class="x">), array(</span>
+<span class="x">    &#39;_format&#39; =&gt; &#39;(html|xml|json)&#39;,</span>
+<span class="x">)));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Таким образом контроллер будет вызыван для следующих URL:: <tt class="docutils literal"><span class="pre">/hello/Fabien.xml</span></tt>
+или <tt class="docutils literal"><span class="pre">/hello/Fabien.json</span></tt></p>
+<p>Запись <tt class="docutils literal"><span class="pre">requirements</span></tt> устанавилвает регулярные выражения, которым должны
+соотвествовать заполнители. Если в этом примере запросить ресурс <tt class="docutils literal"><span class="pre">/hello/Fabien.js</span></tt>
+вы получите ошибку 404 HTTP, потому что он не удовлетворяет тербованию для <tt class="docutils literal"><span class="pre">_format</span></tt>.</p>
+</div>
+<div class="section" id="response">
+<span id="index-2"></span><h2>Объект Response<a class="headerlink" href="#response" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Теперь, давайте вернёмся к контроллеру <tt class="docutils literal"><span class="pre">Hello</span></tt>:</p>
+<div class="highlight-python"><pre>// src/Application/HelloBundle/Controller/HelloController.php
+
+public function indexAction($name)
+{
+    return $this-&gt;render('HelloBundle:Hello:index.twig.html', array('name' =&gt; $name));
+}</pre>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">render()</span></tt> заполняет шаблон и возвращает объект <tt class="docutils literal"><span class="pre">Response</span></tt>. Ответ может
+быть оптимизирован, перед тем как отправится в браузер, допустим, чтобы изменить
+<tt class="docutils literal"><span class="pre">Content-Type</span></tt>:</p>
+<div class="highlight-python"><pre>public function indexAction($name)
+{
+    $response = $this-&gt;render('HelloBundle:Hello:index.twig.html', array('name' =&gt; $name));
+    $response-&gt;headers-&gt;set('Content-Type', 'text/plain');
+
+    return $response;
+}</pre>
+</div>
+<p>Для простейших шаблонов, вы даже можете создать объект <tt class="docutils literal"><span class="pre">Response</span></tt> вручную и
+сэкономить этим несколько миллисекунд:</p>
+<div class="highlight-python"><pre>public function indexAction($name)
+{
+    return new Response('Hello '.$name);
+}</pre>
+</div>
+<p>Это действительно полезно, когда контроллер должен отправить JSON ответ на Ajax
+запрос.</p>
+</div>
+<div class="section" id="index-3">
+<span id="id3"></span><h2>Управление ошибками<a class="headerlink" href="#index-3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Когда что-нибудь не найдено, вы должны вести честную игру с протоколом HTTP и
+вернуть ответ 404. Это легко сделать выдав встроенное исключение для HTTP:</p>
+<div class="highlight-python"><pre>use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+public function indexAction()
+{
+    $product = // retrieve the object from database
+    if (!$product) {
+        throw new NotFoundHttpException('The product does not exist.');
+    }
+
+    return $this-&gt;render(...);
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">NotFoundHttpException</span></tt> вернёт в браузер ответ 404 HTTP.</p>
+</div>
+<div class="section" id="index-4">
+<span id="id4"></span><h2>Перемещения и перенаправления<a class="headerlink" href="#index-4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если вы хотите переместить пользователя на другую страницу, используйте метод
+<tt class="docutils literal"><span class="pre">redirect()</span></tt>:</p>
+<div class="highlight-python"><pre>return $this-&gt;redirect($this-&gt;generateUrl('hello', array('name' =&gt; 'Lucas')));</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">generateUrl()</span></tt> такой же метод как и <tt class="docutils literal"><span class="pre">generate()</span></tt>, который мы применяли ранее в
+хелпере <tt class="docutils literal"><span class="pre">router</span></tt>. Он получает имя маршрута и массив параметров как аргументы
+и возвращает ассоциированный дружественный URL.</p>
+<p>Также вы можете легко переместить одно действие на другое с помощью метода
+<tt class="docutils literal"><span class="pre">forward()</span></tt>. Как и для хелпера <tt class="docutils literal"><span class="pre">actions</span></tt>, он применяет внутренний подзапрос,
+но возвращает объект <tt class="docutils literal"><span class="pre">Response</span></tt>, что позволяет в дальнейшем его изменить:</p>
+<div class="highlight-python"><pre>$response = $this-&gt;forward('HelloBundle:Hello:fancy', array('name' =&gt; $name, 'color' =&gt; 'green'));
+
+// do something with the response or return it directly</pre>
+</div>
+</div>
+<div class="section" id="request">
+<span id="index-5"></span><h2>Объект Request<a class="headerlink" href="#request" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Помимо значений заполнителей для маршрутизации, контроллер имеет доступ к
+объекту <tt class="docutils literal"><span class="pre">Request</span></tt>:</p>
+<div class="highlight-python"><pre>$request = $this-&gt;get('request');
+
+$request-&gt;isXmlHttpRequest(); // is it an Ajax request?
+
+$request-&gt;getPreferredLanguage(array('en', 'fr'));
+
+$request-&gt;query-&gt;get('page'); // get a $_GET parameter
+
+$request-&gt;request-&gt;get('page'); // get a $_POST parameter</pre>
+</div>
+<p>В шаблоне получить доступ к объекту <tt class="docutils literal"><span class="pre">Request</span></tt> можно через хелпер <tt class="docutils literal"><span class="pre">app.request</span></tt>:</p>
+<div class="highlight-python"><pre>.. code-block:: html+php</pre>
+</div>
+<blockquote>
+<div><p>{{ app.request.query.get(&#8216;page&#8217;) }}</p>
+<p>{{ app.request.parameter(&#8216;page&#8217;) }}</p>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h2>Сессия<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Протокол HTTP не имеет состояний, но Symfony2 предоставляет удобный объект
+сиссии, который представляет клиента (будь он человеком, использующим браузер,
+ботом или web службой). Между двумя запросами Symfony2 хранит атрибуты в cookie,
+используя родные сессии из PHP.</p>
+<p>Сохранение и получение информации из сессии легко выполняется из любого
+контроллера:</p>
+<div class="highlight-python"><pre>$session = $this-&gt;get('request')-&gt;getSession();
+
+// store an attribute for reuse during a later user request
+$session-&gt;set('foo', 'bar');
+
+// in another controller for another request
+$foo = $session-&gt;get('foo');
+
+// set the user locale
+$session-&gt;setLocale('fr');</pre>
+</div>
+<p>Также можно хранить небольшие сообщения, которые будут доступны для следующего
+запроса:</p>
+<div class="highlight-python"><pre>// store a message for the very next request (in a controller)
+$session-&gt;setFlash('notice', 'Congratulations, your action succeeded!');
+
+// display the message back in the next request (in a template)
+{{ app.session.flash('notice') }}</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>Заключительное слово<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Вот и всё что хотелось рассказать, и я даже уверен, что мы не использовали все
+отведённые 10 минут. Мы коротко рассмотрели бандлы в первой части, и все
+особенности о которых мы узнали являются частью бандлов ядра фреймворка.
+Но благодаря бандлам, в Symfony2 всё может быть
+расширено или заменено. Это и есть тема следующей части руководства.</p>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

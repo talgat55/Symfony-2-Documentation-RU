@@ -1,0 +1,360 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Установка и настройка Symfony2 &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Книга" href="index.html" />
+    <link rel="next" title="Создание страниц в Symfony2" href="page_creation.html" />
+    <link rel="prev" title="Symfony2 против чистого PHP" href="from_flat_php_to_symfony2.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="symfony2">
+<span id="index-0"></span><h1>Установка и настройка Symfony2<a class="headerlink" href="#symfony2" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Цель этой главы помочь вам настроить и запустить рабочее приложение, созданное
+при помощи Symfony. К счастью, Symfony предлагает &#8220;дистрибутивы&#8221;, которые
+представляют собой базовые проекты, которые вы можете загрузить и незамедлительно
+начать разработку.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Если вы ищите руководство по созданию нового проекта и размещению
+его в системе контроля версий, перейдите к секции <a class="reference internal" href="#id5">Использование системы контроля версий</a>.</p>
+</div>
+<div class="section" id="id1">
+<h2>Загрузка дистрибутива Symfony2<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Прежде всего, удостоверьтесь, что у вас установлен и настроен Web-сервер
+(например, Apache) и интерпретатор PHP 5.3.2 или более новый. Более подробную
+информацию о системных требованиях Symfony2 в можете найти в разделе
+<tt class="xref doc docutils literal"><span class="pre">Системные</span> <span class="pre">требования</span></tt>.</p>
+</div>
+<p>Дистрибутивы Symfony2 представляют собой полнофункциональные приложения,
+включающие ядро Symfony2, набор полезных пакетов (Bundles), разумную структуру
+директорий и конфигурацию по умолчанию. Когда вы загружаете дистрибутив Symfony2,
+вы фактически загружаете скелетон функционирующего приложения, который тут же
+можно начать использовать как базу для вашего собственного приложения.</p>
+<p>Начнём со страницы загрузки Symfony2 <a class="reference external" href="http://symfony.com/download">http://symfony.com/download</a>.
+На этой странице вы можете видеть дистрибутив <em>Symfony Standard Edition</em>,
+который является основным дистрибутивом. Теперь вам нужно принять 2 решения:</p>
+<ul class="simple">
+<li>Загрузить либо <tt class="docutils literal"><span class="pre">.tgz</span></tt> либо <tt class="docutils literal"><span class="pre">.zip</span></tt> архив - они идентичны, просто вопрос предпочтений.</li>
+<li>Загрузить дистрибутив, включающий сторонние библиотеки или же не включающий
+(with/without vendors). Если у вас установлен <a class="reference external" href="http://git-scm.com/">Git</a>, вы можете загрузить
+Symfony2 &#8220;without vendors&#8221;, так так это даст вам немного больше возможностей
+по включению сторонних библиотек/вендоров.</li>
+</ul>
+<p>Загрузите один из архивов в root-директорию вашего локального web-сервера
+и распакуйте его. В командной строке UNIX это можно выполнить при помощи
+одной из этих команд (заменяя <tt class="docutils literal"><span class="pre">###</span></tt> актуальным именем файла):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># for .tgz file</span>
+tar zxvf Symfony_Standard_Vendors_2.0.###.tgz
+
+<span class="c"># for a .zip file</span>
+unzip Symfony_Standard_Vendors_2.0.###.zip
+</pre></div>
+</div>
+<p>Когда вы выполните эту операцию, у вас будет директория <tt class="docutils literal"><span class="pre">Symfony/</span></tt>, которая
+будет выглядеть примерно так:</p>
+<div class="highlight-text"><div class="highlight"><pre>www/ &lt;- root директория вашего веб-сервера
+    Symfony/ &lt;- распакованный архив
+        app/
+            cache/
+            config/
+            logs/
+        src/
+            ...
+        vendor/
+            ...
+        web/
+            app.php
+            ...
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h3>Обновление Вендоров<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Далее, если вы загрузили архив &#8220;без вендоров&#8221; (without vendors), необходимо их
+установить, выполнив следующую команду:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php bin/vendors install
+</pre></div>
+</div>
+<p>Эта команда загрузит все необходимые библиотеки, включая собственно Symfony,
+в директорию <tt class="docutils literal"><span class="pre">vendor/</span></tt>. Более подробную информацию о том, как управлять сторонними
+библиотеками в Symfony2 вы можете получить в разделе &#8220;<a class="reference internal" href="../cookbook/workflow/new_project_git.html#cookbook-managing-vendor-libraries"><em>Управление внешними библиотеками с помощью bin/vendors и deps</em></a>&#8221;.</p>
+</div>
+<div class="section" id="id3">
+<h3>Конфигурация и настройка<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>На текущий момент все необходимые сторонние библиотеки теперь располагаются
+в директории <tt class="docutils literal"><span class="pre">vendor/</span></tt>. Также в директории <tt class="docutils literal"><span class="pre">app/</span></tt> расположены настройки по-умолчанию,
+а в директории <tt class="docutils literal"><span class="pre">src/</span></tt> пример кода.</p>
+<p>Symfony2 поставляется с визуальным тестером конфигурации веб-сервера, для того чтобы
+помочь вам определить, подходит ли конфигурация вашего сервера и PHP для Symfony.
+Используйте следующий URL для проверки конфигурации:</p>
+<div class="highlight-text"><div class="highlight"><pre>http://localhost/Symfony/web/config.php
+</pre></div>
+</div>
+<p>Если проверка показывает какие-либо несоответствия - исправьте их, прежде чем двигаться далее.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Настройка прав доступа</p>
+<p>Одно из типовых замечаний заключается в том, что директории <tt class="docutils literal"><span class="pre">app/cache</span></tt>
+и <tt class="docutils literal"><span class="pre">app/logs</span></tt> должны иметь права на запись как для веб-сервера, так и
+для пользователя, от имени которого выполняются команды из командной
+строки. В UNIX-системах, если пользователь, из-под которого запускается
+веб-сервер отличается от пользователя командной строки, вы можете выполнить
+следующие команды, для того чтобы быть уверенными, что права доступа
+настроены верно. Заменяйте <tt class="docutils literal"><span class="pre">www-data</span></tt> на пользователя веб-сервера и
+<tt class="docutils literal"><span class="pre">yourname</span></tt> на вашего пользователя командной строки:</p>
+<p><strong>1. Использование ACL в системах, которые поддерживают chmod +a</strong></p>
+<p>Многие системы позволяют использовать команду <tt class="docutils literal"><span class="pre">chmod</span> <span class="pre">+a</span></tt>. Попробуйте
+выполнить её, и если вы получите сообщение об ошибке - пробуйте следующий
+метод:</p>
+<div class="highlight-bash"><div class="highlight"><pre>rm -rf app/cache/*
+rm -rf app/logs/*
+
+sudo chmod +a <span class="s2">&quot;www-data allow delete,write,append,file_inherit,directory_inherit&quot;</span> app/cache app/logs
+sudo chmod +a <span class="s2">&quot;yourname allow delete,write,append,file_inherit,directory_inherit&quot;</span> app/cache app/logs
+</pre></div>
+</div>
+<p><strong>2. Использование Acl на системах, которые не поддерживают chmod +a</strong></p>
+<p>Некоторые системы не поддерживают <tt class="docutils literal"><span class="pre">chmod</span> <span class="pre">+a</span></tt>, но поддерживают другую
+утилиту, <tt class="docutils literal"><span class="pre">setfacl</span></tt>. Возможно, вам потребуется <a class="reference external" href="https://help.ubuntu.com/community/FilePermissions#ACLs">включить поддержку ACL</a>
+на вашем разделе и установить <tt class="docutils literal"><span class="pre">setfacl</span></tt> перед тем как использовать
+(это может потребоваться, например, если вы используете Ubuntu):</p>
+<div class="highlight-bash"><div class="highlight"><pre>sudo setfacl -R -m u:www-data:rwx -m u:yourname:rwx app/cache app/logs
+sudo setfacl -dR -m u:www-data:rwx -m u:yourname:rwx app/cache app/logs
+</pre></div>
+</div>
+<p><strong>3. Без использования ACL</strong></p>
+<p>Если у вас нет прав на изменение ACL для директорий, вам потребуется
+изменить umask таким образом, чтобы директории cache и log были доступны
+на запись группе или же всем (world-writable) в зависимости от того находятся
+ли пользователи веб-сервера и командной строки в одной группе или нет.
+Для этого нужно вставить следующую строчку в начало файлов <tt class="docutils literal"><span class="pre">app/console</span></tt>,
+<tt class="docutils literal"><span class="pre">web/app.php</span></tt> и <tt class="docutils literal"><span class="pre">web/app_dev.php</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">umask(0002); // Разрешает использовать права 0775</span>
+
+<span class="x">// или</span>
+
+<span class="x">umask(0000); // Разрешает использовать права 0777</span>
+</pre></div>
+</div>
+<p class="last">Имейте в виду, что использование ACL предпочтительнее, когда вы
+имеете доступ к ним на сервере, потому что смена umask не является
+thread-safe.</p>
+</div>
+<p>Когда все необходимые приготовления выполнены, кликните на ссылку &#8220;Go to the Welcome page&#8221;
+и перейдите на вашу первую &#8220;настоящую&#8221; страницу Symfony2:</p>
+<div class="highlight-text"><div class="highlight"><pre>http://localhost/Symfony/web/app_dev.php/
+</pre></div>
+</div>
+<p>Symfony2 поздоровкается и поздравит вас с проделанной тяжелой работой!!</p>
+<img alt="../_images/welcome.jpg" src="../_images/welcome.jpg" />
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Начало разработки<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Теперь, когда мы имеем настроенное Symfony2 приложение, вы можете
+начать разработку. Ваш дистрибутив может содержать примеры кода -
+прочтите файл <tt class="docutils literal"><span class="pre">README.rst</span></tt> из дистрибутива (это обычный текстовый файл)
+для того чтобы ознакомиться с тем, какие примеры включены в данный дистрибутив
+и как их можно будет удалить позднее.</p>
+<p>Если вы новичок в Symfony, ознакомьтесь с руководством &#8220;<a class="reference internal" href="page_creation.html"><em>Создание страниц в Symfony2</em></a>&#8221;,
+где вы узнаете, как создавать страницы, изменять настройки и вообще делать всё
+необходимое для создания нового приложения.</p>
+</div>
+<div class="section" id="id5">
+<h2>Использование системы контроля версий<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если вы используете систему контроля версий типа <tt class="docutils literal"><span class="pre">Git</span></tt> или <tt class="docutils literal"><span class="pre">Subversion</span></tt>,
+вы можете настроить вашу систему и начать коммитить ваш проект как вы это
+делаете обычно. Symfony Standard - это точка отсчёта для вашего нового проекта.</p>
+<p>Более подробные инструкции о том, как лучше всего настроить проект для
+хранения в git, загляните сюда: <a class="reference internal" href="../cookbook/workflow/new_project_git.html"><em>Как создать и разместить Проект на Symfony2 в git-репозитории</em></a>.</p>
+<div class="section" id="vendor">
+<h3>Игнорируем директорию <tt class="docutils literal"><span class="pre">vendor/</span></tt><a class="headerlink" href="#vendor" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Если вы загрузили архив <em>без вендоров</em> вы можете спокойно игнорить директорию
+<tt class="docutils literal"><span class="pre">vendor/</span></tt> целиком и не коммитить её содержимое в систему контроля версий.
+В <tt class="docutils literal"><span class="pre">Git</span></tt> этого можно добиться, создав файл <tt class="docutils literal"><span class="pre">.gitignore</span></tt> и добавив в него
+следующую строку:</p>
+<div class="highlight-text"><div class="highlight"><pre>vendor/
+</pre></div>
+</div>
+<p>После этого директория vendor не будет участвовать в коммитах. Это здорово
+(правда-правда!), потому что когда кто-то еще клонирует или выгрузит ваш проект
+он сможет запросто выполнить скрипт <tt class="docutils literal"><span class="pre">php</span> <span class="pre">bin/vendors</span> <span class="pre">install</span></tt> и загрузить
+все необходимые библиотеки.</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

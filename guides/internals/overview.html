@@ -1,0 +1,223 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SymfonyGuru | Symfony 2 documentation</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title=" v documentation" href="../../index.html" /> 
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/">Homepage</a>
+              </div>
+
+              <div class="right">
+                  <a href="/ru/" class="ru">RU</a> |
+                  <a href="/en/" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block">
+
+                  <h4>Скачать Symfony</h4>
+
+                  <p>Скачать последнюю версию Symfony можно <a target="_blank" href="http://symfony.com/download">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+              <div class="top_box_block">
+
+                  <h4>Документация Symfony</h4>
+
+                  <p>Документация по Symfony <a target="_blank" href="http://symfony.com/doc/current/">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+              <div class="top_box_block no_margin_r">
+
+                  <h4>Сообщество Symfony</h4>
+
+                  <p>Symfony коммьюнити тусуется <a target="_blank" href="http://symfony.com/community">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Обзор составных частей<a class="headerlink" href="#index-0" title="Permalink to this headline">¶</a></h1>
+<p>Похоже что вы хотите понять как работает Symfony2 и как его расширить.
+Это меня радует! Этот раздел подробно объясняет внутренности Symfony2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Чтение этого раздела необходимо только если вы хотите понять как работает
+Symfony2 за кулисами или если хотите расширять Symfony2.</p>
+</div>
+<p>Код Symfony2 сделан из нескольких независимых слоёв. Каждый слой возведён на
+вершине предыдущего.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Автозагрузка не управляется фреймворком напрямую; она выполняется
+независимо с помощью класса
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\UniversalClassLoader</span></tt>
+и файла <tt class="docutils literal"><span class="pre">src/autoload.php</span></tt>. Для дополнительной информации прочтите
+<tt class="xref doc docutils literal"><span class="pre">раздел</span></tt>, посвящённый этому.</p>
+</div>
+<div class="section" id="httpfoundation">
+<h2><tt class="docutils literal"><span class="pre">HttpFoundation</span></tt> компонент<a class="headerlink" href="#httpfoundation" title="Permalink to this headline">¶</a></h2>
+<p>На самом глубоком уровене находится компонент <a href="#id2"><span class="problematic" id="id3">:namespace:`Symfony\\Component\\HttpFoundation`</span></a>.
+HttpFoundation предоставляет главные объекты, необходимые для работы с HTTP.
+Это объектно-ориентированная абстракция некоторых встроенных PHP функций и
+переменных:</p>
+<ul class="simple">
+<li>Класс <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Request</span></tt> абстрагирует
+основные глобальные переменные в PHP, такие как <tt class="docutils literal"><span class="pre">$_GET</span></tt>, <tt class="docutils literal"><span class="pre">$_POST</span></tt>, <tt class="docutils literal"><span class="pre">$_COOKIE</span></tt>,
+<tt class="docutils literal"><span class="pre">$_FILES</span></tt> и <tt class="docutils literal"><span class="pre">$_SERVER</span></tt>;</li>
+<li>Класс <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Response</span></tt> абстрагирует
+некоторые PHP функции типа <tt class="docutils literal"><span class="pre">header()</span></tt>, <tt class="docutils literal"><span class="pre">setcookie()</span></tt> и <tt class="docutils literal"><span class="pre">echo</span></tt>;</li>
+<li>Класс <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Session</span></tt> и интерфейс
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\SessionStorage\SessionStorageInterface</span></tt>
+абстрагируют функции для работы с сессией <tt class="docutils literal"><span class="pre">session_*()</span></tt>.</li>
+</ul>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Узнайте больше о компоненте <tt class="xref doc docutils literal"><span class="pre">HttpFoundation</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="httpkernel">
+<h2><tt class="docutils literal"><span class="pre">HttpKernel</span></tt> компонент<a class="headerlink" href="#httpkernel" title="Permalink to this headline">¶</a></h2>
+<p>Над HttpFoundation располагается компонент <a href="#id4"><span class="problematic" id="id5">:namespace:`Symfony\\Component\\HttpKernel`</span></a>.
+HttpKernel управляет динамической частью HTTP; это тонкая обёртка для классов
+Request и Response чтобы привести способы отбработки запросов к стандарту.
+Компонент также предоставляет точки для расширений и инструменты, делающие
+его идеальной стартовой площадкой для создания Web фреймворка без лишних проблем.</p>
+<p>Также, по желанию, он добавляет настраиваемость и расширяемость благодаря
+компоненту Dependency Injection и могучей системе плагинов (бандлов).</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Узнайте больше о компоненте <tt class="xref doc docutils literal"><span class="pre">HttpKernel</span></tt>, о
+<tt class="xref doc docutils literal"><span class="pre">Dependency</span> <span class="pre">Injection</span></tt> и о
+<a class="reference internal" href="../bundles/index.html"><em>Бандлах</em></a>.</p>
+</div>
+</div>
+<div class="section" id="frameworkbundle">
+<h2>Бандл <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt><a class="headerlink" href="#frameworkbundle" title="Permalink to this headline">¶</a></h2>
+<p><a href="#id6"><span class="problematic" id="id7">:namespace:`Symfony\\Bundle\\FrameworkBundle`</span></a> - это бандл, связывающий
+главные компоненты и библиотеки вместе и делающий лёгкий и быстрый MVC фреймворк.
+Он поставляется с рациональной первоначальной конфигурацией и конвенциями для
+лучшего обучения.</p>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/">Home</a></li>
+              <li><a href="/content/en/about/">About</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Created and maintained by <a href="http://hudson.su" target="_blank">Dmitry Bykadorov</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

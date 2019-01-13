@@ -1,0 +1,341 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Поля формы &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="id1">
+<h1>Поля формы<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Форма состоит из одного или более полей. Каждое поле является объектом, класс которого реализует <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Form\FormFieldInterface</span></tt>. Поля преобразовывают данные из нормализованного представления в человеческое.</p>
+<p>Посмотрим, к примеру, на <tt class="docutils literal"><span class="pre">DateField</span></tt>. Хотя ваше приложение хранит даты как строки или объекты <tt class="docutils literal"><span class="pre">DateField</span></tt>, пользователи предпочитают выбирать дату из выпадающего списка. <tt class="docutils literal"><span class="pre">DateField</span></tt> занимается за вас рендерингом и преобразованием типов.</p>
+<div class="section" id="id2">
+<h2>Параметры полей ядра<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Все встроенные поля принимают массив свойств в свой конструктор. Для удобства эти поля ядра являются подклассами <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Form\Field</span></tt>, который предопределяет несколько свойств.</p>
+<div class="section" id="data">
+<h3><tt class="docutils literal"><span class="pre">data</span></tt><a class="headerlink" href="#data" title="Ссылка на этот заголовок">¶</a></h3>
+<p>При создании формы каждое поле изначально отображает значение соответствующего объекта доменного объекта формы. Если вы хотите переопределить это первоначальное значение, можете выставить его в свойстве <tt class="docutils literal"><span class="pre">data</span></tt>.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\HiddenField</span>
+
+<span class="x">$field = new HiddenField(&#39;token&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;abcdef&#39;,</span>
+<span class="x">));</span>
+
+<span class="x">assert(&#39;abcdef&#39; === $field-&gt;getData());</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>..Примечание::</dt>
+<dd>При выставлении опций <tt class="docutils literal"><span class="pre">data</span></tt> поле не будет писать доменный объект, потому что опция <tt class="docutils literal"><span class="pre">property_path</span></tt> неявно будет нулевой. Больше информации в <a class="reference internal" href="#form-field-property-path"><em>property_path</em></a>.</dd>
+</dl>
+</div>
+<div class="section" id="required">
+<h3><tt class="docutils literal"><span class="pre">required</span></tt><a class="headerlink" href="#required" title="Ссылка на этот заголовок">¶</a></h3>
+<p>По умолчанию каждое <tt class="docutils literal"><span class="pre">Field</span></tt> предполагает, что его значение является обязательным, поэтому должны использоваться не пустые значения. Этот параметр влияет на поведение и рендеринг некоторых полей. Например, <tt class="docutils literal"><span class="pre">ChoiceField</span></tt> включает в себя пустой выбор, если не является обязательным.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\ChoiceField</span>
+
+<span class="x">$field = new ChoiceField(&#39;status&#39;, array(</span>
+<span class="x">    &#39;choices&#39; =&gt; array(&#39;tbd&#39; =&gt; &#39;To be done&#39;, &#39;rdy&#39; =&gt; &#39;Ready&#39;),</span>
+<span class="x">    &#39;required&#39; =&gt; false,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="disabled">
+<h3><tt class="docutils literal"><span class="pre">disabled</span></tt><a class="headerlink" href="#disabled" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Если вы хотите, чтобы пользователь мог изменять значение поля, можете установить опцию <tt class="docutils literal"><span class="pre">disabled</span></tt> в <tt class="docutils literal"><span class="pre">true</span></tt>. Любые отправленные значения будут игнорироваться.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$field = new TextField(&#39;status&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;Old data&#39;,</span>
+<span class="x">    &#39;disabled&#39; =&gt; true,</span>
+<span class="x">));</span>
+<span class="x">$field-&gt;submit(&#39;New data&#39;);</span>
+
+<span class="x">assert(&#39;Old data&#39; === $field-&gt;getData());</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trim">
+<h3><tt class="docutils literal"><span class="pre">trim</span></tt><a class="headerlink" href="#trim" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Многие пользователи случайно вводят начальный или конечный пробел в поля ввода данных. Формы фреймворка автоматически удаляют такие пробелы. Если хотите сохранять их, установите опцию <tt class="docutils literal"><span class="pre">trim</span></tt> в <tt class="docutils literal"><span class="pre">false</span></tt>.
+.. code-block:: php</p>
+<blockquote>
+<div><p>use SymfonyComponentFormTextField</p>
+<dl class="docutils">
+<dt>$field = new TextField(&#8216;status&#8217;, array(</dt>
+<dd>&#8216;trim&#8217; =&gt; false,</dd>
+</dl>
+<p>));
+$field-&gt;submit(&#8216;   Data   &#8216;);</p>
+<p>assert(&#8216;   Data   &#8216; === $field-&gt;getData());</p>
+</div></blockquote>
+</div>
+<div class="section" id="property-path">
+<span id="form-field-property-path"></span><h3><tt class="docutils literal"><span class="pre">property_path</span></tt><a class="headerlink" href="#property-path" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Поля по умолчанию отображают свойства значений доменного объекта формы. При отправке формы, отправляемое значение записывается обратно в объект.</p>
+<p>Если вы хотите переопределить свойство, из которого поле читает и куда впоследствии записывает, можно установить опцию <tt class="docutils literal"><span class="pre">property_path</span></tt>. Ее значение по умолчанию - имя поля.
+.. code-block:: php</p>
+<blockquote>
+<div><p>use SymfonyComponentFormForm
+use SymfonyComponentFormTextField</p>
+<p>$author = new Author();
+$author-&gt;setFirstName(&#8216;Your name...&#8217;);</p>
+<p>$form = new Form(&#8216;author&#8217;);
+$form-&gt;add(new TextField(&#8216;name&#8217;, array(</p>
+<blockquote>
+<div>&#8216;property_path&#8217; =&gt; &#8216;firstName&#8217;,</div></blockquote>
+<p>)));
+$form-&gt;bind($request, $author);</p>
+<p>assert(&#8216;Your name...&#8217; === $form[&#8216;name&#8217;]-&gt;getData());</p>
+</div></blockquote>
+<p>Для свойства пути классу доменного объекта необходимы:
+1. Совпадающее публичное свойство или
+2. Публичные setter и getter с префиксами &#8220;set&#8221;/&#8221;get&#8221;, следующие за путем свойства.</p>
+<p>Пути свойства также могут ссылаться на вложенные объекты при помощи точек.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\Form</span>
+<span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$author = new Author();</span>
+<span class="x">$author-&gt;getEmail()-&gt;setAddress(&#39;me@example.com&#39;);</span>
+
+<span class="x">$form = new Form(&#39;author&#39;);</span>
+<span class="x">$form-&gt;add(new EmailField(&#39;email&#39;, array(</span>
+<span class="x">    &#39;property_path&#39; =&gt; &#39;email.address&#39;,</span>
+<span class="x">)));</span>
+<span class="x">$form-&gt;bind($request, $author);</span>
+
+<span class="x">assert(&#39;me@example.com&#39; === $form[&#39;email&#39;]-&gt;getData());</span>
+</pre></div>
+</div>
+<p>Вы можете обращаться к записям вложенных массивов или объектов, реализующих  <tt class="docutils literal"><span class="pre">\Traversable</span></tt>, с помощью квадратных скобок.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\Form</span>
+<span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$author = new Author();</span>
+<span class="x">$author-&gt;setEmails(array(0 =&gt; &#39;me@example.com&#39;));</span>
+
+<span class="x">$form = new Form(&#39;author&#39;);</span>
+<span class="x">$form-&gt;add(new EmailField(&#39;email&#39;, array(</span>
+<span class="x">    &#39;property_path&#39; =&gt; &#39;emails[0]&#39;,</span>
+<span class="x">)));</span>
+<span class="x">$form-&gt;bind($request, $author);</span>
+
+<span class="x">assert(&#39;me@example.com&#39; === $form[&#39;email&#39;]-&gt;getData());</span>
+</pre></div>
+</div>
+<p>Если свойство пути - <tt class="docutils literal"><span class="pre">null</span></tt>, поле не будет ни читать из доменного объекта, ни писать в него. Это удобно, если вы хотите иметь поля с фиксированными значениями.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\HiddenField</span>
+
+<span class="x">$field = new HiddenField(&#39;token&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;abcdef&#39;,</span>
+<span class="x">    &#39;property_path&#39; =&gt; null,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+<p>Поскольку это весьма распространенный сценарий, <tt class="docutils literal"><span class="pre">property_path</span></tt> всегда <tt class="docutils literal"><span class="pre">null</span></tt>, если вы устанавливаете опцию <tt class="docutils literal"><span class="pre">data</span></tt>. Так что предыдущий пример кода может быть упрощен до:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\HiddenField</span>
+
+<span class="x">$field = new HiddenField(&#39;token&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;abcdef&#39;,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+<p>Если вы хотите установить специальное значение, но тем не менее писать в доменный объект, вам придется пропустить <tt class="docutils literal"><span class="pre">property_path</span></tt> вручную.</p>
+<blockquote>
+<div><div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\TextField</span>
+
+<span class="x">$field = new TextField(&#39;name&#39;, array(</span>
+<span class="x">    &#39;data&#39; =&gt; &#39;Custom default...&#39;,</span>
+<span class="x">    &#39;property_path&#39; =&gt; &#39;token&#39;,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Обычно в этом нет необходимости, поскольку лучше использовать значение по умолчанию свойства <tt class="docutils literal"><span class="pre">token</span></tt> в вашем доменном объекте.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Встроенные поля<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Symfony2 использует следующие поля:
+.. toctree:</p>
+<div class="highlight-python"><pre>:hidden:
+
+fields/index</pre>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

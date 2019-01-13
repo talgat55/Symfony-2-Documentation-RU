@@ -1,0 +1,252 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Как использовать Varnish для ускорения работы сайта &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" />
+    <link rel="up" title="Cookbook" href="../index.html" />
+    <link rel="next" title="Внедрение переменных во все шаблоны (т.н. Глобальные переменные)" href="../templating/global_variables.html" />
+    <link rel="prev" title="Как использовать профилировщик в Функциональном тесте" href="../testing/profiling.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="varnish">
+<span id="index-0"></span><h1>Как использовать Varnish для ускорения работы сайта<a class="headerlink" href="#varnish" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Так как кеш Symfony2 использует стандартные HTTP-заголовки кеша, <a class="reference internal" href="../../book/http_cache.html#symfony-gateway-cache"><em>Обратный прокси Symfony2</em></a>
+может быть легко заменен любым другим reverse proxy. Varnish - это мощный HTTP-акселератор
+с открыытми исходными кодами, который позволяет быстро отдавать закешированный контент
+и позволяет использовать <a class="reference internal" href="../../book/http_cache.html#edge-side-includes"><em>Edge Side Includes</em></a>.</p>
+<div class="section" id="index-1">
+<span id="id1"></span><h2>Настройка<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Как мы видели раньше, Symfony2 может определить, используется ли reverse proxy, который
+понимает ESI, или нет. Это работает «из коробки», когда вы пользуетесь reverse proxy в Symfony2, но
+для работы с Varnish нужна специальная настройка. Благодаря стандарту, разработанному Akamaï
+(<a href="#id3"><span class="problematic" id="id4">`Edge Architecture`_</span></a>), советы из этой главы могут быть полезны даже если вы не используете Symfony2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Varnish поддерживает только атрибут <tt class="docutils literal"><span class="pre">src</span></tt> для тегов ESI (атрибуты <tt class="docutils literal"><span class="pre">onerror</span></tt> и <tt class="docutils literal"><span class="pre">alt</span></tt> игнорируются).</p>
+</div>
+<p>Для начала настройте Varnish таким образом, чтобы он оповещал о поддержке ESI
+через заголовок <tt class="docutils literal"><span class="pre">Surrogate-Capability</span></tt> тех запросов, которые перенаправляются backend-приложению:</p>
+<div class="highlight-text"><div class="highlight"><pre>sub vcl_recv {
+    set req.http.Surrogate-Capability = &quot;abc=ESI/1.0&quot;;
+}
+</pre></div>
+</div>
+<p>Затем, оптимизируйте Varnish таким образом, чтобы он парсил содержимое ответа,
+когда в нем присутствует хотя бы один тег ESI. Этого можно добиться, проверив наличие ответа
+<tt class="docutils literal"><span class="pre">Surrogate-Control</span></tt>, который добавляется автоматически Symfony2:</p>
+<div class="highlight-text"><div class="highlight"><pre>sub vcl_fetch {
+    if (beresp.http.Surrogate-Control ~ &quot;ESI/1.0&quot;) {
+        unset beresp.http.Surrogate-Control;
+        esi;
+    }
+}
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p class="last">Не используйте сжатие с ESI, так как Varnish не сможет пропарсить
+содержимое ответа. Если вы хотите использовать сжатие, установите веб-сервер
+перед Varnish, который бы организовывал сжатие ответа.</p>
+</div>
+</div>
+<div class="section" id="index-2">
+<span id="id2"></span><h2>Аннулирование кеша<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>По идее, вам никогда не потребуется аннулирование кеша, потому что это уже учитывается в HTTP
+(см. <a class="reference internal" href="../../book/http_cache.html#http-cache-invalidation"><em>Очистка (аннулирование) кэша</em></a>).</p>
+<p>Однако, Varnish может быть настроен так, чтобы мог принимать специальный метод HTTP - <tt class="docutils literal"><span class="pre">PURGE</span></tt> -
+который может аннулировать кеш для входящих запросов:</p>
+<div class="highlight-text"><div class="highlight"><pre>sub vcl_hit {
+    if (req.request == &quot;PURGE&quot;) {
+        set obj.ttl = 0s;
+        error 200 &quot;Purged&quot;;
+    }
+}
+
+sub vcl_miss {
+    if (req.request == &quot;PURGE&quot;) {
+        error 404 &quot;Not purged&quot;;
+    }
+}
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p class="last">Мы должны ограничить доступ к HTTP-методу <tt class="docutils literal"><span class="pre">PURGE</span></tt>, чтобы избежать его использование
+другими людьми;</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

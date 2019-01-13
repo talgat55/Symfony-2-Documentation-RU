@@ -1,0 +1,294 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Как автоматически загружать классы &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" />
+    <link rel="up" title="Cookbook" href="../index.html" />
+    <link rel="next" title="Как искать файлы" href="finder.html" />
+    <link rel="prev" title="Как использовать Monolog для журналирования" href="../logging/monolog.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Как автоматически загружать классы<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В случаях когда используются неопределенные классы, PHP использует
+механизм автозагрузки которому поручает загрузку файла описывающего
+класс. С Symfony2 поставляется универсальный автозагрузчик, который
+может загружать классы из файлов, которые реализуют одно из следующих
+соглашений:</p>
+<ul class="simple">
+<li>Технические <a class="reference external" href="http://groups.google.com/group/php-standards/web/psr-0-final-proposal">стандарты</a> взаимодействия для имен пространств
+и классов PHP 5.3;</li>
+<li>Соглашения именования классов в <a class="reference external" href="http://pear.php.net/manual/en/standards.php">PEAR</a>.</li>
+</ul>
+<p>Если ваши классы и библиотеки 3-х лиц которыми вы пользуетесь в проекте
+следуют данным стандартам, автозагрузчик Symfony2 единственный автозагрузчик
+который вам когда-либо понадобиться.</p>
+<div class="section" id="id2">
+<h2>Использование<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p class="versionadded">
+<span class="versionmodified">Добавлено в версии 2.1: </span>The <tt class="docutils literal"><span class="pre">useIncludePath</span></tt> method was added in Symfony 2.1.</p>
+<p>Регистрация класса <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\ClassLoader\UniversalClassLoader</span></tt>
+автозагрузки проста:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php&#39;</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\ClassLoader\UniversalClassLoader</span><span class="p">;</span>
+
+<span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UniversalClassLoader</span><span class="p">();</span>
+
+<span class="c1">// В качестве последней инстанции ищем в include_path.</span>
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">useIncludePath</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>С целью улучшения быстродействия - пути к классам могут кэшироваться в памяти
+при помощи APC - для этого необходимо регистрировать класс
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\ClassLoader\ApcUniversalClassLoader</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;/path/to/src/Symfony/Component/ClassLoader/UniversalClassLoader.php&#39;</span><span class="p">;</span>
+<span class="k">require_once</span> <span class="s1">&#39;/path/to/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php&#39;</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\ClassLoader\ApcUniversalClassLoader</span><span class="p">;</span>
+
+<span class="nv">$loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ApcUniversalClassLoader</span><span class="p">(</span><span class="s1">&#39;apc.prefix.&#39;</span><span class="p">);</span>
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Автозагрузчик полезен только при условии того, что вы добавите несколько библиотек для
+автозагрузки.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Автозагрузчик автоматически регистрируется приложением на Symfony2 (см.
+<tt class="docutils literal"><span class="pre">app/autoload.php</span></tt>).</p>
+</div>
+<p>Если классы которые требуется автоматически загружать используют пространства имён,
+применяйте методы <a href="#id3"><span class="problematic" id="id4">:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespace`</span></a>
+или
+<a href="#id5"><span class="problematic" id="id6">:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerNamespaces`</span></a>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">registerNamespace</span><span class="p">(</span><span class="s1">&#39;Symfony&#39;</span><span class="p">,</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/symfony/src&#39;</span><span class="p">);</span>
+
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">registerNamespaces</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Symfony&#39;</span> <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/../vendor/symfony/src&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Monolog&#39;</span> <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/../vendor/monolog/src&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Для классов которые используют соглашения об именовании в стиле
+PEAR, используйте метод <a href="#id7"><span class="problematic" id="id8">:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerPrefix`</span></a>
+или <a href="#id9"><span class="problematic" id="id10">:method:`Symfony\\Component\\ClassLoader\\UniversalClassLoader::registerPrefixes`</span></a>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">registerPrefix</span><span class="p">(</span><span class="s1">&#39;Twig_&#39;</span><span class="p">,</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/twig/lib&#39;</span><span class="p">);</span>
+
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">registerPrefixes</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Swift_&#39;</span> <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/swiftmailer/lib/classes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Twig_&#39;</span>  <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/twig/lib&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Некоторые библиотеки требуют чтобы их корневой каталог также был
+включен в качестве пути для поиска PHP (<tt class="docutils literal"><span class="pre">set_include_path()</span></tt>).</p>
+</div>
+<p>Классы находящиеся в подпространствах имён или в суб-иерархии классов PEAR
+можно легко сгруппировать в подмножества, которые можно использовать в
+больших проектах:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">registerNamespaces</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Doctrine\\Common&#39;</span>           <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/doctrine-common/lib&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Doctrine\\DBAL\\Migrations&#39;</span> <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/doctrine-migrations/lib&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Doctrine\\DBAL&#39;</span>             <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/doctrine-dbal/lib&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Doctrine&#39;</span>                   <span class="o">=&gt;</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/doctrine/lib&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+
+<span class="nv">$loader</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>В этом примере, при попытке использования класса в пространстве имен <tt class="docutils literal"><span class="pre">Doctrine\Common</span></tt>
+или его потомков, автозагрузчик в первую очередь просмотрит в поисках класса каталог
+<tt class="docutils literal"><span class="pre">doctrine-common</span></tt>, и в последнюю очередь каталог <tt class="docutils literal"><span class="pre">Doctrine</span></tt> (который сконфигурирован
+последним). В данном случае порядок регистрации классов важен.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

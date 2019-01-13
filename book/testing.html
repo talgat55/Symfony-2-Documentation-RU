@@ -1,0 +1,845 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Тестирование &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Книга" href="index.html" />
+    <link rel="next" title="Валидация" href="validation.html" />
+    <link rel="prev" title="Базы данных и Doctrine (“Модель”)" href="doctrine.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Тестирование<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Как только вы пишете новую строку кода, вы также потенциально добавляете новые
+ошибки. Для того чтобы создавать надёжные приложения, вы должны использовать
+как функциональные, так и модульные (unit) тесты.</p>
+<div class="section" id="phpunit">
+<h2>Тестовый фреймворк PHPUnit<a class="headerlink" href="#phpunit" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В Symfony2 интегрирована поддержка независимой библиотеки - называемой PHPUnit - чтобы
+предоставить вам отличный тестовый фреймворк. Эта глава не покрывает все нюансы PHPUnit,
+так как вы всегда можете почитать его подробную <a class="reference external" href="http://www.phpunit.de/manual/3.5/en/">документацию</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Symfony2 работает с PHPUnit 3.5.11 или старше.</p>
+</div>
+<p>Каждый тест - вне зависимости от того функциональный он или модульный - это
+PHP класс, который расположен в поддиректории <cite>Tests/</cite> вашиг пакетов. Если вы
+будете следовать этому правилу, то вы сможете запускать все тесты вашего приложения
+при помощи команды:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># укажите папку с конфигами в командной строке</span>
+<span class="nv">$ </span>phpunit -c app/
+</pre></div>
+</div>
+<p>Опция <tt class="docutils literal"><span class="pre">-c</span></tt> указывает PHPUnit искать конфигурационный файл в директории <tt class="docutils literal"><span class="pre">app/</span></tt>.
+Если вы интересуетесь опциями PHPUnit, обратите внимание на файл <tt class="docutils literal"><span class="pre">app/phpunit.xml.dist</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Покрытие кода может быть получено с помощью опции <tt class="docutils literal"><span class="pre">--coverage-html</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="index-1">
+<span id="id2"></span><h2>Модульные тесты<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Модульный тест - это как правило тест одного отдельного PHP класса. Если вы
+хотите тестировать поведение вашего приложения целиком, обратитесь к секции
+<a class="reference internal" href="#id3">Функциональные тесты</a>.</p>
+<p>Написание модульных тестов в Symfony2 не отличается от написания стандартных
+модульных тестов PHPUnit. Например, предположим, у вас есть <em>очень</em> простой
+класс <tt class="docutils literal"><span class="pre">Calculator</span></tt> в директории <tt class="docutils literal"><span class="pre">Utility/</span></tt> вашего пакета:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/DemoBundle/Utility/Calculator.php</span>
+<span class="k">namespace</span> <span class="nx">Acme\DemoBundle\Utility</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Calculator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Для того, чтобы его протестировать, создайте файл <tt class="docutils literal"><span class="pre">CalculatorTest</span></tt> в директории
+<tt class="docutils literal"><span class="pre">Tests/Utility</span></tt> вашего пакета:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/DemoBundle/Tests/Utility/CalculatorTest.php</span>
+<span class="k">namespace</span> <span class="nx">Acme\DemoBundle\Tests\Utility</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Acme\DemoBundle\Utility\Calculator</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">CalculatorTest</span> <span class="k">extends</span> <span class="nx">\PHPUnit_Framework_TestCase</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">testAdd</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$calc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Calculator</span><span class="p">();</span>
+        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$calc</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+
+        <span class="c1">// assert that our calculator added the numbers correctly!</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertEquals</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="nv">$result</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">По соглашению, под-директория <tt class="docutils literal"><span class="pre">Tests/</span></tt> должна повторять структуру директорий
+вашего пакета. Т.о. если вы тестируете класс вашего пакета из директории
+<tt class="docutils literal"><span class="pre">Utility/</span></tt>, поместите тест в директорию <tt class="docutils literal"><span class="pre">Tests/Utility/</span></tt>.</p>
+</div>
+<p>Как и в вашем приложении, автозагрузка включается автоматически при помощи
+файла <tt class="docutils literal"><span class="pre">bootstrap.php.cache</span></tt> (это по умолчанию настроено в файле <tt class="docutils literal"><span class="pre">phpunit.xml.dist</span></tt>).</p>
+<p>Выполнить тесты для заданного файла или папки также просто:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># run all tests in the Utility directory</span>
+<span class="nv">$ </span>phpunit -c app src/Acme/DemoBundle/Tests/Utility/
+
+<span class="c"># run tests for the Calculator class</span>
+<span class="nv">$ </span>phpunit -c app src/Acme/DemoBundle/Tests/Utility/CalculatorTest.php
+
+<span class="c"># запустить все тесты для целого Bundle</span>
+<span class="nv">$ </span>phpunit -c app src/Acme/DemoBundle/
+</pre></div>
+</div>
+</div>
+<div class="section" id="index-2">
+<span id="id3"></span><h2>Функциональные тесты<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Функциональные тесты проверяют объединения различных слоёв приложения (от
+маршрутизации до видов). Они не отличаются от модульных тестов настолько,
+насколько PHPUnit позволяет это, но имеют конкретный рабочий процесс:</p>
+<ul class="simple">
+<li>Сделать запрос;</li>
+<li>Протестировать ответ;</li>
+<li>Кликнуть по ссылке или отправить форму;</li>
+<li>Протестировать ответ;</li>
+<li>Профильтровать и повторить.</li>
+</ul>
+<div class="section" id="id4">
+<h3>Ваш первый функциональный тест<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Функциональные тесты - это простые PHP классы, которые, как правило, располагаются
+в директории пакета <tt class="docutils literal"><span class="pre">Tests/Controller</span></tt>. Если вы хотите протестировать страницы,
+которые содержит ваш класс <tt class="docutils literal"><span class="pre">DemoController</span></tt>, создайте новый класс, который
+расширяет специальный класс <tt class="docutils literal"><span class="pre">WebTestCase</span></tt>.</p>
+<p>Например, Symfony2 Standard Edition предоставляет простой функциональный тест для
+его <tt class="docutils literal"><span class="pre">DemoController</span></tt> (<a class="reference external" href="https://github.com/symfony/symfony-standard/blob/master/src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php">DemoControllerTest</a>), который выглядит так:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/DemoBundle/Tests/Controller/DemoControllerTest.php</span>
+<span class="k">namespace</span> <span class="nx">Acme\DemoBundle\Tests\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Bundle\FrameworkBundle\Test\WebTestCase</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">DemoControllerTest</span> <span class="k">extends</span> <span class="nx">WebTestCase</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">testIndex</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$client</span> <span class="o">=</span> <span class="k">static</span><span class="o">::</span><span class="na">createClient</span><span class="p">();</span>
+
+        <span class="nv">$crawler</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;/demo/hello/Fabien&#39;</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="s1">&#39;html:contains(&quot;Hello Fabien&quot;)&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Для запуска ваших функциональных тестов, класс <tt class="docutils literal"><span class="pre">WebTestCase</span></tt>
+загружает ядро вашего приложения. В большинстве случаев, это происходит
+автоматически. Тем не менее, если ваше ядро находится в нестандартной
+директории, вам нужно модифицировать файл <tt class="docutils literal"><span class="pre">phpunit.xml.dist</span></tt> и
+установить переменную среды <tt class="docutils literal"><span class="pre">KERNEL_DIR</span></tt> на директорию вашего ядра:</p>
+<div class="last highlight-python"><pre>&lt;phpunit
+    &lt;!-- ... --&gt;
+    &lt;php&gt;
+        &lt;server name="KERNEL_DIR" value="/path/to/your/app/" /&gt;
+    &lt;/php&gt;
+    &lt;!-- ... --&gt;
+&lt;/phpunit&gt;</pre>
+</div>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">createClient()</span></tt> возвращает клиент, который напоминает браузер, который
+вы используете для просмотра вашего сайта:</p>
+<div class="highlight-python"><pre>$crawler = $client-&gt;request('GET', '/demo/hello/Fabien');</pre>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">request()</span></tt> (см. <a class="reference internal" href="#book-testing-request-method-sidebar"><em>подробнее о методе request</em></a>)
+возвращает объект <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\DomCrawler\Crawler</span></tt>, который может быть
+использован для выбора элементов в Response, кликов по ссылкам и отправки форм.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Crawler может использоваться только в том случае, если содержимое Response
+это XML или HTML документ. Для других типов нужно получать содержимое Response
+через <tt class="docutils literal"><span class="pre">$client-&gt;getResponse()-&gt;getContent()</span></tt>.</p>
+</div>
+<p>Давайте кликнем по ссылке, выбрав её при помощи Crawler используя XPath
+или CSS селектор, затем используем Client для собственно клика. Например,
+следующий код находит все ссылки с текстом <tt class="docutils literal"><span class="pre">Greet</span></tt>, затем выбирает
+вторую из них и кликает на неё:</p>
+<div class="highlight-python"><pre>$link = $crawler-&gt;filter('a:contains("Greet")')-&gt;eq(1)-&gt;link();
+
+$crawler = $client-&gt;click($link);</pre>
+</div>
+<p>Отправка формы происходит схожим образом: выберите кнопку на форме, по желанию
+переопределите какие-нибудь значения формы, и отправьте её:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$form</span> <span class="o">=</span> <span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">selectButton</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">form</span><span class="p">();</span>
+
+<span class="c1">// устанавливает какие-нибудь значения</span>
+<span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Lucas&#39;</span><span class="p">;</span>
+<span class="nv">$form</span><span class="p">[</span><span class="s1">&#39;form_name[subject]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Hey there!&#39;</span><span class="p">;</span>
+
+<span class="c1">// отправляет форму</span>
+<span class="nv">$crawler</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">submit</span><span class="p">(</span><span class="nv">$form</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Форма также поддерживет загрузку файлов и содержит методы для заполнения различных типов
+полей (например, <tt class="docutils literal"><span class="pre">select()</span></tt> и <tt class="docutils literal"><span class="pre">tick()</span></tt>). Подробнее читайте в секции <a class="reference internal" href="#id13">Формы</a>
+ниже.</p>
+</div>
+<p>Теперь, когда вы с лёгкостью можете перемещаться по приложению, воспользуйтесь
+утверждениями чтобы проверить ожидаемые действия. Воспользуйтесь Crawler чтобы
+сделать утверждения для DOM:</p>
+<div class="highlight-python"><pre>// Утверждает что ответ соотвествует заданному CSS селектору.
+$this-&gt;assertTrue($crawler-&gt;filter('h1')-&gt;count() &gt; 0);</pre>
+</div>
+<p>Или проверьте содержимое Response напрямую, если хотите убедиться что его
+содержимое включает какой-то текст, или что Response не является документом
+XML/HTML:</p>
+<div class="highlight-python"><pre>$this-&gt;assertRegExp('/Hello Fabien/', $client-&gt;getResponse()-&gt;getContent());</pre>
+</div>
+<div class="sidebar" id="book-testing-request-method-sidebar">
+<p class="first sidebar-title">Подробнее о методе <tt class="docutils literal"><span class="pre">request()</span></tt>:</p>
+<p>Полная сигнатура метода <tt class="docutils literal"><span class="pre">request()</span></tt>:</p>
+<blockquote>
+<div><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nx">request</span><span class="p">(</span>
+    <span class="nv">$method</span><span class="p">,</span>
+    <span class="nv">$uri</span><span class="p">,</span>
+    <span class="k">array</span> <span class="nv">$parameters</span> <span class="o">=</span> <span class="k">array</span><span class="p">(),</span>
+    <span class="k">array</span> <span class="nv">$files</span> <span class="o">=</span> <span class="k">array</span><span class="p">(),</span>
+    <span class="k">array</span> <span class="nv">$server</span> <span class="o">=</span> <span class="k">array</span><span class="p">(),</span>
+    <span class="nv">$content</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span>
+    <span class="nv">$changeHistory</span> <span class="o">=</span> <span class="k">true</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Массив <tt class="docutils literal"><span class="pre">server</span></tt> - это значения, которые вы как правило ожидаете найти в
+суперглобальном массиве <a class="reference external" href="http://php.net/manual/en/reserved.variables.server.php">$_SERVER</a>. Например, для того, чтобы установить
+HTTP заголовки <cite>Content-Type</cite> и <cite>Referer</cite> вы должны передать следующее:</p>
+<blockquote class="last">
+<div><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span>
+    <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/demo/hello/Fabien&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(),</span>
+    <span class="k">array</span><span class="p">(),</span>
+    <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;CONTENT_TYPE&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;HTTP_REFERER&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/foo/bar&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<span class="target" id="index-3"></span><hr class="docutils" />
+<blockquote>
+<div><p>Для быстрого старта обратите внимание на список наиболе типовых
+и полезных утверждений:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// Утверждает что имеется единственный таг h2 с классом &quot;subtitle&quot;</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="s1">&#39;h2.subtitle&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+
+<span class="c1">// Утверждает что на странице имеется 4 тага h2</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertEquals</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">());</span>
+
+<span class="c1">// Утверждает что заголовок &quot;Content-Type&quot; - &quot;application/json&quot;</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">headers</span><span class="o">-&gt;</span><span class="na">contains</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;application/json&#39;</span><span class="p">));</span>
+
+<span class="c1">// Утверждает что тело ответа соответствует регулярному выражению</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertRegExp</span><span class="p">(</span><span class="s1">&#39;/foo/&#39;</span><span class="p">,</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getContent</span><span class="p">());</span>
+
+<span class="c1">// Утверждает что статус-код ответа 2xx</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">isSuccessful</span><span class="p">());</span>
+<span class="c1">// Утверждает что статус-код ответа 404</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">isNotFound</span><span class="p">());</span>
+<span class="c1">// Утверждает что статус-код ответа точно 200</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertEquals</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getStatusCode</span><span class="p">());</span>
+
+<span class="c1">// Утверждает что ответ - это перенаправление на /demo/contact</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">isRedirect</span><span class="p">(</span><span class="s1">&#39;/demo/contact&#39;</span><span class="p">));</span>
+<span class="c1">// или просто проверяет, что ответ - это перенаправление на любой URL</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertTrue</span><span class="p">(</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">isRedirect</span><span class="p">());</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="index-4">
+<span id="id5"></span><h2>Работаем с Тестовым клиентом<a class="headerlink" href="#index-4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Тестовый клиент симулирует HTTP клиент (как правило это браузер) и выполняет запросы к
+вашему Symfony2 приложению:</p>
+<div class="highlight-python"><pre>$crawler = $client-&gt;request('GET', '/hello/Fabien');</pre>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">request()</span></tt> принимает в качестве аргументов HTTP метод и URL и возвращает экземпляр
+<tt class="docutils literal"><span class="pre">Crawler</span></tt>.</p>
+<p>Используйет Crawler для нахождения DOM-элементов в теле Response. После эти элементы могут
+быть использованы для кликов по ссылкам и отправки форм:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$link</span> <span class="o">=</span> <span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">selectLink</span><span class="p">(</span><span class="s1">&#39;Go elsewhere...&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">link</span><span class="p">();</span>
+<span class="nv">$crawler</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">click</span><span class="p">(</span><span class="nv">$link</span><span class="p">);</span>
+
+<span class="nv">$form</span> <span class="o">=</span> <span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">selectButton</span><span class="p">(</span><span class="s1">&#39;validate&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">form</span><span class="p">();</span>
+<span class="nv">$crawler</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">submit</span><span class="p">(</span><span class="nv">$form</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Fabien&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Методы <tt class="docutils literal"><span class="pre">click()</span></tt> и <tt class="docutils literal"><span class="pre">submit()</span></tt> возвращают объект <tt class="docutils literal"><span class="pre">Crawler</span></tt>.
+Эти методы - лучший способ просматривать ваше приложение, так как
+они заботятся о многих вещах, например определении HTTP метода формы,
+и предоставляют вам удобный API для загрузки файлов.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Больше узнать об объектах <tt class="docutils literal"><span class="pre">Link</span></tt> и <tt class="docutils literal"><span class="pre">Form</span></tt> можно в разделе
+<a class="reference internal" href="#book-testing-crawler"><em>Crawler</em></a>.</p>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">request</span></tt> может также быть использован для симуляции отправки форм
+или для выполнения более сложных запросов:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// Прямая отправка формы (можно и так, но легче использовать Crawler!)</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;/submit&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Fabien&#39;</span><span class="p">));</span>
+
+<span class="c1">// Отправка формы с загрузкой файла</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\File\UploadedFile</span><span class="p">;</span>
+
+<span class="nv">$photo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UploadedFile</span><span class="p">(</span>
+    <span class="s1">&#39;/path/to/photo.jpg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;photo.jpg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;image/jpeg&#39;</span><span class="p">,</span>
+    <span class="mi">123</span>
+<span class="p">);</span>
+<span class="c1">// или</span>
+<span class="nv">$photo</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;tmp_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/path/to/photo.jpg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;photo.jpg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;image/jpeg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">123</span><span class="p">,</span>
+    <span class="s1">&#39;error&#39;</span> <span class="o">=&gt;</span> <span class="nx">UPLOAD_ERR_OK</span>
+<span class="p">);</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span>
+    <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/submit&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Fabien&#39;</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">&#39;photo&#39;</span> <span class="o">=&gt;</span> <span class="nv">$photo</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">// Выполнение DELETE запросов, и отправка HTTP заголовков</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span>
+    <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/post/12&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(),</span>
+    <span class="k">array</span><span class="p">(),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">&#39;PHP_AUTH_USER&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;PHP_AUTH_PW&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;pa$$word&#39;</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>И последнее, но не менее важное, можно заставить каждый запрос выполняться в
+собственном процессе PHP чтобы избежать любых побочных эффектов когда несколько
+клиентов работают в одном скрипте:</p>
+<div class="highlight-python"><pre>$client-&gt;insulate();</pre>
+</div>
+<div class="section" id="id6">
+<h3>Браузинг<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Клиент поддерживает многие операции, свойственные настоящему браузеру:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">back</span><span class="p">();</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">forward</span><span class="p">();</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">reload</span><span class="p">();</span>
+
+<span class="c1">// Очищает все куки и историю.</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">restart</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Получение внутренних объектов<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Когда клиент используется для тестирования приложения, возникает необходимость
+получить доступ к его внутренним объектам:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$history</span>   <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getHistory</span><span class="p">();</span>
+<span class="nv">$cookieJar</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getCookieJar</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Также можно получить объекты, относящиеся к последнему запросу:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$request</span>  <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">();</span>
+<span class="nv">$crawler</span>  <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getCrawler</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Если запросы не были изолированы, то можно получить доступ к <tt class="docutils literal"><span class="pre">Container</span></tt> и
+<tt class="docutils literal"><span class="pre">Kernel</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$container</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">();</span>
+<span class="nv">$kernel</span>    <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getKernel</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="container">
+<h3>Получение Container<a class="headerlink" href="#container" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Настоятельно рекомендуется использовать функциональные тесты только для проверки
+Response. Но в некоторых редких случаях необходимо получить доступ к каким-либо
+внутренним объектам для написания утверждений. Для этого можно использовать
+контейнер внедрения зависимости:</p>
+<div class="highlight-python"><pre>$container = $client-&gt;getContainer();</pre>
+</div>
+<p>Имейте в виду что это не сработает если вы изолировали клиента или использовали
+HTTP слой. Для получения списка служб, доступных в вашем приложении, используйте
+консольную команду <tt class="docutils literal"><span class="pre">container:debug</span></tt>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Если необходимая для проверки информация доступна из профилировщика, тогда
+используйте его.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>Получение данных профилировщика<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Для каждого запроса профайлер Symfony собирает и сохраняет множество данных
+о том как обрабатывается этот запрос. Например, профайлер может быть использован
+для верификации, что данная страница выполняет SQL запросов меньше, чем некоторое
+пороговое значение.</p>
+<p>Для получения профайлера для последнего запроса выполните следующий код:</p>
+<div class="highlight-python"><pre>$profile = $client-&gt;getProfile();</pre>
+</div>
+<p>Подробнее про использование профайлера в тестах читайте в книге рецептов:
+<a class="reference internal" href="../cookbook/testing/profiling.html"><em>Как использовать профилировщик в Функциональном тесте</em></a>.</p>
+</div>
+<div class="section" id="id9">
+<h3>Перенаправление<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Когда запрос возвращает ответ с перенаправлением, клиент автоматически следует
+ему. Если вы хотите проверить ответ перед перенаправлением, вы можете указать клиенту
+не следовать перенаправлению припомощи метода <tt class="docutils literal"><span class="pre">followRedirects()</span></tt>:</p>
+<div class="highlight-python"><pre>$client-&gt;followRedirects(false);</pre>
+</div>
+<p>Если клиент не следует перенаправлениям, вы можете форсировать перенаправление при помощи
+метода <tt class="docutils literal"><span class="pre">followRedirect()</span></tt>:</p>
+<div class="highlight-python"><pre>$crawler = $client-&gt;followRedirect();</pre>
+</div>
+<span class="target" id="book-testing-crawler"></span></div>
+</div>
+<div class="section" id="crawler">
+<span id="index-5"></span><h2>Crawler<a class="headerlink" href="#crawler" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Экземпляр Crawler возвращается каждый раз когда выполняется запрос посредством
+клиента. Он позволяет перемещаться по HTML документам, выбирать узлы, искать
+ссылки и формы.</p>
+<div class="section" id="id10">
+<h3>Перемещения<a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Как и jQuery, Crawler имеет методы для перемещения по DOM документа HTML/XML. Например,
+следующий код находит все элементы <tt class="docutils literal"><span class="pre">input[type=submit]</span></tt>, выбирает последний на странице и
+выбирает ближайший родительский элемент:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$newCrawler</span> <span class="o">=</span> <span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="s1">&#39;input[type=submit]&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">last</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">parents</span><span class="p">()</span>
+    <span class="o">-&gt;</span><span class="na">first</span><span class="p">()</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+<p>Также доступны следующие методы:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="68%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Метод</th>
+<th class="head">Описание</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">filter('h1.title')</span></tt></td>
+<td>Ноды, соответствующие CSS селектору</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">filterXpath('h1')</span></tt></td>
+<td>Ноды, соответствующие выражению XPath</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">eq(1)</span></tt></td>
+<td>Ноды с определённым индексом</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">first()</span></tt></td>
+<td>Первый нод</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">last()</span></tt></td>
+<td>Последний нод</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">siblings()</span></tt></td>
+<td>Элементы одного уровня (сёстры)</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">nextAll()</span></tt></td>
+<td>Все последующие сёстры</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">previousAll()</span></tt></td>
+<td>Все предыдущие сёстры</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">parents()</span></tt></td>
+<td>Родительские ноды</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">children()</span></tt></td>
+<td>Потомки</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">reduce($lambda)</span></tt></td>
+<td>Ноды, для которых функция не возвращает false</td>
+</tr>
+</tbody>
+</table>
+<p>Так как каждый метод возвращает новый экземпляр <tt class="docutils literal"><span class="pre">Crawler</span></tt>, вы можете
+упростить ваш код путём выстраивания вызовов в цепочку:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$crawler</span>
+    <span class="o">-&gt;</span><span class="na">filter</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">reduce</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$node</span><span class="p">,</span> <span class="nv">$i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$node</span><span class="o">-&gt;</span><span class="na">getAttribute</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Используйте функцию <tt class="docutils literal"><span class="pre">count()</span></tt> чтобы получить количество узлов, хранящихся
+в Crawler: <tt class="docutils literal"><span class="pre">count($crawler)</span></tt></p>
+</div>
+</div>
+<div class="section" id="id11">
+<h3>Извлечение информации<a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Crawler может извлечь информацию из узлов:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// Возвращает значение атрибута для первого узла</span>
+<span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">);</span>
+
+<span class="c1">// Возвращает значение узла для первого узла</span>
+<span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">text</span><span class="p">();</span>
+
+<span class="c1">// Возвращает массив для каждого элемента с его значением и ссылкой</span>
+<span class="nv">$info</span> <span class="o">=</span> <span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">extract</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;_text&#39;</span><span class="p">,</span> <span class="s1">&#39;href&#39;</span><span class="p">));</span>
+
+<span class="c1">// Выполняет lambda для каждого узла и возвращает массив результатов</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="nv">$crawler</span><span class="o">-&gt;</span><span class="na">each</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nv">$node</span><span class="p">,</span> <span class="nv">$i</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$node</span><span class="o">-&gt;</span><span class="na">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h3>Ссылки<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Можно выбирать ссылки с помощью методов обхода, но сокращение <tt class="docutils literal"><span class="pre">selectLink()</span></tt>
+часто более удобно:</p>
+<div class="highlight-python"><pre>$crawler-&gt;selectLink('Click here');</pre>
+</div>
+<p>Оно выбирает ссылки, содержащие указанный текст, либо изображения, по которым
+можно кликать, содержащие этот текст в атрибуте <tt class="docutils literal"><span class="pre">alt</span></tt>.</p>
+<p>Клиентский метод <tt class="docutils literal"><span class="pre">click()</span></tt> принимает экземпляр <tt class="docutils literal"><span class="pre">Link</span></tt>, возвращаемый методом
+<tt class="docutils literal"><span class="pre">link()</span></tt>:</p>
+<div class="highlight-python"><pre>$link = $crawler-&gt;link();
+
+$client-&gt;click($link);</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Метод <tt class="docutils literal"><span class="pre">links()</span></tt> возвращает массив объектов <tt class="docutils literal"><span class="pre">Link</span></tt> для всех узлов.</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>Формы<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Как и ссылки, формы выбирайте методом <tt class="docutils literal"><span class="pre">selectButton()</span></tt>:</p>
+<div class="highlight-python"><pre>$crawler-&gt;selectButton('submit');</pre>
+</div>
+<p>Заметьте что выбирается кнопка на форме, а не сама форма, т. к. она может иметь
+несколько кнопок; если используются API перемещений, то помните что надо искать
+кнопку.</p>
+<p>Метод <tt class="docutils literal"><span class="pre">selectButton()</span></tt> может выбрать теги <tt class="docutils literal"><span class="pre">button</span></tt> и <tt class="docutils literal"><span class="pre">input</span></tt> с типом submit;
+в нём заложено несколько эвристик для их нахождения по:</p>
+<ul class="simple">
+<li>значению атрибута <tt class="docutils literal"><span class="pre">value</span></tt>;</li>
+<li>значению атрибута <tt class="docutils literal"><span class="pre">id</span></tt> или <tt class="docutils literal"><span class="pre">alt</span></tt> для изображений;</li>
+<li>значению атрибута <tt class="docutils literal"><span class="pre">id</span></tt> или <tt class="docutils literal"><span class="pre">name</span></tt> для тегов <tt class="docutils literal"><span class="pre">button</span></tt>.</li>
+</ul>
+<p>Когда имеется узел, описывающий кнопку, вызовите метод <tt class="docutils literal"><span class="pre">form()</span></tt> чтобы получить
+экземпляр <tt class="docutils literal"><span class="pre">Form</span></tt>, формы обёртывающей его:</p>
+<div class="highlight-python"><pre>$form = $buttonCrawlerNode-&gt;form();</pre>
+</div>
+<p>При вызове метода <tt class="docutils literal"><span class="pre">form()</span></tt> можно передать массив значений для полей,
+перезаписывающих начальные значения:</p>
+<div class="highlight-python"><pre>$form = $buttonCrawlerNode-&gt;form(array(
+    'name'              =&gt; 'Fabien',
+    'my_form[subject]'  =&gt; 'Symfony rocks!',
+));</pre>
+</div>
+<p>А если надо симулировать определённый HTTP метод для формы, передайте его вторым
+аргументом:</p>
+<div class="highlight-python"><pre>$form = $crawler-&gt;form(array(), 'DELETE');</pre>
+</div>
+<p>Клиент может отправлять эзкемпляры <tt class="docutils literal"><span class="pre">Form</span></tt>:</p>
+<div class="highlight-python"><pre>$client-&gt;submit($form);</pre>
+</div>
+<p>Значения полей могут быть переданы вторым аргументом метода <tt class="docutils literal"><span class="pre">submit()</span></tt>:</p>
+<div class="highlight-python"><pre>$client-&gt;submit($form, array(
+    'name'              =&gt; 'Fabien',
+    'my_form[subject]'  =&gt; 'Symfony rocks!',
+));</pre>
+</div>
+<p>В более сложных случаях, используйте экземпляр <tt class="docutils literal"><span class="pre">Form</span></tt> как массив чтобы задать
+значения каждого поля индивидуально:</p>
+<div class="highlight-python"><pre>// Изменяет значение поля
+$form['name'] = 'Fabien';
+$form['my_form[subject]'] = 'Symfony rocks!';</pre>
+</div>
+<p>Здесь тоже есть красивый API для управления значениями полей в зависимости от
+их типов:</p>
+<div class="highlight-python"><pre>// Выбирает option или radio
+$form['country']-&gt;select('France');
+
+// Ставит галочку в checkbox
+$form['like_symfony']-&gt;tick();
+
+// Загружает файл
+$form['photo']-&gt;upload('/path/to/lucas.jpg');</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Можно получить значения, которые будут отправлены, вызвав метод <tt class="docutils literal"><span class="pre">getValues()</span></tt> объекта <tt class="docutils literal"><span class="pre">Form</span></tt>.
+Загружаемые файлы доступны в отдельном массиве, возвращаемом через
+<tt class="docutils literal"><span class="pre">getFiles()</span></tt>. <tt class="docutils literal"><span class="pre">getPhpValues()</span></tt> и <tt class="docutils literal"><span class="pre">getPhpFiles()</span></tt> тоже возвращают
+значения для отправки, но в формате PHP (он преобразует ключи с квадратными
+скобками - например, <tt class="docutils literal"><span class="pre">my_form[subject]</span></tt> - в PHP массивы).</p>
+</div>
+</div>
+</div>
+<div class="section" id="index-6">
+<span id="id14"></span><h2>Тестовая конфигурация<a class="headerlink" href="#index-6" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="index-7">
+<span id="id15"></span><h3>PHPUnit конфигурация<a class="headerlink" href="#index-7" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Каждое приложение имеет свою собственную конфигурацию PHPUnit, которая хранится
+в файле <tt class="docutils literal"><span class="pre">phpunit.xml.dist</span></tt>. Вы можете редактировать этот файл и менять значения
+по умолчанию или же вы можете создать файл <tt class="docutils literal"><span class="pre">phpunit.xml</span></tt> для подгонки
+конфигурации на вашей локальной машине.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Сохраниете файл <tt class="docutils literal"><span class="pre">phpunit.xml.dist</span></tt> в вашем репозитории и игнорьте файл <tt class="docutils literal"><span class="pre">phpunit.xml</span></tt>.</p>
+</div>
+<p>По умолчанию, по команде <tt class="docutils literal"><span class="pre">phpunit</span></tt> запускаются только тесты из &#8220;стандартных&#8221; пакетов
+(стандартными считаются тесты в директориях <tt class="docutils literal"><span class="pre">src/*/Bundle/Tests</span></tt> или <tt class="docutils literal"><span class="pre">src/*/Bundle/*Bundle/Tests</span></tt>),
+но вы можете запросто добавить больше директорий. Например, следующая конфигурация
+добавляет тесты сторонних пакетов:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- hello/phpunit.xml.dist --&gt;</span>
+<span class="nt">&lt;testsuites&gt;</span>
+    <span class="nt">&lt;testsuite</span> <span class="na">name=</span><span class="s">&quot;Project Test Suite&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;directory&gt;</span>../src/*/*Bundle/Tests<span class="nt">&lt;/directory&gt;</span>
+        <span class="nt">&lt;directory&gt;</span>../src/Acme/Bundle/*Bundle/Tests<span class="nt">&lt;/directory&gt;</span>
+    <span class="nt">&lt;/testsuite&gt;</span>
+<span class="nt">&lt;/testsuites&gt;</span>
+</pre></div>
+</div>
+<p>Для того, чтобы включить прочие директории в отчёт по покрытию кода, необходимо
+отредактировать секцию <tt class="docutils literal"><span class="pre">&lt;filter&gt;</span></tt>:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;filter&gt;</span>
+    <span class="nt">&lt;whitelist&gt;</span>
+        <span class="nt">&lt;directory&gt;</span>../src<span class="nt">&lt;/directory&gt;</span>
+        <span class="nt">&lt;exclude&gt;</span>
+            <span class="nt">&lt;directory&gt;</span>../src/*/*Bundle/Resources<span class="nt">&lt;/directory&gt;</span>
+            <span class="nt">&lt;directory&gt;</span>../src/*/*Bundle/Tests<span class="nt">&lt;/directory&gt;</span>
+            <span class="nt">&lt;directory&gt;</span>../src/Acme/Bundle/*Bundle/Resources<span class="nt">&lt;/directory&gt;</span>
+            <span class="nt">&lt;directory&gt;</span>../src/Acme/Bundle/*Bundle/Tests<span class="nt">&lt;/directory&gt;</span>
+        <span class="nt">&lt;/exclude&gt;</span>
+    <span class="nt">&lt;/whitelist&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>Узнайте больше из Рецептов<a class="headerlink" href="#id16" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../cookbook/testing/http_authentication.html"><em>Как смоделировать HTTP аутентификацию в Функциональном тесте</em></a></li>
+<li><a class="reference internal" href="../cookbook/testing/insulating_clients.html"><em>Как тестировать взаимодействие с несколькими клиентами</em></a></li>
+<li><a class="reference internal" href="../cookbook/testing/profiling.html"><em>Как использовать профилировщик в Функциональном тесте</em></a></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

@@ -1,0 +1,418 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SymfonyGuru | Symfony 2 documentation</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title=" v documentation" href="../../index.html" /> 
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/">Homepage</a>
+              </div>
+
+              <div class="right">
+                  <a href="/ru/" class="ru">RU</a> |
+                  <a href="/en/" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block">
+
+                  <h4>Скачать Symfony</h4>
+
+                  <p>Скачать последнюю версию Symfony можно <a target="_blank" href="http://symfony.com/download">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+              <div class="top_box_block">
+
+                  <h4>Документация Symfony</h4>
+
+                  <p>Документация по Symfony <a target="_blank" href="http://symfony.com/doc/current/">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+              <div class="top_box_block no_margin_r">
+
+                  <h4>Сообщество Symfony</h4>
+
+                  <p>Symfony коммьюнити тусуется <a target="_blank" href="http://symfony.com/community">тут</a></p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      
+
+      <div id="content">
+          
+  <div class="section" id="bundle-configuration">
+<span id="index-0"></span><h1>Bundle Configuration<a class="headerlink" href="#bundle-configuration" title="Permalink to this headline">¶</a></h1>
+<p>To provide more flexibility, a bundle can provide configurable settings by
+using the Symfony2 built-in mechanisms.</p>
+<div class="section" id="simple-configuration">
+<h2>Simple Configuration<a class="headerlink" href="#simple-configuration" title="Permalink to this headline">¶</a></h2>
+<p>For simple configuration settings, rely on the default <tt class="docutils literal"><span class="pre">parameters</span></tt> entry of
+the Symfony2 configuration. Symfony2 parameters are simple key/value pairs; a
+value being any valid PHP value. Each parameter name must start with a
+lower-cased version of the bundle name (<tt class="docutils literal"><span class="pre">hello</span></tt> for <tt class="docutils literal"><span class="pre">HelloBundle</span></tt>, or
+<tt class="docutils literal"><span class="pre">sensio.social.blog</span></tt> for <tt class="docutils literal"><span class="pre">Sensio\Social\BlogBundle</span></tt> for instance).</p>
+<p>The end user can provide values in any configuration file:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">parameters</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">hello.email.from</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fabien@example.com</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;parameters&gt;</span>
+    <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;hello.email.from&quot;</span><span class="nt">&gt;</span>fabien@example.com<span class="nt">&lt;/parameter&gt;</span>
+<span class="nt">&lt;/parameters&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/config.php</span>
+<span class="x">$container-&gt;setParameter(&#39;hello.email.from&#39;, &#39;fabien@example.com&#39;);</span>
+</pre></div>
+</div>
+</li>
+<li><em>INI</em><div class="highlight-ini"><div class="highlight"><pre><span class="k">[parameters]</span>
+<span class="na">hello.email.from</span> <span class="o">=</span> <span class="s">fabien@example.com</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Retrieve the configuration parameters in your code from the container:</p>
+<div class="highlight-python"><pre>$container-&gt;getParameter('hello.email.from');</pre>
+</div>
+<p>Even if this mechanism is simple enough, you are highly encouraged to use the
+semantic configuration described below.</p>
+</div>
+<div class="section" id="semantic-configuration">
+<span id="index-1"></span><h2>Semantic Configuration<a class="headerlink" href="#semantic-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Semantic configuration provides an even more flexible way to provide
+configuration for a bundle with the following advantages over simple
+parameters:</p>
+<ul class="simple">
+<li>Possibility to define more than just parameters (services for instance);</li>
+<li>Better hierarchy in the configuration (you can define nested configurations);</li>
+<li>Smart merging when several configuration files override an existing
+configuration;</li>
+<li>Configuration validation (if you define an XSD file and use XML);</li>
+<li>Completion when you use XSD and XML.</li>
+</ul>
+<div class="section" id="creating-an-extension">
+<span id="index-2"></span><h3>Creating an Extension<a class="headerlink" href="#creating-an-extension" title="Permalink to this headline">¶</a></h3>
+<p>To define a semantic configuration, create a Dependency Injection extension
+that extends
+<tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\DependencyInjection\Extension\Extension</span></tt>:</p>
+<div class="highlight-python"><pre>// HelloBundle/DependencyInjection/HelloExtension.php
+use Symfony\Component\DependencyInjection\Extension\Extension;
+
+class HelloExtension extends Extension
+{
+    public function configLoad($config, ContainerBuilder $container)
+    {
+        // ...
+    }
+
+    public function getXsdValidationBasePath()
+    {
+        return __DIR__.'/../Resources/config/';
+    }
+
+    public function getNamespace()
+    {
+        return 'http://www.example.com/symfony/schema/';
+    }
+
+    public function getAlias()
+    {
+        return 'hello';
+    }
+}</pre>
+</div>
+<p>The previous class defines a <tt class="docutils literal"><span class="pre">hello:config</span></tt> namespace, usable in any
+configuration file:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">hello.config</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">~</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+
+<span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.symfony-project.org/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:hello=</span><span class="s">&quot;http://www.example.com/symfony/schema/&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+   <span class="nt">&lt;hello:config</span> <span class="nt">/&gt;</span>
+   ...
+
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/config.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;hello&#39;, &#39;config&#39;, array());</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can create as many <tt class="docutils literal"><span class="pre">xxxLoad()</span></tt> methods as you want to define more
+configuration blocks for your extension.</p>
+</div>
+</div>
+<div class="section" id="parsing-a-configuration">
+<h3>Parsing a Configuration<a class="headerlink" href="#parsing-a-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Whenever a user includes the <tt class="docutils literal"><span class="pre">hello.config</span></tt> namespace in a configuration
+file, the <tt class="docutils literal"><span class="pre">configLoad()</span></tt> method of your extension is called and the
+configuration is passed as an array (Symfony2 automatically converts XML and
+YAML to an array).</p>
+<p>So, given the following configuration:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">hello.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foo</span>
+    <span class="l-Scalar-Plain">bar</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bar</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; ?&gt;</span>
+
+<span class="nt">&lt;container</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.symfony-project.org/schema/dic/services&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:hello=</span><span class="s">&quot;http://www.example.com/symfony/schema/&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.example.com/symfony/schema/ http://www.example.com/symfony/schema/hello-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;hello:config</span> <span class="na">foo=</span><span class="s">&quot;foo&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;hello:bar&gt;</span>foo<span class="nt">&lt;/hello:bar&gt;</span>
+    <span class="nt">&lt;/hello:config&gt;</span>
+
+<span class="nt">&lt;/container&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/config.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;hello&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;foo&#39; =&gt; &#39;foo&#39;,</span>
+<span class="x">    &#39;bar&#39; =&gt; &#39;bar&#39;,</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>The array passed to your method looks like the following:</p>
+<div class="highlight-python"><pre>array(
+    'foo' =&gt; 'foo',
+    'bar' =&gt; 'bar',
+)</pre>
+</div>
+<p>Within <tt class="docutils literal"><span class="pre">configLoad()</span></tt>, the <tt class="docutils literal"><span class="pre">$container</span></tt> variable refers to a container
+that only knows about this namespace configuration. You can manipulate it the
+way you want to add services and parameters. The first time the method is
+called, the container only knows about global parameters. For subsequent
+calls, it contains the configuration as defined by previous calls. So, the
+method needs to merge new configuration settings with old ones:</p>
+<div class="highlight-python"><pre>// only load default services and parameters once
+if (!$container-&gt;hasDefinition('xxxxx')) {
+    $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
+    $loader-&gt;load('hello.xml');
+}</pre>
+</div>
+<p>The global parameters are the following:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">kernel.name</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.environment</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.debug</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.root_dir</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.cache_dir</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.logs_dir</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.bundle_dirs</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.bundles</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.charset</span></tt></li>
+</ul>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">All parameter and service names starting with a <tt class="docutils literal"><span class="pre">_</span></tt> are reserved for the
+framework, and new ones must not be defined by bundles.</p>
+</div>
+</div>
+<div class="section" id="extension-conventions">
+<span id="index-3"></span><h3>Extension Conventions<a class="headerlink" href="#extension-conventions" title="Permalink to this headline">¶</a></h3>
+<p>When creating an extension, follow these simple conventions:</p>
+<ul class="simple">
+<li>The extension must be stored in the <tt class="docutils literal"><span class="pre">DependencyInjection</span></tt> sub-namespace;</li>
+<li>The extension must be named after the bundle name and suffixed with
+<tt class="docutils literal"><span class="pre">Extension</span></tt> (<tt class="docutils literal"><span class="pre">HelloExtension</span></tt> for <tt class="docutils literal"><span class="pre">HelloBundle</span></tt>) &#8211; when you provide
+several extensions for a single bundle, just end them with <tt class="docutils literal"><span class="pre">Extension</span></tt>;</li>
+<li>The alias must be unique and named after the bundle name (<tt class="docutils literal"><span class="pre">hello</span></tt> for
+<tt class="docutils literal"><span class="pre">HelloBundle</span></tt> or <tt class="docutils literal"><span class="pre">sensio.social.blog</span></tt> for <tt class="docutils literal"><span class="pre">Sensio\Social\BlogBundle</span></tt>);</li>
+<li>The extension should provide an XSD schema.</li>
+</ul>
+<p>If you follow these simple conventions, your extensions will be registered
+automatically by Symfony. If not, override the Bundle
+<a href="#id1"><span class="problematic" id="id2">:method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::registerExtensions`</span></a> method:</p>
+<div class="highlight-python"><pre>class HelloBundle extends Bundle
+{
+    public function registerExtensions(ContainerBuilder $container)
+    {
+        // register the extension(s) found in DependencyInjection/ directory
+        parent::registerExtensions($container);
+
+        // register extensions that do not follow the conventions manually
+        $container-&gt;registerExtension(new ExtensionHello());
+    }
+}</pre>
+</div>
+</div>
+<div class="section" id="default-configuration">
+<span id="index-4"></span><h3>Default Configuration<a class="headerlink" href="#default-configuration" title="Permalink to this headline">¶</a></h3>
+<p>As stated before, the user of the bundle should include the <tt class="docutils literal"><span class="pre">hello.config</span></tt>
+namespace in a configuration file for your extension code to be called. But you
+can automatically register a default configuration by overriding the Bundle
+<a href="#id3"><span class="problematic" id="id4">:method:`Symfony\\Component\\HttpKernel\\Bundle\\Bundle::registerExtensions`</span></a>
+method:</p>
+<div class="highlight-python"><pre>class HelloBundle extends Bundle
+{
+    public function registerExtensions(ContainerBuilder $container)
+    {
+        // will register the HelloBundle extension(s) found in DependencyInjection/ directory
+        parent::registerExtensions($container);
+
+        // load some defaults
+        $container-&gt;loadFromExtension('hello', 'config', array(/* your default config for the hello.config namespace */));
+    }
+}</pre>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Caution</p>
+<p class="last">Symfony2 tries to be as explicit as possible. So, registering a default
+configuration automatically is probably not a good idea.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/">Home</a></li>
+              <li><a href="/content/en/about/">About</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Created and maintained by <a href="http://hudson.su" target="_blank">Dmitry Bykadorov</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

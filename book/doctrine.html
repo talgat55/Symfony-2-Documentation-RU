@@ -1,0 +1,1370 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Базы данных и Doctrine (“Модель”) &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Книга" href="index.html" />
+    <link rel="next" title="Тестирование" href="testing.html" />
+    <link rel="prev" title="Создание и использование Шаблонов" href="templating.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="doctrine">
+<span id="index-0"></span><h1>Базы данных и Doctrine (&#8220;Модель&#8221;)<a class="headerlink" href="#doctrine" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Давайте посмотрим правде в глаза, одни из самых распространённых и сложных
+задач для любого приложения включают хранение и чтение информации из базы
+данных. К счастью, Symfony поставляется совмещённым с <a class="reference external" href="http://www.doctrine-project.org/">Doctrine</a> - библиотекой,
+главная цель которой дать мощный инструмент, позволяющий делать это просто.
+В этой главе вы постигнете основу философии Doctrine и увидите насколько простой
+может быть работа с базой данных.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p>Doctrine полностью отделёна от Symfony и её использование необязательно. Эта
+глава о Doctrine ORM, цель которой позволить представить объекты в
+реляционных базах данных (таких как <em>MySQL</em>, <em>PostgreSQL</em> или <em>Microsoft SQL</em>).
+Если вы предпочитаете пользоваться необработанными запросами, то это просто
+и раскрыто в статье &#8220;<tt class="xref doc docutils literal"><span class="pre">/cookbook/doctrine/dbal</span></tt>&#8221; среди рецептов.</p>
+<p class="last">Также можно хранить данные в <a class="reference external" href="http://www.mongodb.org/">MongoDB</a> используя библиотеку Doctrine ODM. За
+дополнительной информацией обратитесь к статье &#8220;<tt class="xref doc docutils literal"><span class="pre">/bundles/DoctrineMongoDBBundle/index</span></tt>&#8221;
+из документации.</p>
+</div>
+<div class="section" id="product">
+<h2>Простой пример: Product<a class="headerlink" href="#product" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Простейший путь для понимания Doctrine - это увидеть её в действии. В этом
+разделе вы настроите базу данных, создадите объект <tt class="docutils literal"><span class="pre">Product</span></tt> (<tt class="docutils literal"><span class="pre">Продукт</span></tt>),
+поместите его туда и получите обратно.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Код вместе с примером</p>
+<p>Если хотите придерживаться примера из этой главы создайте <tt class="docutils literal"><span class="pre">AcmeStoreBundle</span></tt>:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>php app/console generate:bundle --namespace<span class="o">=</span>Acme/StoreBundle
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Конфигурация базы данных<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Перед тем как действительно начать, необходимо настроить соединение с базой
+данных. По соглашению эта информация обычно указывается в файле
+<tt class="docutils literal"><span class="pre">app/config/parameters.yml</span></tt>:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="c1">#app/config/parameters.yml</span>
+<span class="l-Scalar-Plain">parameters</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">database_driver</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">pdo_mysql</span>
+    <span class="l-Scalar-Plain">database_host</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">localhost</span>
+    <span class="l-Scalar-Plain">database_name</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">test_project</span>
+    <span class="l-Scalar-Plain">database_user</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">root</span>
+    <span class="l-Scalar-Plain">database_password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">password</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p>Указание параметров в <tt class="docutils literal"><span class="pre">parameters.yml</span></tt> всего лишь соглашение. На них
+ссылается основной файл конфигурации, когда настраивается Doctrine:</p>
+<div class="highlight-yaml"><pre>doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%</pre>
+</div>
+<p class="last">Разделяя информацию о базе данных по отдельным файлам, можно легко хранить
+различные версии этих файлов на каждом сервере. Также легко можно хранить
+конфигурацию базы данных (или любую важную информацию) вне проекта, например
+внутри конфигурации Apache. Дополнительная информация здесь
+<tt class="xref doc docutils literal"><span class="pre">/cookbook/configuration/external_parameters</span></tt>.</p>
+</div>
+<p>Теперь, когда Doctrine знает о базе данных, вы хотите чтобы она создала базу
+данных для вас:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:database:create
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>Создание сущностного класса<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Предположим, создаётся приложение, в котором необходимо показывать продукты.
+Даже не задумываясь о Doctrine или базах данных, понятно что необходим объект
+<tt class="docutils literal"><span class="pre">Product</span></tt> чтобы представить эти продукты. Создайте его внутри папки <tt class="docutils literal"><span class="pre">Entity</span></tt>
+(<tt class="docutils literal"><span class="pre">Сущность</span></tt>) в <tt class="docutils literal"><span class="pre">AcmeStoreBundle</span></tt>:</p>
+<div class="highlight-python"><pre>// src/Acme/StoreBundle/Entity/Product.php
+namespace Acme\StoreBundle\Entity;
+
+class Product
+{
+    protected $name;
+
+    protected $price;
+
+    protected $description;
+}</pre>
+</div>
+<p>Этот класс - часто называемый &#8220;сущность&#8221;, что значит <em>базовый класс, содержащий
+данные</em> - простой и помогает выполнять бизнес требования к необходимым продуктам
+в приложении. Он пока не может хранится в базе данных - он всего лишь простой
+PHP класс.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Однажды, когда вы изучите Doctrine, то сможете поручить ей создать этот
+класс-сущность:</p>
+<div class="last highlight-bash"><div class="highlight"><pre>php app/console doctrine:generate:entity --entity<span class="o">=</span><span class="s2">&quot;AcmeStoreBundle:Product&quot;</span> --fields<span class="o">=</span><span class="s2">&quot;name:string(255) price:float description:text&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="book-doctrine-adding-mapping">
+<span id="index-1"></span><span id="id3"></span><h3>Добавление информации об отображении<a class="headerlink" href="#book-doctrine-adding-mapping" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Doctrine позволяет работать с базами данных гораздо более интересным способом
+чем простое получение строк в массив из таблицы, основанной на колонках. Вместо
+него, Doctrine хранить <em>объекты</em> целиком в базе данных и получать целые объекты
+из неё. Это возможно благодаря отображению PHP класса в таблицу для базы данных
+и свойств этого PHP класса в колонки этой таблицы:</p>
+<img alt="../_images/doctrine_image_1.png" class="align-center" src="../_images/doctrine_image_1.png" />
+<p>Чтобы Doctrine могла сделать это, надо просто создать &#8220;метаданные&#8221; или
+конфигурацию, которые в точности расскажут ей как класс <tt class="docutils literal"><span class="pre">Product</span></tt> и его
+свойства должны быть <em>отображены</em> в базу данных. Эти метаданные могут быть
+указаны в большом количестве форматов, включая YAML, XML или прямо внутри класса
+<tt class="docutils literal"><span class="pre">Product</span></tt> через аннотации:</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Bundle может принимать только один формат определения метаданных. Например,
+нельзя смешивать YAML определения метаданных и определения через аннотациии
+в классе-сущности PHP.</p>
+</div>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Annotations</em><div class="highlight-php-annotations"><pre>// src/Acme/StoreBundle/Entity/Product.php
+namespace Acme\StoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="product")
+ */
+class Product
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $name;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2)
+     */
+    protected $price;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $description;
+}</pre>
+</div>
+</li>
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml</span>
+<span class="l-Scalar-Plain">Acme\StoreBundle\Entity\Product</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">entity</span>
+    <span class="l-Scalar-Plain">table</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">product</span>
+    <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">integer</span>
+            <span class="l-Scalar-Plain">generator</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">strategy</span><span class="p-Indicator">:</span> <span class="nv">AUTO</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">fields</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">string</span>
+            <span class="l-Scalar-Plain">length</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100</span>
+        <span class="l-Scalar-Plain">price</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">decimal</span>
+            <span class="l-Scalar-Plain">scale</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+        <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">text</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml --&gt;</span>
+<span class="nt">&lt;doctrine-mapping</span> <span class="na">xmlns=</span><span class="s">&quot;http://doctrine-project.org/schemas/orm/doctrine-mapping&quot;</span>
+      <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+      <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://doctrine-project.org/schemas/orm/doctrine-mapping</span>
+<span class="s">                    http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;entity</span> <span class="na">name=</span><span class="s">&quot;Acme\StoreBundle\Entity\Product&quot;</span> <span class="na">table=</span><span class="s">&quot;product&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">name=</span><span class="s">&quot;id&quot;</span> <span class="na">type=</span><span class="s">&quot;integer&quot;</span> <span class="na">column=</span><span class="s">&quot;id&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;generator</span> <span class="na">strategy=</span><span class="s">&quot;AUTO&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">column=</span><span class="s">&quot;name&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span> <span class="na">length=</span><span class="s">&quot;100&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;price&quot;</span> <span class="na">column=</span><span class="s">&quot;price&quot;</span> <span class="na">type=</span><span class="s">&quot;decimal&quot;</span> <span class="na">scale=</span><span class="s">&quot;2&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&quot;description&quot;</span> <span class="na">column=</span><span class="s">&quot;description&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/entity&gt;</span>
+<span class="nt">&lt;/doctrine-mapping&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Имя таблицы необязательно и если опущено, то оно будет определено
+автоматически, исходя из названия класса-сущности.</p>
+</div>
+<p>Doctrine позволяет выбирать из широкого разнообразия различных типов полей,
+каждый из которых со своими настройками. За информацией о доступных типах
+обращайтесь к разделу <a class="reference internal" href="#book-doctrine-field-types"><em>Справка по типам полей в Doctrine</em></a>.</p>
+<div class="admonition- admonition seealso">
+<p class="first admonition-title">См.также</p>
+<p class="last">Также можно обратиться к Doctrine-овой <a class="reference external" href="http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html">Basic Mapping Documentation</a> за
+детальной информацией об отображении. Если будете использовать аннотации,
+необходимо предварять их, используя <tt class="docutils literal"><span class="pre">ORM\</span></tt> (например, <tt class="docutils literal"><span class="pre">ORM\Column(..)</span></tt>),
+об этом не говорится в документации Doctrine. Также надо будет включать
+<tt class="docutils literal"><span class="pre">use</span> <span class="pre">Doctrine\ORM\Mapping</span> <span class="pre">as</span> <span class="pre">ORM;</span></tt> утверждение, которое <em>импортирует</em>
+<tt class="docutils literal"><span class="pre">ORM</span></tt> префикс для аннотаций.</p>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p class="last">Будьте осторожны имена классов и свойств не отображаются в защищённые
+ключевые слова SQL (такие как <tt class="docutils literal"><span class="pre">group</span></tt> или <tt class="docutils literal"><span class="pre">user</span></tt>). Например, если имя
+сущностного класса <tt class="docutils literal"><span class="pre">Group</span></tt>, тогда, по умолчанию, таблица будет названа
+<tt class="docutils literal"><span class="pre">group</span></tt>, что вызовет ошибку SQL в некоторых движках. Обратитесь к
+<a class="reference external" href="http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html#quoting-reserved-words">документации по зарезервированным ключевым словам SQL</a> чтобы узнать как
+лучше экранировать такие имена.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p>Когда используется другая библиотека или программа (например, Doxygen),
+использующая аннотации, необходимо поместить в класс аннотацию
+<tt class="docutils literal"><span class="pre">&#64;IgnoreAnnotation</span></tt>, чтобы указать какие из них Symfony должен
+игнорировать.</p>
+<p>Например, чтобы уберечь <tt class="docutils literal"><span class="pre">&#64;fn</span></tt> аннотацию от выдачи исключения, добавьте
+следующее:</p>
+<div class="last highlight-python"><pre>/**
+ * @IgnoreAnnotation("fn")
+ *
+ */
+class Product</pre>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Создание геттеров и сеттеров<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Теперь, когда Doctrine знает как сохранить объект <tt class="docutils literal"><span class="pre">Product</span></tt> в базу данных,
+сам класс пока ещё бесполезен. Так как <tt class="docutils literal"><span class="pre">Product</span></tt> всего лишь обычный PHP класс,
+необходимо создать геттер и сеттер методы (например, <tt class="docutils literal"><span class="pre">getName()</span></tt>,
+<tt class="docutils literal"><span class="pre">setName()</span></tt>) чтобы получить доступ к его свойствам (т. к. свойства являются
+<tt class="docutils literal"><span class="pre">protected</span></tt>). К счастью, Doctrine может сделать это по команде:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:generate:entities Acme/StoreBundle/Entity/Product
+</pre></div>
+</div>
+<p>Эта команда удостоверяется что все геттеры и сеттеры созданы для класса <tt class="docutils literal"><span class="pre">Product</span></tt>.
+Она безопасна - можно запускать её снова и снова: команда лишь создаёт геттеры и
+сеттеры, которых ещё нет (т. о. она не изменит существующие методы).</p>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p class="last">Команда <tt class="docutils literal"><span class="pre">doctrine:generate:entities</span></tt> сохраняет резервную копию исходного
+файла <tt class="docutils literal"><span class="pre">Product.php</span></tt> в <tt class="docutils literal"><span class="pre">Product.php~</span></tt>. В некоторых случаях, присутствие
+этого файла может вызвать ошибку &#8220;Cannot redeclare class&#8221;. Он может быть
+безопасно удалён.</p>
+</div>
+<p>Также можно создать все известные сущности (например, любой PHP класс с
+информацией для отображения Doctrine) для бандла или целого пространства имён:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:generate:entities AcmeStoreBundle
+php app/console doctrine:generate:entities Acme
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Doctrine не интересует являются ли свойства <tt class="docutils literal"><span class="pre">protected</span></tt> или <tt class="docutils literal"><span class="pre">private</span></tt>,
+или имеются либо нет функции геттеров или сеттеров для свойства. Геттеры и
+сеттеры создаются здесь только потому что они понадобятся для взаимодействия
+с PHP объектом.</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>Создание таблиц/схемы для базы данных<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Теперь есть удобный класс <tt class="docutils literal"><span class="pre">Product</span></tt> с информацией для отображения, который
+Doctrine точно знает как сохранить. Конечно, пока нет соотвествующей таблицы
+<tt class="docutils literal"><span class="pre">product</span></tt> в базе данных. К счастью, Doctrine может автоматически создать все
+таблицы базы данных, необходимые для всех известных сущностей приложения. Чтобы
+создать их, выполните:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:schema:update --force
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Эта команда необычайно мощная. Она сравнивает как <em>должна</em> выглядеть база
+данных (основываясь на информации об отображении для сущностей) с тем, как
+она выглядит <em>на самом деле</em>, и создаёт SQL выражения, необходимые для
+<em>обновления</em> базы данных до того вида, какой она должна быть. Другими
+словами, добавив новое свойство с метаданными отображения в <tt class="docutils literal"><span class="pre">Product</span></tt> и
+запустив её снова, она создаст выражение &#8220;alter table&#8221;, необходимое для
+добавления этого нового столбца к существующей таблице <tt class="docutils literal"><span class="pre">product</span></tt>.</p>
+<p class="last">Лучший способ получить преимущества от её функциональности это
+<tt class="xref doc docutils literal"><span class="pre">миграции</span></tt>, которые позволяют создавать
+эти SQL выражения и хранить их в миграционных классах, которые могут
+систематически запускаться на продакшн сервере чтобы соотвествовать схеме
+базы данных и изменять её безопасно и надёжно.</p>
+</div>
+<p>Теперь база данных имеет полноценную таблицу <tt class="docutils literal"><span class="pre">product</span></tt> со столбцами,
+соотвествующими указанным метаданным.</p>
+</div>
+<div class="section" id="id6">
+<h3>Сохранение объектов в базе данных<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Теперь, когда есть отображённая сущность <tt class="docutils literal"><span class="pre">Product</span></tt> и соотвествующая таблица
+<tt class="docutils literal"><span class="pre">product</span></tt>, всё готово к сохранению данных в базу. Внутри контроллера это
+очень просто. Добавьте следующий метод в <tt class="docutils literal"><span class="pre">DefaultController</span></tt> бандла:</p>
+<div class="highlight-php"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span class="x">// src/Acme/StoreBundle/Controller/DefaultController.php</span>
+<span class="x">use Acme\StoreBundle\Entity\Product;</span>
+<span class="x">use Symfony\Component\HttpFoundation\Response;</span>
+<span class="x">// ...</span>
+
+<span class="x">public function createAction()</span>
+<span class="x">{</span>
+<span class="x">    $product = new Product();</span>
+<span class="x">    $product-&gt;setName(&#39;A Foo Bar&#39;);</span>
+<span class="x">    $product-&gt;setPrice(&#39;19.99&#39;);</span>
+<span class="x">    $product-&gt;setDescription(&#39;Lorem ipsum dolor&#39;);</span>
+
+<span class="x">    $em = $this-&gt;getDoctrine()-&gt;getEntityManager();</span>
+<span class="x">    $em-&gt;persist($product);</span>
+<span class="x">    $em-&gt;flush();</span>
+
+<span class="x">    return new Response(&#39;Created product id &#39;.$product-&gt;getId());</span>
+<span class="x">}</span>
+</pre></div>
+</td></tr></table></div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Если вы следуете этому примеру, необходимо создать маршрут, указывающий на
+это действие, чтобы увидеть его в работе.</p>
+</div>
+<p>Пройдёмся по примеру:</p>
+<ul class="simple">
+<li><strong>строки 8-11</strong> В этой части, берётся экземпляр объекта <tt class="docutils literal"><span class="pre">$product</span></tt> и с ним
+проводится работа как с любым другим нормальным PHP объектом;</li>
+<li><strong>строка 13</strong> Эта строка получает Doctrine-овый объект <em>entity manager</em>,
+отвественный за управление процессами сохранения и получения объектов из базы
+данных;</li>
+<li><strong>строка 14</strong> Метод <tt class="docutils literal"><span class="pre">persist()</span></tt> сообщает Doctrine команду на &#8220;управление&#8221;
+объектом <tt class="docutils literal"><span class="pre">$product</span></tt>. Она не вызывает создание запроса к базе данных (пока).</li>
+<li><strong>строка 15</strong> Когда вызывается метод <tt class="docutils literal"><span class="pre">flush()</span></tt>, Doctrine просматривает все
+объекты, которыми она управляет, чтобы узнать, надо ли сохранить их в базу
+данных. В этом примере объект <tt class="docutils literal"><span class="pre">$product</span></tt> ещё не был сохранён, поэтому
+entity manager выполнит запрос <tt class="docutils literal"><span class="pre">INSERT</span></tt> и будет создана строка в таблице
+<tt class="docutils literal"><span class="pre">product</span></tt>.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Фактически, т. к. Doctrine знает обо всех управляемых сущностях, когда
+вызывается метод <tt class="docutils literal"><span class="pre">flush()</span></tt>, она прощитывает общий набор изменений и
+выполняет наиболее эффективный и возможный запрос или запросы. Например, если
+сохраняется 100 объектов <tt class="docutils literal"><span class="pre">Product</span></tt> и впоследствии вызывается <tt class="docutils literal"><span class="pre">flush()</span></tt>, то
+Doctrine создаст <em>единственное</em> подготовленное выражение и повторно использует
+его для каждой вставки. Этот паттерн называется <em>Unit of Work</em> и используется
+потомучто быстр и эффективен.</p>
+</div>
+<p>При создании или обновлении объектов рабочий процесс всегда одинаков. В
+следующем разделе вы увидите что Doctrine достаточно умна чтобы автоматически
+выдать запрос <tt class="docutils literal"><span class="pre">UPDATE</span></tt> если запись уже существует в базе данных.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Doctrine предлагает библиотеку, позволяющую программно загружать тестовые
+данные в проект (т. н. &#8220;fixture data&#8221;). Информацию можно узнать в
+<tt class="xref doc docutils literal"><span class="pre">/bundles/DoctrineFixturesBundle/index</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Получение объектов из базы данных<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Получение объекта назад из базы данных ещё проще. Например, представим что
+настроен маршрут, отображающий определённый <tt class="docutils literal"><span class="pre">Product</span></tt>, основываясь на его
+значении <tt class="docutils literal"><span class="pre">id</span></tt>:</p>
+<div class="highlight-python"><pre>public function showAction($id)
+{
+    $product = $this-&gt;getDoctrine()
+        -&gt;getRepository('AcmeStoreBundle:Product')
+        -&gt;find($id);
+
+    if (!$product) {
+        throw $this-&gt;createNotFoundException('No product found for id '.$id);
+    }
+
+    // делает что-нибудь, например передаёт объект $product в шаблон
+}</pre>
+</div>
+<p>Когда запрашивается объект определённого типа, всегда используется так
+называемый &#8220;репозиторий&#8221;. Можно представить репозиторий как PHP класс, чья
+работа состоит в предоставлении помощи в получении сущностей определённого
+класса. Можно получить доступ к объекту-репозиторию для класса-сущности через:</p>
+<div class="highlight-python"><pre>$repository = $this-&gt;getDoctrine()
+    -&gt;getRepository('AcmeStoreBundle:Product');</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Строка <tt class="docutils literal"><span class="pre">AcmeStoreBundle:Product</span></tt> - это сокращение, которое можно
+использовать в Doctrine вместо полного имени класса для сущности (например,
+<tt class="docutils literal"><span class="pre">Acme\StoreBundle\Entity\Product</span></tt>). Оно будет работать пока сущность
+находится в простанстве имён <tt class="docutils literal"><span class="pre">Entity</span></tt> вашего бандла.</p>
+</div>
+<p>Когда имеется репозиторий, у вас есть доступ ко всем видам полезных методов:</p>
+<div class="highlight-python"><pre>// запрос по первичному ключу (обычно "id")
+$product = $repository-&gt;find($id);
+
+// динамические имена методов, использующиеся для поиска по значению столбцов
+$product = $repository-&gt;findOneById($id);
+$product = $repository-&gt;findOneByName('foo');
+
+// ищет *все* продукты
+$products = $repository-&gt;findAll();
+
+// ищет группу продуктов, основываясь на произвольном значении столбца
+$products = $repository-&gt;findByPrice(19.99);</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Конечно, также можно задавать сложные запросы, о которых вы узнаете больше
+в разделе <a class="reference internal" href="#book-doctrine-queries"><em>Запрашивание объектов</em></a>.</p>
+</div>
+<p>Также можно использовать преимущества полезных методов <tt class="docutils literal"><span class="pre">findBy</span></tt> и <tt class="docutils literal"><span class="pre">findOneBy</span></tt>
+для лёгкого извлечения объектов, основываясь на многочисленных условиях:</p>
+<div class="highlight-python"><pre>// запрос одного продукта, подходящего по заданным имени и цене
+$product = $repository-&gt;findOneBy(array('name' =&gt; 'foo', 'price' =&gt; 19.99));
+
+// запрос всех продуктов, подходящих по имени и отсортированных по цене
+$product = $repository-&gt;findBy(
+    array('name' =&gt; 'foo'),
+    array('price' =&gt; 'ASC')
+);</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>Когда выдаётся любая страница, можно увидеть сколько запросов было сделано в
+нижнем правом углу на панели инструментов web debug.</p>
+<a class="reference internal image-reference" href="../_images/doctrine_web_debug_toolbar.png"><img alt="../_images/doctrine_web_debug_toolbar.png" class="align-center" src="../_images/doctrine_web_debug_toolbar.png" style="width: 175.0px;" /></a>
+<p class="last">Если кликнуть на иконке, откроется профилировщик, показывающий точные
+запросы, которые были сделаны.</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>Обновление объекта<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Когда вы получили объект из Doctrine, обновить его также просто. Предположим,
+есть маршрут, связывающий id продукта с действием обновления в контроллере:</p>
+<div class="highlight-python"><pre>public function updateAction($id)
+{
+    $em = $this-&gt;getDoctrine()-&gt;getEntityManager();
+    $product = $em-&gt;getRepository('AcmeStoreBundle:Product')-&gt;find($id);
+
+    if (!$product) {
+        throw $this-&gt;createNotFoundException('No product found for id '.$id);
+    }
+
+    $product-&gt;setName('New product name!');
+    $em-&gt;flush();
+
+    return $this-&gt;redirect($this-&gt;generateUrl('homepage'));
+}</pre>
+</div>
+<p>Обновление объекта включает три шага:</p>
+<ol class="arabic simple">
+<li>получение объкта из Doctrine;</li>
+<li>изменение объекта;</li>
+<li>вызов <tt class="docutils literal"><span class="pre">flush()</span></tt> из entity manager</li>
+</ol>
+<p>Заметьте, что в вызове <tt class="docutils literal"><span class="pre">$em-&gt;persist($product)</span></tt> нет необходимости. Вспомните,
+что этот метод лишь сообщает Doctrine что нужно управлять или &#8220;наблюдать&#8221; за
+объектом <tt class="docutils literal"><span class="pre">$product</span></tt>. В данной же ситуации, т. к. объект <tt class="docutils literal"><span class="pre">$product</span></tt> получен
+из Doctrine, он уже является управляемым.</p>
+</div>
+<div class="section" id="id9">
+<h3>Удаление объекта<a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Удаление объекта очень похоже, но требует вызова метода <tt class="docutils literal"><span class="pre">remove()</span></tt> из entity
+manager:</p>
+<div class="highlight-python"><pre>$em-&gt;remove($product);
+$em-&gt;flush();</pre>
+</div>
+<p>Как и ожидалось, метод <tt class="docutils literal"><span class="pre">remove()</span></tt> уведомляет Doctrine о том, что вам хочется
+удалить указанную сущность из базы данных. Тем не менее, фактический запрос
+<tt class="docutils literal"><span class="pre">DELETE</span></tt> не вызывается до тех пор, пока метод <tt class="docutils literal"><span class="pre">flush()</span></tt> не запущен.</p>
+</div>
+</div>
+<div class="section" id="book-doctrine-queries">
+<span id="id10"></span><h2>Запрашивание объектов<a class="headerlink" href="#book-doctrine-queries" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Вы уже видели как объект-репозиторий позволяет выполнять простые запросы без
+какой-либо работы:</p>
+<div class="highlight-python"><pre>$repository-&gt;find($id);
+
+$repository-&gt;findOneByName('Foo');</pre>
+</div>
+<p>Конечно, Doctrine также позволяет писать более сложные запросы, используя
+Doctrine Query Language (DQL). DQL похож на SQL за исключением того, что следует
+представить что запрашиваются один или несколько объектов из класса-сущности
+(например, <tt class="docutils literal"><span class="pre">Product</span></tt>) вместо строк из таблицы (например, <tt class="docutils literal"><span class="pre">product</span></tt>).</p>
+<p>Запрашивать из Doctrine можно двумя способами: написанием чистых Doctrine
+запросов либо использованием Doctrine-ового Query Builder.</p>
+<div class="section" id="dql">
+<h3>Запрашивание объектов через DQL<a class="headerlink" href="#dql" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Представьте что нужно запросить продукты, но вернуть только те, чья цена больше
+чем <tt class="docutils literal"><span class="pre">19.99</span></tt> и по порядку от дешёвого до самого дорогого. Внутри контроллера
+сделайте следующее:</p>
+<div class="highlight-python"><pre>$em = $this-&gt;getDoctrine()-&gt;getEntityManager();
+$query = $em-&gt;createQuery(
+    'SELECT p FROM AcmeStoreBundle:Product p WHERE p.price &gt; :price ORDER BY p.price ASC'
+)-&gt;setParameter('price', '19.99');
+
+$products = $query-&gt;getResult();</pre>
+</div>
+<p>Если вам удобно с SQL, то DQL должен быть также понятен. Наибольшее различие
+в том, что надо думать терминами &#8220;объектов&#8221;, а не строк в базе данных. По этой
+причине, вы выбираете <em>из</em> <tt class="docutils literal"><span class="pre">AcmeStoreBundle:Product</span></tt> и присваиваете ему
+псевдоним <tt class="docutils literal"><span class="pre">p</span></tt>.</p>
+<p>Метод <tt class="docutils literal"><span class="pre">getResult()</span></tt> возвращает массив результатов. Если же нужен лишь один
+объект можно воспользоваться методом <tt class="docutils literal"><span class="pre">getSingleResult()</span></tt>:</p>
+<div class="highlight-python"><pre>$product = $query-&gt;getSingleResult();</pre>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p>Метод <tt class="docutils literal"><span class="pre">getSingleResult()</span></tt> выбрасывает исключение
+<tt class="docutils literal"><span class="pre">Doctrine\ORM\NoResultException</span></tt> если нет результатов и
+<tt class="docutils literal"><span class="pre">Doctrine\ORM\NonUniqueResultException</span></tt> если возвращается <em>больше</em> одного
+результата. Если используется этот метод, возможно придётся обернуть его
+в try-catch блок и убедиться в том, что возвращается только один результат
+(если запрашивается что-то, что может вероятно вернуть более одного
+результата):</p>
+<div class="last highlight-python"><pre>$query = $em-&gt;createQuery('SELECT ....')
+    -&gt;setMaxResults(1);
+
+try {
+    $product = $query-&gt;getSingleResult();
+} catch (\Doctrine\Orm\NoResultException $e) {
+    $product = null;
+}
+// ...</pre>
+</div>
+</div>
+<p>Синтаксис DQL невероятно мощный, позволяет легко устанавливать объединения между
+сущностями (тема <a class="reference internal" href="#book-doctrine-relations"><em>отношений</em></a> будет раскрыта
+позже), группами и т. д. Дополнительная информация в документации Doctrine
+<a class="reference external" href="http://www.doctrine-project.org/docs/orm/2.0/en/reference/dql-doctrine-query-language.html">Doctrine Query Language</a>.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Настройка параметров</p>
+<p>Заметка о методе <tt class="docutils literal"><span class="pre">setParameter()</span></tt>. Работая с Doctrine, хорошим тоном
+является указание любых внешних значений через &#8220;placeholders&#8221;,
+что и было сделанов приведённом выше примере:</p>
+<div class="highlight-text"><div class="highlight"><pre>... WHERE p.price &gt; :price ...
+</pre></div>
+</div>
+<p>Позже можно указать значение <tt class="docutils literal"><span class="pre">price</span></tt> placeholder через метод
+<tt class="docutils literal"><span class="pre">setParameter()</span></tt>:</p>
+<div class="highlight-python"><pre>-&gt;setParameter('price', '19.99')</pre>
+</div>
+<p>Использование параметров вместо установки значений непосредственно в строку
+запроса предотвращает атаки через SQL инъекции и должно использоваться
+<em>всегда</em>. При использовании нескольких параметров, можно указать их за один
+раз воспользовавшись методом <tt class="docutils literal"><span class="pre">setParameters()</span></tt>:</p>
+<div class="last highlight-python"><pre>-&gt;setParameters(array(
+    'price' =&gt; '19.99',
+    'name'  =&gt; 'Foo',
+))</pre>
+</div>
+</div>
+</div>
+<div class="section" id="doctrine-s-query-builder-doctrine">
+<h3>Использование Doctrine&#8217;s Query Builder (Конструктор запросов Doctrine)<a class="headerlink" href="#doctrine-s-query-builder-doctrine" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Вместо непосредственного написания запросов, можно также использовать Doctrine
+<tt class="docutils literal"><span class="pre">QueryBuilder</span></tt> чтобы сделать ту же работу используя симпатичный,
+объект-ориентированный интерфейс. Если используется IDE, то можно также получить
+преимущество от авто-подстановки когда будут вводиться имена методов. Внутри
+контроллера:</p>
+<div class="highlight-python"><pre>$repository = $this-&gt;getDoctrine()
+    -&gt;getRepository('AcmeStoreBundle:Product');
+
+$query = $repository-&gt;createQueryBuilder('p')
+    -&gt;where('p.price &gt; :price')
+    -&gt;setParameter('price', '19.99')
+    -&gt;orderBy('p.price', 'ASC')
+    -&gt;getQuery();
+
+$products = $query-&gt;getResult();</pre>
+</div>
+<p>Объект <tt class="docutils literal"><span class="pre">QueryBuilder</span></tt> содержит все необходимые методы для создания запроса.
+Вызвав метод <tt class="docutils literal"><span class="pre">getQuery()</span></tt>, конструктор запросов вернёт нормальный объект
+<tt class="docutils literal"><span class="pre">Query</span></tt>, являющийся таким же объектом, какой создавался в предыдущем разделе.</p>
+<p>За дополнительной информацией о Doctrine&#8217;s Query Builder, обращайтесь к
+документации <a class="reference external" href="http://www.doctrine-project.org/docs/orm/2.0/en/reference/query-builder.html">Query Builder</a>.</p>
+</div>
+<div class="section" id="custom-repository-classes">
+<h3>Custom Repository Classes<a class="headerlink" href="#custom-repository-classes" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В предыдущих разделах вы начали создавать и использовать более сложные запросы
+изнутри контроллера. Чтобы изолировать, тестировать и повторно использовать
+их, хорошим тоном будет создать custom repository class для сущности и добавить
+в него методы с запросами.</p>
+<p>Чтобы сделать это добавьте имя репозиторного класса в отбражение.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Annotations</em><div class="highlight-php-annotations"><pre>// src/Acme/StoreBundle/Entity/Product.php
+namespace Acme\StoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="Acme\StoreBundle\Repository\ProductRepository")
+ */
+class Product
+{
+    //...
+}</pre>
+</div>
+</li>
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml</span>
+<span class="l-Scalar-Plain">Acme\StoreBundle\Entity\Product</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">entity</span>
+    <span class="l-Scalar-Plain">repositoryClass</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Acme\StoreBundle\Repository\ProductRepository</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml --&gt;</span>
+<span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;doctrine-mapping&gt;</span>
+
+    <span class="nt">&lt;entity</span> <span class="na">name=</span><span class="s">&quot;Acme\StoreBundle\Entity\Product&quot;</span>
+            <span class="na">repository-class=</span><span class="s">&quot;Acme\StoreBundle\Repository\ProductRepository&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- ... --&gt;</span>
+    <span class="nt">&lt;/entity&gt;</span>
+<span class="nt">&lt;/doctrine-mapping&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Doctrine может создать репозиторный класс с помощью команды, использованной
+ранее для создания пропущенных getter и setter методов:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:generate:entities Acme
+</pre></div>
+</div>
+<p>Затем добавьте новый метод - <tt class="docutils literal"><span class="pre">findAllOrderedByName()</span></tt> - к только что
+созданному репозитороному классу. Он будет запрашивать все сущности <tt class="docutils literal"><span class="pre">Product</span></tt>,
+сортированные в алфавитном порядке.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Acme/StoreBundle/Repository/ProductRepository.php</span>
+<span class="x">namespace Acme\StoreBundle\Repository;</span>
+
+<span class="x">use Doctrine\ORM\EntityRepository;</span>
+
+<span class="x">class ProductRepository extends EntityRepository</span>
+<span class="x">{</span>
+<span class="x">    public function findAllOrderedByName()</span>
+<span class="x">    {</span>
+<span class="x">        return $this-&gt;getEntityManager()</span>
+<span class="x">            -&gt;createQuery(&#39;SELECT p FROM AcmeStoreBundle:Product p ORDER BY p.name ASC&#39;)</span>
+<span class="x">            -&gt;getResult();</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Менеджер сущностей доступен через <tt class="docutils literal"><span class="pre">$this-&gt;getEntityManager()</span></tt> внутри
+репозитория.</p>
+</div>
+<p>Можете использовать этот новый метод как и ранее доступные по умолчанию
+поисковые методы репозитория:</p>
+<div class="highlight-python"><pre>$em = $this-&gt;getDoctrine()-&gt;getEntityManager();
+$products = $em-&gt;getRepository('AcmeStoreBundle:Product')
+            -&gt;findAllOrderedByName();</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Когда используется custom repository class, всё ещё есть доступ к таким
+поисковым методам как <tt class="docutils literal"><span class="pre">find()</span></tt> и <tt class="docutils literal"><span class="pre">findAll()</span></tt>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="book-doctrine-relations">
+<span id="id11"></span><h2>Связи/объединения сущностей<a class="headerlink" href="#book-doctrine-relations" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Предположим что все продукты в приложении принадлежат единственной &#8220;категории&#8221;.
+В этом случае, необходим объект <tt class="docutils literal"><span class="pre">Category</span></tt> и способ связывания его с объектом
+<tt class="docutils literal"><span class="pre">Product</span></tt>. Начнём с соаздания сущности <tt class="docutils literal"><span class="pre">Category</span></tt>. Так как известно что в
+конечном счёте понадобится сохранить класс с помощью Doctrine, то можно
+позволить Doctrine создать его для вас.</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:generate:entity --entity<span class="o">=</span><span class="s2">&quot;AcmeStoreBundle:Category&quot;</span> --fields<span class="o">=</span><span class="s2">&quot;name:string(255)&quot;</span>
+</pre></div>
+</div>
+<p>Это задание создаст сущность <tt class="docutils literal"><span class="pre">Category</span></tt> с полями <tt class="docutils literal"><span class="pre">id</span></tt>, <tt class="docutils literal"><span class="pre">name</span></tt> и связанными
+getter и setter функциями.</p>
+<div class="section" id="id12">
+<h3>Метаданные отображения связей<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Чтобы связать сущности <tt class="docutils literal"><span class="pre">Category</span></tt> и <tt class="docutils literal"><span class="pre">Product</span></tt>, начните с создания свойства
+<tt class="docutils literal"><span class="pre">products</span></tt> в классе <tt class="docutils literal"><span class="pre">Category</span></tt>:</p>
+<div class="highlight-python"><pre>// src/Acme/StoreBundle/Entity/Category.php
+// ...
+use Doctrine\Common\Collections\ArrayCollection;
+
+class Category
+{
+    // ...
+
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     */
+    protected $products;
+
+    public function __construct()
+    {
+        $this-&gt;products = new ArrayCollection();
+    }
+}</pre>
+</div>
+<p>Во-первых, т. к. объект <tt class="docutils literal"><span class="pre">Category</span></tt> связан со множеством объектов <tt class="docutils literal"><span class="pre">Product</span></tt>,
+то добавленное свойство <tt class="docutils literal"><span class="pre">products</span></tt> будет массивом для хранения объектов
+<tt class="docutils literal"><span class="pre">Product</span></tt>. Далее, this isn&#8217;t done because Doctrine needs it, but instead because it
+makes sense in the application for each <tt class="docutils literal"><span class="pre">Category</span></tt> to hold an array of
+<tt class="docutils literal"><span class="pre">Product</span></tt> objects.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Код в методе <tt class="docutils literal"><span class="pre">__construct()</span></tt> важен, потому что Doctrine необходимо
+чтобы свойство <tt class="docutils literal"><span class="pre">$products</span></tt> было объектом <tt class="docutils literal"><span class="pre">ArrayCollection</span></tt>. Этот объект
+выглядит и работает почти <em>также</em> как массив, но имеет расширенную гибкость.
+Если это заставляет вас чувствовать неудобство, то не переживайте.
+Представьте что это просто <tt class="docutils literal"><span class="pre">массив</span></tt> и вы будете снова в хорошей форме.</p>
+</div>
+<p>Далее, т. к. каждый класс <tt class="docutils literal"><span class="pre">Product</span></tt> может связываться только с одним объектом
+<tt class="docutils literal"><span class="pre">Category</span></tt>, необходимо добавить свойство <tt class="docutils literal"><span class="pre">$category</span></tt> к классу <tt class="docutils literal"><span class="pre">Product</span></tt>:</p>
+<div class="highlight-python"><pre>// src/Acme/StoreBundle/Entity/Product.php
+// ...
+
+class Product
+{
+    // ...
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    protected $category;
+}</pre>
+</div>
+<p>Наконец, когда добавлены новые свойства к обоим классам <tt class="docutils literal"><span class="pre">Category</span></tt> и
+<tt class="docutils literal"><span class="pre">Product</span></tt>, сообщите Doctrine что надо создать отсутствующие методы getter и
+setter:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:generate:entities Acme
+</pre></div>
+</div>
+<p>Забудьте о метаданных Doctrine на секунду. Имеется два класса - <tt class="docutils literal"><span class="pre">Category</span></tt>
+и <tt class="docutils literal"><span class="pre">Product</span></tt> with a natural one-to-many relationship. Класс <tt class="docutils literal"><span class="pre">Category</span></tt>
+holds массив объектов <tt class="docutils literal"><span class="pre">Product</span></tt> и объект <tt class="docutils literal"><span class="pre">Product</span></tt> может hold один объект
+<tt class="docutils literal"><span class="pre">Category</span></tt>. Другими словами - классы построены таким способом, который имеет
+смысл для вашей задачи. А тот факт, что данные должны быть сохранены в базу
+данных, всегда второстепенен.</p>
+<p>Теперь взгляните на метаданные над свойством <tt class="docutils literal"><span class="pre">$category</span></tt> в классе <tt class="docutils literal"><span class="pre">Product</span></tt>.
+Эта информация сообщает doctrine что связанным классом является <tt class="docutils literal"><span class="pre">Category</span></tt> и
+что он должен хранить <tt class="docutils literal"><span class="pre">id</span></tt> от записи категории в поле <tt class="docutils literal"><span class="pre">category_id</span></tt>,
+находящемся в таблице <tt class="docutils literal"><span class="pre">product</span></tt>. Другими словами, связанный объект <tt class="docutils literal"><span class="pre">Category</span></tt>
+будет хранится в свойстве <tt class="docutils literal"><span class="pre">$category</span></tt>, но, за кулисами, Doctrine будет хранить
+эту связь, записывая значение id категории в столбец <tt class="docutils literal"><span class="pre">category_id</span></tt> таблицы
+<tt class="docutils literal"><span class="pre">product</span></tt>.</p>
+<img alt="../_images/doctrine_image_2.png" class="align-center" src="../_images/doctrine_image_2.png" />
+<p>Метаданные над свойством <tt class="docutils literal"><span class="pre">$products</span></tt> объекта <tt class="docutils literal"><span class="pre">Category</span></tt> менее важны и
+попросту сообщают Doctrine что нужно посмотреть свойство <tt class="docutils literal"><span class="pre">Product.category</span></tt>
+чтобы вычислить как отображается связь.</p>
+<p>Перед тем как продолжить, убедитесь что сообщили Doctrine добавить новые таблицу
+<tt class="docutils literal"><span class="pre">category</span></tt> и столбец <tt class="docutils literal"><span class="pre">product.category_id</span></tt>, а также новый внешний ключ:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:schema:update --force
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Эта задача должна выполняться только во время разработки. Более надёжный
+способ систематических обновлений производственной базы данных описан в
+<tt class="xref doc docutils literal"><span class="pre">Миграциях</span> <span class="pre">Doctrine</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>Сохранение связанных сущностей<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Теперь давайте посмотрим код в действии. Представьте, что вы внутри контроллера:</p>
+<div class="highlight-python"><pre>// ...
+use Acme\StoreBundle\Entity\Category;
+use Acme\StoreBundle\Entity\Product;
+use Symfony\Component\HttpFoundation\Response;
+// ...
+
+class DefaultController extends Controller
+{
+    public function createProductAction()
+    {
+        $category = new Category();
+        $category-&gt;setName('Main Products');
+
+        $product = new Product();
+        $product-&gt;setName('Foo');
+        $product-&gt;setPrice(19.99);
+        // Связывает этот продукт с категорией
+        $product-&gt;setCategory($category);
+
+        $em = $this-&gt;getDoctrine()-&gt;getEntityManager();
+        $em-&gt;persist($category);
+        $em-&gt;persist($product);
+        $em-&gt;flush();
+
+        return new Response(
+            'Created product id: '.$product-&gt;getId().' and category id: '.$category-&gt;getId()
+        );
+    }
+}</pre>
+</div>
+<p>Итак, одна строка добавлена в таблицы <tt class="docutils literal"><span class="pre">category</span></tt> и <tt class="docutils literal"><span class="pre">product</span></tt>.
+В столбец <tt class="docutils literal"><span class="pre">product.category_id</span></tt> для нового продукта установлен тот <tt class="docutils literal"><span class="pre">id</span></tt>,
+который соотвествует новой категории. Doctrine осуществляет сохранение этой
+связи для вас.</p>
+</div>
+<div class="section" id="id14">
+<h3>Получение связанных объектов<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Когда необходимо получить объединённые объекты, рабочий процесс выглядит также
+как и раньше. Сначала получаете объект <tt class="docutils literal"><span class="pre">$product</span></tt>, а затем доступ к связанной
+<tt class="docutils literal"><span class="pre">Category</span></tt>:</p>
+<div class="highlight-python"><pre>public function showAction($id)
+{
+    $product = $this-&gt;getDoctrine()
+        -&gt;getRepository('AcmeStoreBundle:Product')
+        -&gt;find($id);
+
+    $categoryName = $product-&gt;getCategory()-&gt;getName();
+
+    // ...
+}</pre>
+</div>
+<p>В этом примере, сначала запрашивается объект <tt class="docutils literal"><span class="pre">Product</span></tt> по <tt class="docutils literal"><span class="pre">id</span></tt> продукта.
+Этот запрос выдаёт ответ <em>только</em> для данных о продукте и гидратирует (hydrate)
+объект <tt class="docutils literal"><span class="pre">$product</span></tt> с этими данными. Затем, когда вызовется
+<tt class="docutils literal"><span class="pre">$product-&gt;getCategory()-&gt;getName()</span></tt>, Doctrine без лишнего шума сделает второй
+запрос, чтобы найти <tt class="docutils literal"><span class="pre">Category</span></tt>, которая связана с этим <tt class="docutils literal"><span class="pre">Product</span></tt>. Она
+подготовит объект <tt class="docutils literal"><span class="pre">$category</span></tt> и возвратит его вам.</p>
+<img alt="../_images/doctrine_image_3.png" class="align-center" src="../_images/doctrine_image_3.png" />
+<p>Важен тот факт, что у вас есть простой доступ к категории, связанной с
+продуктом, но её данные не извлекаются, пока она вам не понадобится (т. е. это
+&#8220;ленивая загрузка&#8221;).</p>
+<p>Также можно запросить в другом направлении:</p>
+<div class="highlight-python"><pre>public function showProductAction($id)
+{
+    $category = $this-&gt;getDoctrine()
+        -&gt;getRepository('AcmeStoreBundle:Category')
+        -&gt;find($id);
+
+    $products = $category-&gt;getProducts();
+
+    // ...
+}</pre>
+</div>
+<p>В этом случае происходят похожие дела: сначала запрашиваете один объект
+<tt class="docutils literal"><span class="pre">Category</span></tt>, затем Doctrine делает второй запрос для получения связанных
+объектов <tt class="docutils literal"><span class="pre">Product</span></tt>, но только однажды - когда они вам понадобятся (т. е. когда
+вызывается <tt class="docutils literal"><span class="pre">-&gt;getProducts()</span></tt>). Переменная <tt class="docutils literal"><span class="pre">$products</span></tt> является массивом всех
+объектов <tt class="docutils literal"><span class="pre">Product</span></tt>, связанных с данным объектом <tt class="docutils literal"><span class="pre">Category</span></tt> через значение их
+<tt class="docutils literal"><span class="pre">category_id</span></tt>.</p>
+<div class="sidebar">
+<p class="first sidebar-title">Связи и proxy классы</p>
+<p>Эта &#8220;ленивая загрузка&#8221; возможна, когда необходима, потому, что Doctrine
+возвращает &#8220;proxy&#8221; объект вместо настоящего объекта. Взгляните снова на
+пример, приведённый ранее:</p>
+<div class="highlight-python"><pre>$product = $this-&gt;getDoctrine()
+    -&gt;getRepository('AcmeStoreBundle:Product')
+    -&gt;find($id);
+
+$category = $product-&gt;getCategory();
+
+// prints "Proxies\AcmeStoreBundleEntityCategoryProxy"
+echo get_class($category);</pre>
+</div>
+<p>Этот proxy объект расширяет настоящий объект <tt class="docutils literal"><span class="pre">Category</span></tt>, и выглядит и
+действует так же как и он. Отличие лишь в том, что используя proxy объект,
+Doctrine может отложить запрос действительных данных о <tt class="docutils literal"><span class="pre">Category</span></tt> пока
+они вам не понадобятся (т. е. пока не вызовете <tt class="docutils literal"><span class="pre">$category-&gt;getName()</span></tt>).</p>
+<p>Proxy классы создаются Doctrine и хранятся в папке cache. И хотя вам,
+вероятно, никогда не придётся принимать во внимание что объект <tt class="docutils literal"><span class="pre">$category</span></tt>
+на самом деле является proxy объектом, но важно знать об этом.</p>
+<p class="last">В следующем разделе будем получать данные о продукте и категории за один
+заход (через <em>join</em>), а Doctrine будет возвращать <em>настоящий</em> объект
+<tt class="docutils literal"><span class="pre">Category</span></tt>, т. к. не будет нужды в ленивой загрузке.</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>Объединение со связанными записями<a class="headerlink" href="#id15" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В предыдущих примерах выполнялось по два запроса - один для исходного объекта
+(например, <tt class="docutils literal"><span class="pre">Category</span></tt>) и один для связанного (например, объекты <tt class="docutils literal"><span class="pre">Product</span></tt>).</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Вспомните, что можно увидеть все запросы к базе данных, сделанные во время
+веб-запроса, через панель инструментов web debug.</p>
+</div>
+<p>Конечно, если заранее известно что будет необходим доступ к обоим объектам, то
+можно избежать второго запроса, используя join в исходном запросе. Добавьте
+следующий метод к классу <tt class="docutils literal"><span class="pre">ProductRepository</span></tt>:</p>
+<div class="highlight-python"><pre>// src/Acme/StoreBundle/Repository/ProductRepository.php
+
+public function findOneByIdJoinedToCategory($id)
+{
+    $query = $this-&gt;getEntityManager()
+        -&gt;createQuery('
+            SELECT p, c FROM AcmeStoreBundle:Product p
+            JOIN p.category c
+            WHERE p.id = :id'
+        )-&gt;setParameter('id', $id);
+
+    try {
+        return $query-&gt;getSingleResult();
+    } catch (\Doctrine\ORM\NoResultException $e) {
+        return null;
+    }
+}</pre>
+</div>
+<p>Теперь можете использовать этот метод в контроллере чтобы получать объект
+<tt class="docutils literal"><span class="pre">Product</span></tt> и связанную <tt class="docutils literal"><span class="pre">Category</span></tt> за один запрос:</p>
+<div class="highlight-python"><pre>public function showAction($id)
+{
+    $product = $this-&gt;getDoctrine()
+        -&gt;getRepository('AcmeStoreBundle:Product')
+        -&gt;findOneByIdJoinedToCategory($id);
+
+    $category = $product-&gt;getCategory();
+
+    // ...
+}</pre>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>Подробнее об объединениях<a class="headerlink" href="#id16" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Этот раздел является введением к одному общему типу связи сущностей - связи
+один-ко-многим. За более продвинутыми подробностями и примерами использования
+других типов связей (напр., <tt class="docutils literal"><span class="pre">один-к-одному</span></tt>, <tt class="docutils literal"><span class="pre">многие-ко-многим</span></tt>), обращайтесь
+к <a class="reference external" href="http://www.doctrine-project.org/docs/orm/2.0/en/reference/association-mapping.html">Отображениям объединений</a> для Doctrine.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Если использовать аннотации, необходимо предварять их упоминаниями об
+<tt class="docutils literal"><span class="pre">ORM\</span></tt> (напр., <tt class="docutils literal"><span class="pre">ORM\OneToMany</span></tt>), про это не говорится в документации
+Doctrine. Также необходимо включить выражение
+<tt class="docutils literal"><span class="pre">use</span> <span class="pre">Doctrine\ORM\Mapping</span> <span class="pre">as</span> <span class="pre">ORM;</span></tt>, которое <em>внедряет</em> префикс аннотации
+<tt class="docutils literal"><span class="pre">ORM</span></tt>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>Конфигурация<a class="headerlink" href="#id17" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Doctrine очень гибка, хотя вам, вероятно, никогда не придёться беспокоиться о
+большей части её опций. Чтобы узнать больше о настройке Doctrine, see
+the Doctrine section of the <tt class="xref doc docutils literal"><span class="pre">reference</span> <span class="pre">manual</span></tt>.</p>
+</div>
+<div class="section" id="lifecycle-callbacks">
+<h2>Lifecycle Callbacks<a class="headerlink" href="#lifecycle-callbacks" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Иногда требуется выполнить действия сразу же перед или после того как сущность
+будет вставлена, обновлена или же удалена. Такие типы действий известны как
+&#8220;lifecycle&#8221; callbacks, т. к. они вызывают методы, которые необходимо выполнить
+во время различных стадий жизненного цикла сущности (напр., сущность вставлена,
+обновлена, удалена и т. д.).</p>
+<p>Если для метаданных вы используете аннотации, то начните с включения lifecycle
+callbacks. В этом нет необходимости если для отображений используются YAML или
+XML:</p>
+<div class="highlight-php-annotations"><pre>/**
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Product
+{
+    // ...
+}</pre>
+</div>
+<p>Теперь можно дать задание Doctrine выполнить метод для любого доступного события
+жизненного цикла. Например, надо установить текущую дату в колонку <tt class="docutils literal"><span class="pre">created</span></tt>
+только во время первого сохранения сущности (т. е. во время вставки):</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>Annotations</em><div class="highlight-php-annotations"><pre>/**
+ * @ORM\prePersist
+ */
+public function setCreatedValue()
+{
+    $this-&gt;created = new \DateTime();
+}</pre>
+</div>
+</li>
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.yml</span>
+<span class="l-Scalar-Plain">Acme\StoreBundle\Entity\Product</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">type</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">entity</span>
+    <span class="c1"># ...</span>
+    <span class="l-Scalar-Plain">lifecycleCallbacks</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">prePersist</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span> <span class="nv">setCreatedValue</span> <span class="p-Indicator">]</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/StoreBundle/Resources/config/doctrine/Product.orm.xml --&gt;</span>
+<span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;doctrine-mapping&gt;</span>
+
+    <span class="nt">&lt;entity</span> <span class="na">name=</span><span class="s">&quot;Acme\StoreBundle\Entity\Product&quot;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- ... --&gt;</span>
+            <span class="nt">&lt;lifecycle-callbacks&gt;</span>
+                <span class="nt">&lt;lifecycle-callback</span> <span class="na">type=</span><span class="s">&quot;prePersist&quot;</span> <span class="na">method=</span><span class="s">&quot;setCreatedValue&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/lifecycle-callbacks&gt;</span>
+    <span class="nt">&lt;/entity&gt;</span>
+<span class="nt">&lt;/doctrine-mapping&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Предыдущие примеры предполагают что свойство <tt class="docutils literal"><span class="pre">created</span></tt> уже создано и
+отображено (здесь это не было показано).</p>
+</div>
+<p>Сразу же перед первым сохранением сущности, Doctrine автоматически вызовет этот
+метод и в поле <tt class="docutils literal"><span class="pre">created</span></tt> будет установлена текущая дата.</p>
+<p>То же самое можно проделать для любого другого события жизненного цикла, среди
+которых:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">preRemove</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">postRemove</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">prePersist</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">postPersist</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">preUpdate</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">postUpdate</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">postLoad</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">loadClassMetadata</span></tt></li>
+</ul>
+<p>Дополнительная информация о том, что из себя представляют эти события и вызовы
+внутри жизненного цикла в общем виде, находится в <a class="reference external" href="http://www.doctrine-project.org/docs/orm/2.0/en/reference/events.html#lifecycle-events">Документации по Lifecycle Events</a></p>
+<div class="sidebar">
+<p class="first sidebar-title">Lifecycle Callbacks и Event Listeners</p>
+<p>Обратите внимание что метод <tt class="docutils literal"><span class="pre">setCreatedValue()</span></tt> не получает аргументов.
+Это необходимость для lifecylce callbacks и это сделано преднамеренно:
+lifecycle callbacks должны быть простыми методами, занимающимися внутренними
+изменениями данных для сущности (напр., установка значений для полей
+created/updated, создание slug).</p>
+<p class="last">Если планируется делать более тяжёлую работу - запись логов или отправка
+email - необходимо зарегистрировать внешний класс как event listener
+или subscriber и дать ему доступ к необходимым ресурсам. Дополнительную
+информацию найдёте в <tt class="xref doc docutils literal"><span class="pre">/cookbook/doctrine/event_listeners_subscribers</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="doctrine-timestampable-sluggable">
+<h2>Расширения для Doctrine: Timestampable, Sluggable и другие<a class="headerlink" href="#doctrine-timestampable-sluggable" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Doctrine расширяема, поэтому доступно множество сторонних решений, позволяющих с
+лёгкостью выполнять повторяющиеся и общие задачи над сущностями.
+Среди них есть следующие: <em>Sluggable</em>, <em>Timestampable</em>, <em>Loggable</em>,
+<em>Translatable</em> и <em>Tree</em>.</p>
+<p>Подробнее о том где найти и как использвать эти расширения расказывает статья
+<tt class="xref doc docutils literal"><span class="pre">Использование</span> <span class="pre">общих</span> <span class="pre">расширений</span> <span class="pre">Doctrine</span></tt>.</p>
+</div>
+<div class="section" id="book-doctrine-field-types">
+<span id="id18"></span><h2>Справка по типам полей в Doctrine<a class="headerlink" href="#book-doctrine-field-types" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Doctrine представляет огромное количество типов полей. Каждый из которых
+отображает тип данных из PHP в установленный тип колонки для любой используемой
+базы данных. В Doctrine поддерживаются следующие типы:</p>
+<ul class="simple">
+<li><strong>Строки</strong><ul>
+<li><tt class="docutils literal"><span class="pre">string</span></tt> (используется для коротких строк)</li>
+<li><tt class="docutils literal"><span class="pre">text</span></tt> (используется для длинных строк)</li>
+</ul>
+</li>
+<li><strong>Числа</strong><ul>
+<li><tt class="docutils literal"><span class="pre">integer</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">smallint</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">bigint</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">decimal</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">float</span></tt></li>
+</ul>
+</li>
+<li><strong>Дата и время</strong> (используйте объект <a class="reference external" href="http://php.net/manual/en/class.datetime.php">DateTime</a> в PHP для этих полей)<ul>
+<li><tt class="docutils literal"><span class="pre">date</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">time</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">datetime</span></tt></li>
+</ul>
+</li>
+<li><strong>Другие типы</strong><ul>
+<li><tt class="docutils literal"><span class="pre">boolean</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">object</span></tt> (сериализуется и хранится в поле <tt class="docutils literal"><span class="pre">CLOB</span></tt>)</li>
+<li><tt class="docutils literal"><span class="pre">array</span></tt> (сериализуется и хранится в поле <tt class="docutils literal"><span class="pre">CLOB</span></tt>)</li>
+</ul>
+</li>
+</ul>
+<p>Дополнительная информация содержится в <a class="reference external" href="http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html#doctrine-mapping-types">Отображении типов</a>.</p>
+<div class="section" id="id19">
+<h3>Опции полей<a class="headerlink" href="#id19" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Каждое поле может иметь набор опций, применимых к нему. Доступные опции включают:
+<tt class="docutils literal"><span class="pre">type</span></tt> (стандартный для <tt class="docutils literal"><span class="pre">string</span></tt>), <tt class="docutils literal"><span class="pre">name</span></tt>, <tt class="docutils literal"><span class="pre">length</span></tt>, <tt class="docutils literal"><span class="pre">unique</span></tt> и
+<tt class="docutils literal"><span class="pre">nullable</span></tt>. Несколько примеров таких аннотаций:</p>
+<div class="highlight-php-annotations"><pre>/**
+ * Строковое поле длиной 255, которое не должно быть null
+ * (это стандартные значения для опций "type", "length" и *nullable*)
+ *
+ * @ORM\Column()
+ */
+protected $name;
+
+/**
+ * Строковое поле длиной 150, хранящееся в колонке "email_address"
+ * и имеющее уникальный индекс.
+ *
+ * @ORM\Column(name="email_address", unique="true", length="150")
+ */
+protected $email;</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Существуют ещё опции, о которых здесь не упоминается. За дополнительной
+информацией обращайтесь к документации Doctrine&#8217;s <a class="reference external" href="http://www.doctrine-project.org/docs/orm/2.0/en/reference/basic-mapping.html#property-mapping">Property Mapping documentation</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="index-2">
+<span id="id20"></span><h2>Консольные команды<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Интеграция Doctrine2 ORM предлагает несколько консольных команд внутри
+пространства имён <tt class="docutils literal"><span class="pre">doctrine</span></tt>. Чтобы вывести список команд запустите консоль
+без аргументов:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console
+</pre></div>
+</div>
+<p>В выведенном списке доступных команд многие из них начинаются с префикса
+<tt class="docutils literal"><span class="pre">doctrine:</span></tt>. Подробнее о них (или любых других командах для Symfony) можно
+узнать запустив команду <tt class="docutils literal"><span class="pre">help</span></tt>. Например, чтобы получить подробности о
+процессе <tt class="docutils literal"><span class="pre">doctrine:database:create</span></tt>, запустите:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console <span class="nb">help </span>doctrine:database:create
+</pre></div>
+</div>
+<p>Некоторые интересные или примечательные команды включают:</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">doctrine:ensure-production-settings</span></tt> - проверяет текущее окружение,
+настроено ли оно эффективно для производственных нужд. Она всегда должна
+запускаться в окружении <tt class="docutils literal"><span class="pre">prod</span></tt>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>php app/console doctrine:ensure-production-settings --env<span class="o">=</span>prod
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">doctrine:mapping:import</span></tt> - разрешает Doctrine проанализировать существующую
+базу данных и создать информацию для её отображения. За дополнительной
+информацией обращайтесь к <tt class="xref doc docutils literal"><span class="pre">/cookbook/doctrine/reverse_engineering</span></tt>.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">doctrine:mapping:info</span></tt> - расскажет обо всех сущностях, которые знает
+Doctrine, а также есть ли в отображениях какие-нибудь простые ошибки.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">doctrine:query:dql</span></tt> и <tt class="docutils literal"><span class="pre">doctrine:query:sql</span></tt> - позволяет выполнять DQL или
+SQL запросы прямо из командной строки.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Чтобы иметь возможность загружать fixtures с данными в базу данных,
+необходимо установить бандл <tt class="docutils literal"><span class="pre">DoctrineFixturesBundle</span></tt>. Чтобы узнать как это
+сделать, прочтите статью &#8220;<tt class="xref doc docutils literal"><span class="pre">/bundles/DoctrineFixturesBundle/index</span></tt>&#8221; в
+документации.</p>
+</div>
+</div>
+<div class="section" id="id21">
+<h2>Выводы<a class="headerlink" href="#id21" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Применяя Doctrine, можно сфокусироваться на объектах и их использовании в
+приложении и только потом заботиться об их сохранении в базу данных. Благодаря
+тому, что Doctrine позволяет использовать любой объект PHP для хранения данных и
+применяет информацию метаданных для отображения чтобы отобразить эти данные об
+объекте в определённую таблицу базы данных.</p>
+<p>Хотя в основе Doctrine простая идея, она необычайно мощна, позволяет
+создавать сложные запросы и подписываться на события, которые дают возможность
+совершать различные действия когда объекты проходят по своим жизненным циклам во
+время сохранения.</p>
+<p>За дополнительной информацией о Doctrine обращайтесь к разделу <em>Doctrine</em> из
+<a class="reference internal" href="../cookbook/index.html"><em>Книги рецептов</em></a>, который включает следующие статьи:</p>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">/bundles/DoctrineFixturesBundle/index</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">/cookbook/doctrine/common_extensions</span></tt></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

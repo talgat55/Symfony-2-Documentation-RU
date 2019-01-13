@@ -1,0 +1,547 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Таги Dependency Injection &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Reference Documents" href="index.html" />
+    <link rel="next" title="Symfony SE Bundles" href="../bundles/index.html" />
+    <link rel="prev" title="Справочник функций Twig для работы с формами" href="forms/twig_reference.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="dependency-injection">
+<h1>Таги Dependency Injection<a class="headerlink" href="#dependency-injection" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Список доступных тагов:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">data_collector</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">form.type</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">form.type_extension</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">form.type_guesser</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.cache_warmer</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.event_listener</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">kernel.event_subscriber</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">monolog.logger</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">monolog.processor</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">templating.helper</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">routing.loader</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">translation.loader</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">twig.extension</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">validator.initializer</span></tt></li>
+</ul>
+<div class="section" id="php">
+<h2>Подключаем пользовательские хелперы в PHP шаблоны<a class="headerlink" href="#php" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для подключения пользовательского хелпера, добавьте его в виде службы
+в один из ваших конфигурационных файлов, пометьте его тагом <tt class="docutils literal"><span class="pre">templating.helper</span></tt>
+и определите атрибут <tt class="docutils literal"><span class="pre">alias</span></tt> (в шаблонах хелпер будет доступен через
+этот алиас):</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">templating.helper.your_helper_name</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Fully\Qualified\Helper\Class\Name</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">templating.helper</span><span class="p-Indicator">,</span> <span class="nv">alias</span><span class="p-Indicator">:</span> <span class="nv">alias_name</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;templating.helper.your_helper_name&quot;</span> <span class="na">class=</span><span class="s">&quot;Fully\Qualified\Helper\Class\Name&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;templating.helper&quot;</span> <span class="na">alias=</span><span class="s">&quot;alias_name&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$container</span>
+    <span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;templating.helper.your_helper_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Fully\Qualified\Helper\Class\Name&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;templating.helper&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;alias&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;alias_name&#39;</span><span class="p">))</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="twig">
+<span id="reference-dic-tags-twig-extension"></span><h2>Подключение пользовательских расширений для Twig<a class="headerlink" href="#twig" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для активации расширения Twig добавьте его в виде службы в один
+из ваших конфигурационных файлов и пометьте эту службу тагом
+<tt class="docutils literal"><span class="pre">twig.extension</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">twig.extension.your_extension_name</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Fully\Qualified\Extension\Class\Name</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">twig.extension</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;twig.extension.your_extension_name&quot;</span> <span class="na">class=</span><span class="s">&quot;Fully\Qualified\Extension\Class\Name&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;twig.extension&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$container</span>
+    <span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;twig.extension.your_extension_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Fully\Qualified\Extension\Class\Name&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;twig.extension&#39;</span><span class="p">)</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>О том, как создавать расширения для Twig, читайте в <a class="reference external" href="http://twig.sensiolabs.org/doc/extensions.html">документации Twig</a>.</p>
+</div>
+<div class="section" id="dic-tags-kernel-event-listener">
+<span id="id1"></span><h2>Подключение пользовательских слушателей<a class="headerlink" href="#dic-tags-kernel-event-listener" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для того чтобы подключить слушателя (listener), добавьте его в виде
+службы в один из ваших конфигурационных файлов и пометьте её тагом
+<tt class="docutils literal"><span class="pre">kernel.event_listener</span></tt>. Вы можете указать наименование события,
+которое будет слушать ваша служба, а также метод, который будет
+вызван:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">kernel.listener.your_listener_name</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Fully\Qualified\Listener\Class\Name</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">kernel.event_listener</span><span class="p-Indicator">,</span> <span class="nv">event</span><span class="p-Indicator">:</span> <span class="nv">xxx</span><span class="p-Indicator">,</span> <span class="nv">method</span><span class="p-Indicator">:</span> <span class="nv">onXxx</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;kernel.listener.your_listener_name&quot;</span> <span class="na">class=</span><span class="s">&quot;Fully\Qualified\Listener\Class\Name&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;kernel.event_listener&quot;</span> <span class="na">event=</span><span class="s">&quot;xxx&quot;</span> <span class="na">method=</span><span class="s">&quot;onXxx&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$container</span>
+    <span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;kernel.listener.your_listener_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Fully\Qualified\Listener\Class\Name&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;kernel.event_listener&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;event&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;xxx&#39;</span><span class="p">,</span> <span class="s1">&#39;method&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;onXxx&#39;</span><span class="p">))</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Вы также можете указать приоритет (положительное или отрицательное целое число)
+в виде атрибута тага kernel.event_listener (также как метод или событие). Это
+позволяет вам управлять очерёдностью вызова слушателей одного и того же события.</p>
+</div>
+</div>
+<div class="section" id="dic-tags-kernel-event-subscriber">
+<span id="id2"></span><h2>Подключение пользовательских Подписчиков<a class="headerlink" href="#dic-tags-kernel-event-subscriber" title="Ссылка на этот заголовок">¶</a></h2>
+<p class="versionadded">
+<span class="versionmodified">Добавлено в версии 2.1.</span></p>
+<p>Для активации подписчика, добавьте его в виде службы в один из конфигурационных
+файлов и пометьте его тагом <tt class="docutils literal"><span class="pre">kernel.event_subscriber</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">kernel.subscriber.your_subscriber_name</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Fully\Qualified\Subscriber\Class\Name</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">kernel.event_subscriber</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;kernel.subscriber.your_subscriber_name&quot;</span> <span class="na">class=</span><span class="s">&quot;Fully\Qualified\Subscriber\Class\Name&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;kernel.event_subscriber&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$container</span>
+    <span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;kernel.subscriber.your_subscriber_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Fully\Qualified\Subscriber\Class\Name&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;kernel.event_subscriber&#39;</span><span class="p">)</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Служба должна реализовывать интерфейс
+<tt class="xref py py-class docutils literal"><span class="pre">SymfonyComponentEventDispatcherEventSubscriberInterface</span></tt>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Если ваша служба создаётся фабрикой, вы <strong>ДОЛЖНЫ</strong> корректно указать параметр
+<tt class="docutils literal"><span class="pre">class</span></tt> для этого тага, иначе работать не будет.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Подключение пользовательских шаблонизаторов<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для того чтобы активировать ещё один шаблонизатор, добавьте его
+в виде службы в один из конфигурационных файлов и пометьте её тагом
+<tt class="docutils literal"><span class="pre">templating.engine</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">templating.engine.your_engine_name</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Fully\Qualified\Engine\Class\Name</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">templating.engine</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;templating.engine.your_engine_name&quot;</span> <span class="na">class=</span><span class="s">&quot;Fully\Qualified\Engine\Class\Name&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;templating.engine&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$container</span>
+    <span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;templating.engine.your_engine_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Fully\Qualified\Engine\Class\Name&#39;</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;templating.engine&#39;</span><span class="p">)</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>Подключение пользовательских загрузчиков для Маршрутов<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для того чтобы подключить загрузчик маршрутов, добавьте его
+в виде службы в один из конфигурационных файлов и пометьте её тагом <tt class="docutils literal"><span class="pre">routing.loader</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">routing.loader.your_loader_name</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Fully\Qualified\Loader\Class\Name</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">routing.loader</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;routing.loader.your_loader_name&quot;</span> <span class="na">class=</span><span class="s">&quot;Fully\Qualified\Loader\Class\Name&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;routing.loader&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="monolog">
+<span id="dic-tags-monolog"></span><h2>Использование отдельного канала для логгирования в Monolog<a class="headerlink" href="#monolog" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Монолог позволяет вам делить обработчики между несколькими каналами логгирования.
+Служба логгера использует канал <tt class="docutils literal"><span class="pre">app</span></tt>, но вы можете изменять канал при
+инъекции логгера в службу.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre>services:
+    my_service:
+        class: Fully\Qualified\Loader\Class\Name
+        arguments: [@logger]
+        tags:
+            - { name: monolog.logger, channel: acme }</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;my_service&quot;</span> <span class="na">class=</span><span class="s">&quot;Fully\Qualified\Loader\Class\Name&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;argument</span> <span class="na">type=</span><span class="s">&quot;service&quot;</span> <span class="na">id=</span><span class="s">&quot;logger&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;monolog.logger&quot;</span> <span class="na">channel=</span><span class="s">&quot;acme&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$definition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span><span class="s1">&#39;Fully\Qualified\Loader\Class\Name&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="k">new</span> <span class="nx">Reference</span><span class="p">(</span><span class="s1">&#39;logger&#39;</span><span class="p">));</span>
+<span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;monolog.logger&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;channel&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;acme&#39;</span><span class="p">));</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;my_service&#39;</span><span class="p">,</span> <span class="nv">$definition</span><span class="p">);;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Это работает, только когда служба логгера инжектится через аргумент конструктора,
+при использовании сеттера работать не будет.</p>
+</div>
+</div>
+<div class="section" id="dic-tags-monolog-processor">
+<span id="id5"></span><h2>Добавление процессоров для Monolog<a class="headerlink" href="#dic-tags-monolog-processor" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Monolog позволяет вам добавлять процессоры в логгер или в хэндлеры для
+добавления дополнительных данных в записи. Процессор получает запись в
+качестве аргумента и должен вернуть её после добавления дополнительных
+данных в атрибут записи <tt class="docutils literal"><span class="pre">extra</span></tt>.</p>
+<p>Давайте посмотрим, как вы можете использовать встроенный <tt class="docutils literal"><span class="pre">IntrospectionProcessor</span></tt>
+для добавления файла, строки, класса и метода, где был вызван логгер.</p>
+<p>Вы можете добавить процессор глобально:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">my_service</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Monolog\Processor\IntrospectionProcessor</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">monolog.processor</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;my_service&quot;</span> <span class="na">class=</span><span class="s">&quot;Monolog\Processor\IntrospectionProcessor&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;monolog.processor&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$definition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span><span class="s1">&#39;Monolog\Processor\IntrospectionProcessor&#39;</span><span class="p">);</span>
+<span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;monolog.processor&#39;</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;my_service&#39;</span><span class="p">,</span> <span class="nv">$definition</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Если служба не может быть вызвана (при помощи <tt class="docutils literal"><span class="pre">__invoke</span></tt>) вы можете
+добавить атрибут <tt class="docutils literal"><span class="pre">method</span></tt> в таг, чтобы использовать указанный метод.</p>
+</div>
+<p>Вы также можете добавить процессор для некоторого хэндлера при помощи атрибута
+<tt class="docutils literal"><span class="pre">handler</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">my_service</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Monolog\Processor\IntrospectionProcessor</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">monolog.processor</span><span class="p-Indicator">,</span> <span class="nv">handler</span><span class="p-Indicator">:</span> <span class="nv">firephp</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;my_service&quot;</span> <span class="na">class=</span><span class="s">&quot;Monolog\Processor\IntrospectionProcessor&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;monolog.processor&quot;</span> <span class="na">handler=</span><span class="s">&quot;firephp&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$definition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span><span class="s1">&#39;Monolog\Processor\IntrospectionProcessor&#39;</span><span class="p">);</span>
+<span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;monolog.processor&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;handler&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;firephp&#39;</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;my_service&#39;</span><span class="p">,</span> <span class="nv">$definition</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Вы также можете добавить процессор для некоторого канала логгинга при помощи
+атрибута <tt class="docutils literal"><span class="pre">channel</span></tt>. Этот атрибут зарегистрирует процессор только для канала
+<tt class="docutils literal"><span class="pre">security</span></tt>, используемого в компоненте Security:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">my_service</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Monolog\Processor\IntrospectionProcessor</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">monolog.processor</span><span class="p-Indicator">,</span> <span class="nv">channel</span><span class="p-Indicator">:</span> <span class="nv">security</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;my_service&quot;</span> <span class="na">class=</span><span class="s">&quot;Monolog\Processor\IntrospectionProcessor&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;monolog.processor&quot;</span> <span class="na">channel=</span><span class="s">&quot;security&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$definition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span><span class="s1">&#39;Monolog\Processor\IntrospectionProcessor&#39;</span><span class="p">);</span>
+<span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;monolog.processor&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;channel&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;security&#39;</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;my_service&#39;</span><span class="p">,</span> <span class="nv">$definition</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Вы не можете использовать оба атрибута <tt class="docutils literal"><span class="pre">handler</span></tt> и <tt class="docutils literal"><span class="pre">channel</span></tt> для одного
+и того же тага так как хэндлеры доступны для всех каналов.</p>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

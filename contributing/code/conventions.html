@@ -1,0 +1,273 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Соглашения &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" />
+    <link rel="up" title="Содействие в коде" href="index.html" />
+    <link rel="next" title="Лицензия Symfony2" href="license.html" />
+    <link rel="prev" title="Сообщение о бреши в безопасности" href="security.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="id1">
+<h1>Соглашения<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Документ <tt class="xref doc docutils literal"><span class="pre">стандарты</span></tt> описывает стандарты кодирования для проекта
+Symfony2, его внутренних и сторонних бандлов. Этот документ описывает стандарты
+кодирования и соглашения, используемые в ядре фреймворка чтобы сделать его
+более последовательным и предсказуемым. Можете следовать им в своём коде, но в
+этом нет особой нужды.</p>
+<div class="section" id="id2">
+<h2>Имена методов<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Когда объект имеет &#8220;главную&#8221; множественную связь со связанными &#8220;предметами&#8221;
+(объекты, параметры и т. д.), имена методов стандартизуются:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">get()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">set()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">has()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">all()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">replace()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">remove()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">clear()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">isEmpty()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">add()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">register()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">count()</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">keys()</span></tt></li>
+</ul>
+</div></blockquote>
+<p>Использование этих методов применимо только когда ясно что существует основная
+связь:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CookieJar</span></tt> имеет множество <tt class="docutils literal"><span class="pre">Cookie</span></tt>;</li>
+<li>Служба <tt class="docutils literal"><span class="pre">Container</span></tt> имеет множество служб и множество параметров (т. к.
+службы это главная связь, то мы используем соглашения для имён для этой связи);</li>
+<li>Консоль <tt class="docutils literal"><span class="pre">Input</span></tt> имеет множество аргументов и множество опций. Здесь нет
+&#8220;основной&#8221; связи, поэтому соглашения для имён не применяются.</li>
+</ul>
+<p>Для множественных связей, к которым не применяется соглашение, должны
+использоваться следующие методы (где <tt class="docutils literal"><span class="pre">XXX</span></tt> это имя соотвествующего предмета):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Главная связь</th>
+<th class="head">Другие связи</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">get()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">getXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">set()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">has()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">hasXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">all()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">getXXXs()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">replace()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setXXXs()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">remove()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">removeXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">clear()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">clearXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">isEmpty()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">isEmptyXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">add()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">addXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">register()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">registerXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">count()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">countXXX()</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">keys()</span></tt></td>
+<td>не доступно</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

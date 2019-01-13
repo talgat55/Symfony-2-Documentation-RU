@@ -1,0 +1,358 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Как искать файлы &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" />
+    <link rel="up" title="Cookbook" href="../index.html" />
+    <link rel="next" title="Reference Documents" href="../../reference/index.html" />
+    <link rel="prev" title="Как автоматически загружать классы" href="autoloader.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Как искать файлы<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>С помощью компонента <a href="#id2"><span class="problematic" id="id3">:namespace:`Symfony\\Component\\Finder`</span></a> можно
+легко и быстро находить необходимые файлы и каталоги.</p>
+<div class="section" id="id4">
+<h2>Использование<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Класс <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Finder\Finder</span></tt> производит поиск
+файлов и/или каталогов:</p>
+<div class="highlight-python"><pre>use Symfony\Component\Finder\Finder;
+
+$finder = new Finder();
+$finder-&gt;files()-&gt;in(__DIR__);
+
+foreach ($finder as $file) {
+    print $file-&gt;getRealpath()."\n";
+}</pre>
+</div>
+<p>Объект <tt class="docutils literal"><span class="pre">$file</span></tt> является экземпляром класса <a href="#id5"><span class="problematic" id="id6">:phpclass:`SplFileInfo`</span></a>.
+Код выше печатает имена всех файлов в текущем каталоге рекурсивно. Класс Finder
+использует свободный интерфейс, так что все методы возвращают тип данных Finder.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Экземпляр класса Finder является <a class="reference external" href="http://www.php.net/manual/en/spl.iterators.php">Iterator</a> (итератором) PHP. Так, что вместо
+прохода над Finder&#8217;ом с помощью <tt class="docutils literal"><span class="pre">foreach</span></tt>, можно также конвертировать его
+в массив с помощью метода <a href="#id7"><span class="problematic" id="id8">:phpfunction:`iterator_to_array`</span></a>, или получить
+количество элементов, с помощью <a href="#id9"><span class="problematic" id="id10">:phpfunction:`iterator_count`</span></a>.</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>Критерии поиска<a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="section" id="id12">
+<h3>Расположение<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Расположение является единственным обязательным параметром. Данный параметр
+указывает поисковику какую директорию использовать для поиска:</p>
+<div class="highlight-python"><pre>$finder-&gt;in(__DIR__);</pre>
+</div>
+<p>Поиск в нескольких местах реализуется с помощью последовательных вызовов
+метода <a href="#id13"><span class="problematic" id="id14">:method:`Symfony\\Component\\Finder\\Finder::in`</span></a>:</p>
+<div class="highlight-python"><pre>$finder-&gt;files()-&gt;in(__DIR__)-&gt;in('/elsewhere');</pre>
+</div>
+<p>Исключение каталогов из поиска осуществляется методом
+<a href="#id15"><span class="problematic" id="id16">:method:`Symfony\\Component\\Finder\\Finder::exclude`</span></a></p>
+<div class="highlight-python"><pre>$finder-&gt;in(__DIR__)-&gt;exclude('ruby');</pre>
+</div>
+<p>Т.к. Finder использует PHP итераторы, ему можно передать любой
+URL с поддерживаемым протоколом <a class="reference external" href="http://www.php.net/manual/en/wrappers.php">protocol</a>:</p>
+<div class="highlight-python"><pre>$finder-&gt;in('ftp://example.com/pub/');</pre>
+</div>
+<p>Также он работает с пользовательскими потоками:</p>
+<div class="highlight-python"><pre>use Symfony\Component\Finder\Finder;
+
+$s3 = new \Zend_Service_Amazon_S3($key, $secret);
+$s3-&gt;registerStreamWrapper("s3");
+
+$finder = new Finder();
+$finder-&gt;name('photos*')-&gt;size('&lt; 100K')-&gt;date('since 1 hour ago');
+foreach ($finder-&gt;in('s3://bucket-name') as $file) {
+    // do something
+
+    print $file-&gt;getFilename()."\n";
+}</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">В документации <a class="reference external" href="http://www.php.net/streams">Streams</a> можно узнать как создавать свои собственные потоки.</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>Файлы или каталоги<a class="headerlink" href="#id17" title="Ссылка на этот заголовок">¶</a></h3>
+<p>По-умолчанию, Finder возвращает файлы или каталоги; но
+методами  <a href="#id18"><span class="problematic" id="id19">:method:`Symfony\\Component\\Finder\\Finder::files`</span></a>
+и <a href="#id20"><span class="problematic" id="id21">:method:`Symfony\\Component\\Finder\\Finder::directories`</span></a>
+можно управлять его поведением:</p>
+<div class="highlight-python"><pre>$finder-&gt;files();
+
+$finder-&gt;directories();</pre>
+</div>
+<p>Если хотите следовать по ссылкам, используйте метод <tt class="docutils literal"><span class="pre">followLinks()</span></tt>:</p>
+<div class="highlight-python"><pre>$finder-&gt;files()-&gt;followLinks();</pre>
+</div>
+<p>По-умолчанию, итератор игнорирует популярные файлы VCS. Данное поведение может быть изменено
+с помощью метода <tt class="docutils literal"><span class="pre">ignoreVCS()</span></tt>:</p>
+<div class="highlight-python"><pre>$finder-&gt;ignoreVCS(false);</pre>
+</div>
+</div>
+<div class="section" id="id22">
+<h3>Сортировка<a class="headerlink" href="#id22" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Сортировка результатов по имени или типу (каталоги первыми, файлы последними):</p>
+<div class="highlight-python"><pre>$finder-&gt;sortByName();
+
+$finder-&gt;sortByType();</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Обратите внимание, что методам <tt class="docutils literal"><span class="pre">sort*</span></tt> требуется получить все подходящие
+под обработку объекты. Данная процедура при больших объемах весьма медленна.</p>
+</div>
+<p>Также можно определить свои собственные алгоритмы сортировки с помощью метода <tt class="docutils literal"><span class="pre">sort()</span></tt>:</p>
+<div class="highlight-python"><pre>$sort = function (\SplFileInfo $a, \SplFileInfo $b)
+{
+    return strcmp($a-&gt;getRealpath(), $b-&gt;getRealpath());
+};
+
+$finder-&gt;sort($sort);</pre>
+</div>
+</div>
+<div class="section" id="id23">
+<h3>Имена файлов<a class="headerlink" href="#id23" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Наложить ограничения по имени файлов можно с помощью метода
+<a href="#id24"><span class="problematic" id="id25">:method:`Symfony\\Component\\Finder\\Finder::name`</span></a>:</p>
+<div class="highlight-python"><pre>$finder-&gt;files()-&gt;name('*.php');</pre>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">name()</span></tt> принимает строки, регулярные выражения или шаблоны:</p>
+<div class="highlight-python"><pre>$finder-&gt;files()-&gt;name('/\.php$/');</pre>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">notNames()</span></tt> исключает файлы по шаблону:</p>
+<div class="highlight-python"><pre>$finder-&gt;files()-&gt;notName('*.rb');</pre>
+</div>
+</div>
+<div class="section" id="id26">
+<h3>Размер файла<a class="headerlink" href="#id26" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Ограничить размер файлов можно с помощью метода
+Restrict files by size with the <a href="#id27"><span class="problematic" id="id28">:method:`Symfony\\Component\\Finder\\Finder::size`</span></a>:</p>
+<div class="highlight-python"><pre>:method:`Symfony\\Component\\Finder\\Finder::size` method::</pre>
+</div>
+<blockquote>
+<div>$finder-&gt;files()-&gt;size(&#8216;&lt; 1.5K&#8217;);</div></blockquote>
+<p>Ограничить размер в рамках можно с помощью связанных вызовов:</p>
+<p>Оператор сравнения может быть любым из следующих: <tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, &#8216;&lt;=&#8217;,
+&#8216;==&#8217;.</p>
+<p>Целевое значение может использовать приставки (<tt class="docutils literal"><span class="pre">k</span></tt>, <tt class="docutils literal"><span class="pre">ki</span></tt>) килобайты,
+(<tt class="docutils literal"><span class="pre">m</span></tt>, <tt class="docutils literal"><span class="pre">mi</span></tt>) мегабайты, или (<tt class="docutils literal"><span class="pre">g</span></tt>, <tt class="docutils literal"><span class="pre">gi</span></tt>) гигабайты. Те которые используют
+суффиксы <tt class="docutils literal"><span class="pre">i</span></tt> (киби/миби и т.д.) в названии являются версиями <tt class="docutils literal"><span class="pre">2**n</span></tt> согласно
+стандарту`IEC standard`_.</p>
+</div>
+<div class="section" id="id29">
+<h3>Дата файла<a class="headerlink" href="#id29" title="Ссылка на этот заголовок">¶</a></h3>
+<p>С помощью метода <a href="#id30"><span class="problematic" id="id31">:method:`Symfony\\Component\\Finder\\Finder::date`</span></a>
+можно наложить ограничения на файлы по дате последнего изменения:</p>
+<div class="highlight-python"><pre>$finder-&gt;date('since yesterday');</pre>
+</div>
+<p>Оператор сравнения может быть любым из следующих:<tt class="docutils literal"><span class="pre">&gt;</span></tt>, <tt class="docutils literal"><span class="pre">&gt;=</span></tt>, <tt class="docutils literal"><span class="pre">&lt;</span></tt>, &#8216;&lt;=&#8217;,
+&#8216;==&#8217;. Также можно использовать псевдонимы <tt class="docutils literal"><span class="pre">since</span></tt> или <tt class="docutils literal"><span class="pre">after</span></tt> для оператора
+<tt class="docutils literal"><span class="pre">&gt;</span></tt>, и  <tt class="docutils literal"><span class="pre">until</span></tt> или <tt class="docutils literal"><span class="pre">before</span></tt> в качестве <tt class="docutils literal"><span class="pre">&lt;</span></tt>.</p>
+<p>Целевое значение может быть любой датой поддерживаемой функцией <a class="reference external" href="http://www.php.net/manual/en/datetime.formats.php">strtotime</a></p>
+</div>
+<div class="section" id="id32">
+<h3>Глубина каталогов<a class="headerlink" href="#id32" title="Ссылка на этот заголовок">¶</a></h3>
+<p>По-умолчанию Finder просматривает каталоги рекурсивно. Ограничить глубину
+поиска можно с помощью метода <a href="#id33"><span class="problematic" id="id34">:method:`Symfony\\Component\\Finder\\Finder::depth`</span></a>:</p>
+<div class="highlight-python"><pre>$finder-&gt;depth('== 0');
+$finder-&gt;depth('&lt; 3');</pre>
+</div>
+</div>
+<div class="section" id="id35">
+<h3>Фильтрация<a class="headerlink" href="#id35" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Ограничить результаты поиска согласно собственным параметрам,
+можно используя метод <a href="#id36"><span class="problematic" id="id37">:method:`Symfony\\Component\\Finder\\Finder::filter`</span></a>:</p>
+<div class="highlight-python"><pre>$filter = function (\SplFileInfo $file)
+{
+    if (strlen($file) &gt; 10) {
+        return false;
+    }
+};
+
+$finder-&gt;files()-&gt;filter($filter);</pre>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">filter()</span></tt> получает замыкание в качестве аргумента. Для каждого подходящего
+файла, замыкание вызывается с аргументом в виде объекта который является экземпляром
+класса <a href="#id38"><span class="problematic" id="id39">:phpclass:`SplFileInfo`</span></a>.
+Файл исключается из множества результатов если замыкание возвращает <tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

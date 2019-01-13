@@ -1,0 +1,858 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HTTP Кэш &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="http">
+<span id="index-0"></span><h1>HTTP Кэш<a class="headerlink" href="#http" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Лучшим способом улучшить производительность приложения будет, вероятно,
+кэшировать его вывод и обойти его полностью. Конечно же, это невозможно для
+сильно динамичных web сайтов, или все-таки можно? Этот раздел покажет вам,
+как работает система кэширования Symfony2 и почему мы думаем что это
+наилучший возможный подход.</p>
+<p>Система кэширования Symfony2 полагается на простоту и мощь HTTP кэша, как
+это определено в спецификации HTTP. В основном, если вам уже знакомы модели
+кэширования HTTP валидации и устаревания, вы готовы к использованию
+большей части системы кэширования Symfony2.</p>
+<div class="section" id="index-1">
+<span id="id1"></span><h2>Разновидности Кэша<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Заголовки HTTP кэша обрабатываются и интерпретируются тремя различными видами
+кэша:</p>
+<ul class="simple">
+<li><em>Кэширование браузером</em>: Каждый браузер включает в себя собственный локальный кэш,
+который наиболее полезен, когда вы нажимаете кнопку &#8220;back&#8221; или когда изображения
+используются на web сайте неоднократно;</li>
+<li><em>Proxy кэширование</em>: Прокси это <em>распределенный</em> кэш, так как много людей могут
+использовать один и тот же кэш. Он всегда устанавливается большими корпорациями
+и ISP для уменьшения латентности и сетевого трафика.</li>
+<li><em>Gateway кэширование</em>: Как и прокси, тоже является распределенным кэшем, но на
+серверной стороне. Установленный сетевыми администраторами, он делает web сайты
+более масштабируемыми, надежными и более продуктивными (CDN-ы такие как Akamaï
+являются gateway кэшами).</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Gateway кэш иногда упоминается как обратный прокси кэш,
+кэш-заместитель, или даже HTTP акселератор.</p>
+</div>
+<p>Протокол HTTP 1.1 по умолчанию позволяет кэшировать все, за исключением
+явно указанного в заголовке <tt class="docutils literal"><span class="pre">Cache-Control</span></tt>. На практике, большинство кэшей
+ничего не делают если в запросе установлены cookies, заголовок авторизации, или
+передача ведется по non-safe методу, и когда у ответа есть статус кода редиректа.</p>
+<p>Symfony2 автоматически устанавливает рациональный и умеренный заголовок
+<tt class="docutils literal"><span class="pre">Cache-Control</span></tt> когда он не указан разработчиком, следуя таким правилам:</p>
+<ul class="simple">
+<li>Если не указан заголовок кэша (<tt class="docutils literal"><span class="pre">Cache-Control</span></tt>, <tt class="docutils literal"><span class="pre">ETag</span></tt>,
+<tt class="docutils literal"><span class="pre">Last-Modified</span></tt>, и <tt class="docutils literal"><span class="pre">Expires</span></tt>), <tt class="docutils literal"><span class="pre">Cache-Control</span></tt> устанавливается как
+<tt class="docutils literal"><span class="pre">no-cache</span></tt>;</li>
+<li>Если <tt class="docutils literal"><span class="pre">Cache-Control</span></tt> пустой, его значение устанавливается в <tt class="docutils literal"><span class="pre">private,</span>
+<span class="pre">max-age=0,</span> <span class="pre">must-revalidate</span></tt>;</li>
+<li>Но когда установлена хотя бы одна директива <tt class="docutils literal"><span class="pre">Cache-Control</span></tt>, и явно не
+добавлены директивы &#8216;public&#8217; или <tt class="docutils literal"><span class="pre">private</span></tt>, Symfony2 добавляет директиву
+<tt class="docutils literal"><span class="pre">private</span></tt> автоматически (кроме случая, когда установлено <tt class="docutils literal"><span class="pre">s-maxage</span></tt>).</li>
+</ul>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Большинство gateway кэшей могут удалять cookies перед перенаправлением
+запроса к серверному приложению, и добавлять их обратно при отправке
+ответа браузеру (это полезно для cookies, которые не изменяют
+представление ресурса, такие как отслеживающие cookies).</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Манипуляции с Заголовками Ответа<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Перед тем как мы начнем наш тур по различным HTTP заголовкам, которые вы
+можете использовать для включения кэширования в вашем приложении, первым
+делом вам нужно знать как изменять их в Symfony2 приложении.</p>
+<p>Класс <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Response</span></tt> предоставляет красивый
+и простой API для упрощения манипуляций с HTTP заголовками:</p>
+<div class="highlight-python"><pre>// передавайте массив заголовков третьим аргументом в конструктор Response
+$response = new Response($content, $status, $headers);
+
+// устанавливайте значение заголовка
+$response-&gt;headers-&gt;set('Content-Type', 'text/plain');
+
+// добавляйте значения заголовка к существующим значениям
+$response-&gt;headers-&gt;set('Vary', 'Accept', false);
+
+// устанавливайте заголовок с многими значениями
+$response-&gt;headers-&gt;set('Vary', array('Accept', 'Accept-Encoding'));
+
+// удаляйте заголовок
+$response-&gt;headers-&gt;delete('Content-Type');</pre>
+</div>
+<p>Кроме этих встроенных путей установки заголовков, класс Response также предоставляет
+много специализированных методов, упрощающих манипуляции с заголовками HTTP кэша.
+Далее вы узнаете о них больше.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Имена HTTP заголовков регистро-независимы. Так как Symfony2 внутренне
+конвертирует их в нормализированную форму, регистр ввода значения не имеет
+(<tt class="docutils literal"><span class="pre">Content-Type</span></tt> рассматривается идентично с <tt class="docutils literal"><span class="pre">content-type</span></tt>). Вы также
+можете использовать нижние подчеркивания (<tt class="docutils literal"><span class="pre">_</span></tt>) вместо дефисов (<tt class="docutils literal"><span class="pre">-</span></tt>), если захотите.</p>
+</div>
+<p>Если вы используете укороченный метод класса Controller <tt class="docutils literal"><span class="pre">render</span></tt> для формирования шаблона и
+создания объекта Response, вы также можете легко манипулировать заголовками Response:</p>
+<div class="highlight-python"><pre>// Сперва создайте объект Response и установите заголовки...
+$response = new Response();
+$response-&gt;headers-&gt;set('Content-Type', 'text/plain');
+
+// ...и потом установите их как третий аргумент в метод render
+return $this-&gt;render($name, $vars, $response);
+
+// Или, вызовите render сначала...
+$response = $this-&gt;render($name, $vars);
+
+// ...и манипулируйте заголовками Response потом
+$response-&gt;headers-&gt;set('Content-Type', 'text/plain');
+
+return $response;</pre>
+</div>
+</div>
+<div class="section" id="index-2">
+<span id="id3"></span><h2>Понимание HTTP Кэша<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>HTTP спецификация (aka <a class="reference external" href="http://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>) определяет две модели кэширования:</p>
+<ul class="simple">
+<li><em>Истечение</em>: Вы указываете как долго ответ считается &#8220;свежим&#8221; путем установки
+<tt class="docutils literal"><span class="pre">Cache-Control</span></tt> и/или <tt class="docutils literal"><span class="pre">Expires</span></tt> заголовков. При кэшировании помните,
+что истечение не будет делать одинаковый запрос пока кэшируемая версия
+не достигнет своего времени истечения срока и станет &#8220;старой&#8221;.</li>
+<li><em>Валидация</em>: Когда некоторые страницы действительно динамичны (в смысле, что их
+содержимое часто изменяется), модель валидации использует уникальный идентификатор
+(заголовок <tt class="docutils literal"><span class="pre">Etag</span></tt>) и/или метку времени (заголовок <tt class="docutils literal"><span class="pre">Last-Modified</span></tt>) для проверки,
+изменилась ли страница с последнего раза.</li>
+</ul>
+<p>Целью обоих моделей является никогда не генерировать один и тот же Response дважды.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Принимаются усилия (<a class="reference external" href="http://tools.ietf.org/wg/httpbis/">HTTP Bis</a>) переписать RFC 2616. Он не описывает
+новую версию HTTP, но преимущественно освещает первоначальную спецификацию HTTP.
+Организация также намного лучше, так как спецификация разделена на несколько
+частей; все что касается HTTP кэширования может быть найдено в двух разделенных
+частях (<a class="reference external" href="http://tools.ietf.org/id/draft-ietf-httpbis-p4-conditional-12.txt">P4 - Conditional Requests</a> and <a class="reference external" href="http://tools.ietf.org/id/draft-ietf-httpbis-p6-cache-12.txt">P6 - Caching: Browser and intermediary caches</a>).</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Заголовки HTTP кэша работают только с &#8220;безопасными&#8221; (safe) HTTP методами (такими как
+GET и HEAD). Быть безопасным означает, что вы никогда не должны изменять состояние
+приложения на сервере когда отрабатываются такие запросы (но вы, конечно же, можете
+логировать информацию, кэшировать данные, ...)</p>
+</div>
+<div class="section" id="index-3">
+<span id="id4"></span><h3>Истечение<a class="headerlink" href="#index-3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>По возможности, нужно использовать модель кэширования с истечением, если ваше
+приложение будет вызвано при первом запросе и оно не будет вызываться снова пока
+не устареет (это экономит CPU сервера и улучшает масштабируемость).</p>
+</div>
+<div class="section" id="expires">
+<span id="index-4"></span><h3>Истечение с заголовком <tt class="docutils literal"><span class="pre">Expires</span></tt><a class="headerlink" href="#expires" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В соответствии с RFC 2616, &#8220;the <tt class="docutils literal"><span class="pre">Expires</span></tt> header field gives the date/time after
+which the response is considered stale.&#8221; Заголовок <tt class="docutils literal"><span class="pre">Expires</span></tt> может быть установлен
+при помощи <tt class="docutils literal"><span class="pre">setExpires()</span></tt> метод класса Response. Он принимает экземпляр <tt class="docutils literal"><span class="pre">DateTime</span></tt>
+в качестве аргумента:</p>
+<div class="highlight-python"><pre>$date = new DateTime();
+$date-&gt;modify('+600 seconds');
+
+$response-&gt;setExpires($date);</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Метод <tt class="docutils literal"><span class="pre">setExpires()</span></tt> автоматически конвертирует дату в формат GMT,
+чего требует спецификация (дата должна быть в формате RFC1123).</p>
+</div>
+<p>Заголовок <tt class="docutils literal"><span class="pre">Expires</span></tt> обладает двумя недостатками. Во-первых, часы Web сервера
+и кэша (aka браузера) должны быть синхронизированы. Далее, спецификация состояний
+указывает что &#8220;HTTP/1.1 servers should not send <tt class="docutils literal"><span class="pre">Expires</span></tt> dates
+more than one year in the future.&#8221; (Серверы с поддержкой HTTP/1.1 не должны отсылать
+<tt class="docutils literal"><span class="pre">Expires</span></tt> даты ранее чем через год.)</p>
+</div>
+<div class="section" id="cache-control">
+<span id="index-5"></span><h3>Истечение с заголовком <tt class="docutils literal"><span class="pre">Cache-Control</span></tt><a class="headerlink" href="#cache-control" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Так как у заголовка <tt class="docutils literal"><span class="pre">Expires</span></tt> есть ограничения, чаще всего, вам следует
+использовать вместо него заголовок <tt class="docutils literal"><span class="pre">Cache-Control</span></tt>. Так как <tt class="docutils literal"><span class="pre">Cache-Control</span></tt>
+это заголовок общего назначения, используемый для установки различных директив,
+Symfony2 предоставляет методы, которые абстрагируют манипуляции ими. Для истечения,
+есть две директивы, <tt class="docutils literal"><span class="pre">max-age</span></tt> и <tt class="docutils literal"><span class="pre">s-maxage</span></tt>. Первая используется всеми видами
+кэшей, тогда как вторая берется во внимание только shared кэшами:</p>
+<div class="highlight-python"><pre>// Устанавливает количество секунд по истечению которых
+// ответ уже не будет считаться свежим
+$response-&gt;setMaxAge(600);
+
+// Тоже что и сверху, но только для shared кэшей
+$response-&gt;setSharedMaxAge(600);</pre>
+</div>
+</div>
+<div class="section" id="index-6">
+<span id="id5"></span><h3>Валидация<a class="headerlink" href="#index-6" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Когда ресурс должен быть обновлен как только были изменены данные, модель
+истечения терпит крах. Модель валидации решает эту задачу. В этой модели,
+вы преимущественно экономите каналы передачи данных, так как представление не
+отсылается дважды одному и тому же клиенту (вместо этого отсылается ответ 304).
+Но если вы внимательно проектируете дизайн вашего приложения, у вас должна быть
+возможность получить минимальный объем данных, необходимый для отправки ответа
+304, и также сэкономить CPU; и если необходимо, выполнить более трудоемкие
+задачи (смотрите ниже практический пример).</p>
+</div>
+<div class="section" id="etag">
+<span id="index-7"></span><h3>Валидация с использованием заголовка <tt class="docutils literal"><span class="pre">ETag</span></tt><a class="headerlink" href="#etag" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В соответствии с RFC, &#8220;Поле ответа-заголовка <tt class="docutils literal"><span class="pre">ETag</span></tt> предоставляет текущее
+значение entity-tag для одного представления рассматриваемого ресурса.
+Entity-tag предполагается использовать в качестве локального для ресурса
+идентификатора для дифференциации между представлениями одного и того же
+ресурса, изменяющегося во времени или через согласование содержания.&#8221;.
+&#8220;Entity-tag ДОЛЖЕН быть уникальным во всех версиях всех представлений,
+ассоциированных с конкретным ресурсом.&#8221;</p>
+<p>Возможным значением для &#8220;entity-tag&#8221; может быть, например, хэш содержимого
+ответа:</p>
+<div class="highlight-python"><pre>$response-&gt;setETag(md5($response-&gt;getContent()));</pre>
+</div>
+<p>Этот алгоритм достаточно прост и очень универсален, но вам нужно создать
+Response полностью, перед тем как вы сможете рассчитать ETag, что не совсем
+оптимально. Эта стратегия часто используется как алгоритм по умолчанию во
+многих фреймворках, но вам следует использовать какой-нибудь алгоритм,
+который лучше учитывает путь создания ресурсов (смотрите секцию ниже про
+оптимизацию валидации).</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Symfony2 также поддерживает слабые ETags путем передачи <tt class="docutils literal"><span class="pre">true</span></tt> в качестве
+второго аргумента в метод
+<a href="#id6"><span class="problematic" id="id7">:method:`Symfony\\Component\\HttpFoundation\\Response::setETag`</span></a>.</p>
+</div>
+</div>
+<div class="section" id="last-modified">
+<span id="index-8"></span><h3>Валидация с использованием заголовка <tt class="docutils literal"><span class="pre">Last-Modified</span></tt><a class="headerlink" href="#last-modified" title="Ссылка на этот заголовок">¶</a></h3>
+<p>В соответствии с RFC, &#8220;Поле заголовка <tt class="docutils literal"><span class="pre">Last-Modified</span></tt> отображает
+дату и время, при которой, по мнению главного сервера, отображение было
+последний раз изменено.&#8221;</p>
+<p>Например, в качестве даты последнего изменения для всех объектов, требующих
+расчета времени отображения, значение заголовка <tt class="docutils literal"><span class="pre">Last-Modified</span></tt>:</p>
+<div class="highlight-python"><pre>$articleDate = new \DateTime($article-&gt;getUpdatedAt());
+$authorDate = new \DateTime($author-&gt;getUpdatedAt());
+
+$date = $authorDate &gt; $articleDate ? $authorDate : $articleDate;
+
+$response-&gt;setLastModified($date);</pre>
+</div>
+</div>
+<div class="section" id="index-9">
+<span id="id8"></span><h3>Оптимизация вашего Кода при помощи Валидации<a class="headerlink" href="#index-9" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Главной целью любой стратегии кэширования является облегчение загрузки
+приложения; следуя другим путем, минимум что можно сделать в вашем
+приложении - вернуть ответ 304, что еще лучще. Метод Symfony2
+<tt class="docutils literal"><span class="pre">Response::isNotModified()</span></tt> делает именно это через использование
+простого и производительного паттерна:</p>
+<div class="highlight-python"><pre>// Получаем минимум информации для вычисления
+// ETag или значение Last-Modified
+// (базируясь на Request, данных полученных из
+// базы данных или хранилища ключ-значение)
+$article = Article::get(...);
+
+// создадим объект Response с заголовком ETag и/или a Last-Modified
+$response = new Response();
+$response-&gt;setETag($article-&gt;computeETag());
+$response-&gt;setLastModified($article-&gt;getPublishedAt());
+
+// Проверяем что Response не изменился для заданного Request
+if ($response-&gt;isNotModified($request)) {
+    // сразу же отсылаем 304 Response
+    $response-&gt;send();
+} else {
+    // делаем здесь что-нибудь трудоемкое
+    // такое как работа с БД
+    // и рендеринг шаблона
+}</pre>
+</div>
+<p>Когда Response не был изменен, <tt class="docutils literal"><span class="pre">isNotModified()</span></tt> автоматически
+устанавливает статус кода ответа <tt class="docutils literal"><span class="pre">304</span></tt>, удалите содержимое, и удалите
+некоторые заголовки которые не должны присутствовать в ответах <tt class="docutils literal"><span class="pre">304</span></tt>
+(смотрите <a href="#id9"><span class="problematic" id="id10">:method:`Symfony\\Component\\HttpFoundation\\Response::setNotModified`</span></a>).</p>
+</div>
+<div class="section" id="vary-response">
+<span id="index-10"></span><h3>Заголовок Vary в объекте Response<a class="headerlink" href="#vary-response" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Иногда, представление ресурса зависит не только от его URI, но также и от
+значений некоторых заголовков. Например, если вы сжимаете страницы, когда это
+поддерживает клиент, каждый выдаваемый URI имеет два представления: одно когда
+клиент поддерживает компрессию, и еще одно когда нет. Для таких случаев, вы
+должны использовать заголовок <tt class="docutils literal"><span class="pre">Vary</span></tt>, чтобы помочь кэшу определить, когда
+хранимый ответ может быть использован в соответствии в полученным запросом:</p>
+<div class="highlight-python"><pre>$response-&gt;setVary('Accept-Encoding');
+
+$response-&gt;setVary(array('Accept-Encoding', 'Accept'));</pre>
+</div>
+<p>Метод <tt class="docutils literal"><span class="pre">setVary()</span></tt> получает имя заголовка или массив имен заголовков от
+которых изменяется ответ.</p>
+</div>
+<div class="section" id="id11">
+<h3>Истечение и Валидация<a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Конечно вы можете использовать одновременно и валидацию и истечение в
+одинаковых Response. Так как истечение выигрывает у валидации, вы можете
+легко взять лучшее из обоих миров. Это дает вам множество путей настройки
+и корректировки вашей стратегии кэширования.</p>
+</div>
+<div class="section" id="response">
+<span id="index-11"></span><h3>Больше Методов Response<a class="headerlink" href="#response" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Класс Response предоставляет еще множество методов связанных с кэшем. Вот самые
+полезные из них:</p>
+<div class="highlight-python"><pre>// Пометим Response как приватный
+$response-&gt;setPrivate();
+
+// Пометим Response как публичный
+$response-&gt;setPublic();
+
+// Пометим Response как устаревший
+$response-&gt;expire();</pre>
+</div>
+<p>Последнее но совсем не последнее по значимости, большинство HTTP заголовков
+связанных с кэшем, могут быть установлены вызовом одного
+метода <tt class="docutils literal"><span class="pre">setCache()</span></tt>:</p>
+<div class="highlight-python"><pre>// Установим настройки кэша в один вызов
+$response-&gt;setCache(array(
+    'etag'          =&gt; $etag,
+    'last_modified' =&gt; $date,
+    'max_age'       =&gt; 10,
+    'public'        =&gt; true,
+));</pre>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>Конфигурирование Кэша<a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Как вы уже догадались, наилучшей конфигурацией для ускорения вашего приложения
+будет добавление gateway cache на входе вашего приложения. И так как Symfony2
+использует только стандартные HTTP заголовки для управления его кэшем, здесь
+нет необходимости в внутреннем слое кэша. Вместо этого, вы можете использовать
+любой обратный прокси какой захотите, такой как Apache mod_cache, Squid, или
+Varnish. Если вы не хотите устанавливать дополнительное программное обеспечение,
+вы можете использовать обратный прокси встроенный в Symfony2, который написан на
+PHP и делает ту же работу что и любой другой обратный прокси.</p>
+<div class="section" id="response-response">
+<h3>Публичный Response против Приватного Response<a class="headerlink" href="#response-response" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Как показано в начале этой статьи, Symfony2 очень консервативна
+и делает все Response приватными по умолчанию (точные правила описаны тут).</p>
+<p>Если вы хотите использовать shared кэш, вы должны помнить явно добавлять
+<tt class="docutils literal"><span class="pre">public</span></tt> директиву к <tt class="docutils literal"><span class="pre">Cache-Control</span></tt>:</p>
+<div class="highlight-python"><pre>// Response приватный по умолчанию
+$response-&gt;setEtag($etag);
+$response-&gt;setLastModified($date);
+$response-&gt;setMaxAge(10);
+
+// Меняем Response что бы сделать его публичным
+$response-&gt;setPublic();
+
+// Устанавливаем настройки кэша в один вызов
+$response-&gt;setCache(array(
+    'etag'          =&gt; $etag,
+    'last_modified' =&gt; $date,
+    'max_age'       =&gt; 10,
+    'public'        =&gt; true,
+));</pre>
+</div>
+</div>
+<div class="section" id="symfony2">
+<h3>Обратный прокси Symfony2<a class="headerlink" href="#symfony2" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Symfony2 поставляется со встроенным обратным прокси написаным на PHP. Вкличите его и он
+начнет кэшировать ресурсы вашего приложениея правильно. Его установка проста настолько
+насколько это возможно. Каждое Symfony2 приложение идет с пред-настройками кэширующего
+Ядра (<tt class="docutils literal"><span class="pre">AppCache</span></tt>) которое обрамляет стандартное ядро (<tt class="docutils literal"><span class="pre">AppKernel</span></tt>).
+Измените код фронт-контроллера, что бы включить кэширование:</p>
+<div class="highlight-python"><pre>// web/app.php
+
+require_once __DIR__.'/../app/AppCache.php';
+
+use Symfony\Component\HttpFoundation\Request;
+
+// оберните стандартное Ядро AppKernel в кэширующее Ядро AppCache
+$kernel = new AppCache(new AppKernel('prod', false));
+$kernel-&gt;handle(new Request())-&gt;send();</pre>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p>В кэширующеем ядре есть специальный <tt class="docutils literal"><span class="pre">getLog()</span></tt> метод который возвращает строку,
+представление того что произошло на уровне кэша. В окружении разработки (dev environment)
+используйте его для отладки и проверки стратегии кэша:</p>
+<blockquote class="last">
+<div>error_log($kernel-&gt;getLog());</div></blockquote>
+</div>
+<p>Объект <tt class="docutils literal"><span class="pre">AppCache</span></tt> имеет разумную конфигурацию по умолчанию, но она может быть
+тонко настроена с помощью установки параметров. Вы можете перегрузить <tt class="docutils literal"><span class="pre">getOptions()</span></tt> method:</p>
+<div class="highlight-python"><pre>// app/AppCache.php
+class AppCache extends Cache
+{
+    protected function getOptions()
+    {
+        return array(
+            'debug'                  =&gt; false,
+            'default_ttl'            =&gt; 0,
+            'private_headers'        =&gt; array('Authorization', 'Cookie'),
+            'allow_reload'           =&gt; false,
+            'allow_revalidate'       =&gt; false,
+            'stale_while_revalidate' =&gt; 2,
+            'stale_if_error'         =&gt; 60,
+        );
+    }
+}</pre>
+</div>
+<p>Ниже перечень главных настроек:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">default_ttl</span></tt>: Число секунд в течении которых вхождение в кэш должно
+считаться свежим, когда информация о &#8220;свежести&#8221; явно не приведена в response.
+Явное указание <tt class="docutils literal"><span class="pre">Cache-Control</span></tt> или <tt class="docutils literal"><span class="pre">Expires</span></tt> заголовков перегружает это
+значение (по умолчанию: <tt class="docutils literal"><span class="pre">0</span></tt>);</li>
+<li><tt class="docutils literal"><span class="pre">private_headers</span></tt>: Набор заголовков запроса который вызывает &#8220;private&#8221; поведение <tt class="docutils literal"><span class="pre">Cache-Control</span></tt>,
+в ответах которые не имеют явного состояния <tt class="docutils literal"><span class="pre">public</span></tt> или <tt class="docutils literal"><span class="pre">private</span></tt>,
+с помощью директивы <tt class="docutils literal"><span class="pre">Cache-Control</span></tt>.
+(по умолчинию: <tt class="docutils literal"><span class="pre">Authorization</span></tt> и <tt class="docutils literal"><span class="pre">Cookie</span></tt>);</li>
+<li><tt class="docutils literal"><span class="pre">allow_reload</span></tt>: Указывает может ли клиент заставить перезагрузить кэш
+путем включения <tt class="docutils literal"><span class="pre">Cache-Control</span></tt> директивы &#8220;no-cache&#8221; в запрос. Установите в
+<tt class="docutils literal"><span class="pre">true</span></tt> для соответствия RFC 2616 (по умолчинию: <tt class="docutils literal"><span class="pre">false</span></tt>);</li>
+<li><tt class="docutils literal"><span class="pre">allow_revalidate</span></tt>: Указывает может ли клиент заставить перезагрузить кэш
+путем включения <tt class="docutils literal"><span class="pre">Cache-Control</span></tt> директивы &#8220;max-age=0&#8221; в запрос.
+Установите в <tt class="docutils literal"><span class="pre">true</span></tt> для соответствия RFC 2616 (по умолчинию: <tt class="docutils literal"><span class="pre">false</span></tt>);</li>
+<li><tt class="docutils literal"><span class="pre">stale_while_revalidate</span></tt>:  Определяет стандартное количество секунд (с точностью до
+секунды, так как точность времени жизни Response измеряется в секундах) в течении
+которых кэш может немедленно возвращать устаревший ответ, пока он обновляется в фоне
+(по умолчинию: <tt class="docutils literal"><span class="pre">2</span></tt>); эта настройка перекрывается
+<tt class="docutils literal"><span class="pre">stale-while-revalidate</span></tt> HTTP расширением <tt class="docutils literal"><span class="pre">Cache-Control</span></tt> (смотри RFC 5861);</li>
+<li><tt class="docutils literal"><span class="pre">stale_if_error</span></tt>: Определяет стандартное количество секунд (с точностью до
+секунды) в течении которых кэш может отдавать устаревший ответ если возникла
+ошибка (по умолчинию: <tt class="docutils literal"><span class="pre">60</span></tt>). Эта настройка перекрывается
+<tt class="docutils literal"><span class="pre">stale-if-error</span></tt> HTTP расширением <tt class="docutils literal"><span class="pre">Cache-Control</span></tt> (смотри RFC 5861).</li>
+</ul>
+<p>Если опция <tt class="docutils literal"><span class="pre">debug</span></tt> установлена как <tt class="docutils literal"><span class="pre">true</span></tt>, Symfony2 автоматически добавляет
+заголовок <tt class="docutils literal"><span class="pre">X-Symfony-Cache</span></tt> к Response, который содержит полезную информацию
+касательно попаданий и промахов в кэш.</p>
+<p>Обратный прокси Symfony2 хорощий инструмент для разработки вашего сайта
+в вашей локальной сети или когда вы разворачиваете ваш сайт на shared хостинг где
+вы не можете установить ничего кроме PHP. Но написанный на PHP, он не может
+быть быстрым как прокси написанный на C. Поэтому мы настоятельно рекомендуем
+использовать Squid или Varnish на вашем боевом сервере если это возможно. Хорошие
+новости то что, переключение с одного прокси сервера на другой является легким и
+прозрачным, так как не требует модификации кода в вашем приложении; легко начать со
+встроенным в Symfony2 обратным прокси и позже перейти на Varnish когда нагрузки возростут.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Производительность обратного прокси Symfony2 не зависит от сложности
+приложения; это потому что ядро приложения запускается только тогда, когда
+запрос должен быть передан в него.</p>
+</div>
+</div>
+<div class="section" id="apache-mod-cache">
+<h3>Apache mod_cache<a class="headerlink" href="#apache-mod-cache" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Если вы используете Apache, он может выступать как простой gateway кэш, когда
+расширение mod_cache включено.</p>
+</div>
+<div class="section" id="squid">
+<h3>Squid<a class="headerlink" href="#squid" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Squid это &#8220;обычный&#8221; прокси сервер, который также может выступать в роли обратного прокси.
+Если вы уже используете Squid в вашей архитектуре, вы вероятно будете использовать
+его мощь для вашего Symfony2 приложения. Если нет, мы настоятельно рекомендуем
+вам использовать Varnish, так как он имеет множество преимуществ перед Squid и протому что
+он поддерживает функции необходимые для продвинутых стратегий кэширования Symfony2 (таких как
+поддержка ESI).</p>
+</div>
+<div class="section" id="varnish">
+<h3>Varnish<a class="headerlink" href="#varnish" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Varnish это наш предпочтительный выбор, из-за трех главных причин:</p>
+<ul class="simple">
+<li>Он был изначально разработан как обратный прокси, его настройка предельно прота;</li>
+<li>Его современная архитектура означает что, он невероятно быстр;</li>
+<li>Он поддерживает ESI, технология которая используется Symfony2 для того, что бы
+разные части страници имели свою собственную стратегию кэширования.
+Прочтите следующий раздел для подробной информации.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="edge-side-includes">
+<span id="index-12"></span><h2>Использование Edge Side Includes<a class="headerlink" href="#edge-side-includes" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Gateway кэши хороший способ сделать ваш сайт лучше. Но они имеют одно ограничени:
+они могут кэшировать страницы только полностью. Что ж, если вы не можете кэшировать
+страницы полностью или если страница имеет &#8220;много&#8221; динамичестих частей, вам не повезло.
+К щастью, Symfony2 предлагает решение на этот случай, основанное на технологии
+называемой <a class="reference external" href="http://www.w3.org/TR/esi-lang">ESI</a>, or Edge Side Includes. Akamaï написал эту спецификацию почти
+10 лет назад, она позволяет определить части страницы которые будут иметь стратегии
+кэширования отличные от основной страницы.</p>
+<p>ESI спецификация описывает тэги которые вы можете вставить в ваши страницы для
+связи с gateway кэшем. Только один тэг реализован в Symfony2,
+<tt class="docutils literal"><span class="pre">include</span></tt>, так как он один полезен вне контекста Akamaï:</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        Some content
+
+        <span class="c">&lt;!-- Вставте содержание другой страницы тут --&gt;</span>
+        <span class="nt">&lt;esi:include</span> <span class="na">src=</span><span class="s">&quot;http://...&quot;</span> <span class="nt">/&gt;</span>
+
+        More content
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Когда приходит request, gateway кэш берет страницу из своего кэша или
+вызывает приложение. Если response содержит один или более ESI тэга,
+proxy ведет себя как для основного request. Он берет содержимое вложенной страницы
+из своего кэша или снова вызывает приложение. Потом он проводит слияние всего вложенного,
+в основную страницу, содержимого и отправляет назад клиенту.</p>
+<p id="index-13">Так как вложенное содержимое приходит с другой страницы (в данном случае
+с другого контроллера), Symfony2 использует стандартный хелпер <tt class="docutils literal"><span class="pre">render</span></tt> для настройки ESI тэгов:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;...:list&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;standalone&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">))</span> <span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">render</span> <span class="s1">&#39;...:list&#39;</span> <span class="k">with</span> <span class="o">[],</span> <span class="o">[</span><span class="s1">&#39;standalone&#39;</span><span class="o">:</span> <span class="kp">true</span><span class="o">]</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>С установкой настройки <tt class="docutils literal"><span class="pre">standalone</span></tt> в значение <tt class="docutils literal"><span class="pre">true</span></tt>, вы говорите Symfony2 что
+это действие должно быть отабражено как ESI тэг. Вы можете быть удивлены, почему вам стоит
+использовать helper, а не просто писать теги ESI самостоятельно.
+Это потому что используя helper, вы делаете приложение работоспособным даже если
+gateway кэш не установлен. Давайте посмотрим как это работает.</p>
+<p>Когда настройка <tt class="docutils literal"><span class="pre">standalone</span></tt> установлена как <tt class="docutils literal"><span class="pre">false</span></tt> (по умолчанию), Symfony2
+объединяет содержимое вложенных страниц в основную страницу, перед тем как послать response
+клиенту. Но Когда настройка <tt class="docutils literal"><span class="pre">standalone</span></tt> установлена как <tt class="docutils literal"><span class="pre">true</span></tt> и если Symfony2
+обнаруживает что она связывается с gateway кэшем, который поддерживает ESI, она генерирует
+ESI тэг <tt class="docutils literal"><span class="pre">include</span></tt>. Но если gateway кэш отсутствует или он не поддерживает ESI,
+Symfony2 будет объединять содержимое вложенных страниц в основную страницу, так как если бы
+<tt class="docutils literal"><span class="pre">standalone</span></tt> был бы``false``.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Symfony2 обнаруживает поддерживает ли gateway кэш ESI с помощью другой Akamaï
+спецификации, которая поддерживается &#8220;из коробки&#8221; в обратном прокси Symfony2
+(рабочая коняигурация для Varnish также приведена ниже).</p>
+</div>
+<p>Для того что бы ESI тэг <tt class="docutils literal"><span class="pre">include</span></tt> работал коректно, вы должны определить <tt class="docutils literal"><span class="pre">_internal</span></tt>
+роутинг:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/routing.yml</span>
+<span class="l-Scalar-Plain">_internal</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">resource</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">FrameworkBundle/Resources/config/routing/internal.xml</span>
+    <span class="l-Scalar-Plain">prefix</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">/_internal</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/routing.xml --&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span>
+
+<span class="nt">&lt;routes</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.symfony-project.org/schema/routing&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.symfony-project.org/schema/routing http://www.symfony-project.org/schema/routing/routing-1.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;FrameworkBundle/Resources/config/routing/internal.xml&quot;</span> <span class="na">prefix=</span><span class="s">&quot;/_internal&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/routes&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/routing.php</span>
+<span class="x">use Symfony\Component\Routing\RouteCollection;</span>
+<span class="x">use Symfony\Component\Routing\Route;</span>
+
+<span class="x">$collection-&gt;addCollection($loader-&gt;import(&#39;FrameworkBundle/Resources/config/routing/internal.xml&#39;, &#39;/_internal&#39;));</span>
+
+<span class="x">return $collection;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Возможно вы захотите защитить этот роутинг, либо выбрав нелегко угадываемый префикс,
+или защитив его используя возможности Symfony2 firewall
+(разрешая доступ к диапазону IP вашего обратного прокси).</p>
+</div>
+<p>Одно большое приемущество этой стратегии кэширования то, что вы можете сделать ваше
+приложение настолько динамичным насколько это необходимо и в тоже время, &#8220;дергать&#8221; приложение
+как можно меньше.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Однажды начав использовать ESI, не забывайте всегда использовать директиву
+<tt class="docutils literal"><span class="pre">s-maxage</span></tt> вместо <tt class="docutils literal"><span class="pre">max-age</span></tt>. Так как браузер всегда получает собраный ресурс,
+он никогда не будет беспокоится о суб-компонентах, браузер будет придерживаться
+директивы <tt class="docutils literal"><span class="pre">max-age</span></tt> и кэша всей страницы. А вы не хотите этого, не так ли.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Хелпер <tt class="docutils literal"><span class="pre">render</span></tt> поддерживает две других полезных опции, <tt class="docutils literal"><span class="pre">alt</span></tt> и
+<tt class="docutils literal"><span class="pre">ignore_errors</span></tt>. Они автоматичести конвертируются в <tt class="docutils literal"><span class="pre">alt</span></tt> и
+<tt class="docutils literal"><span class="pre">onerror</span></tt> атрибуты, когда ESI тэг <tt class="docutils literal"><span class="pre">include</span></tt> генерируется.</p>
+</div>
+<div class="section" id="index-14">
+<span id="id13"></span><h3>Конфигурация Varnish<a class="headerlink" href="#index-14" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Как было показано ранее, Symfony2 достаточно умна для определения работает она с
+обрантым-прокси который поддерживает ESI или нет. Это работает прямо из коробки,
+когда вы используете обратный прокси Symfony2, но вам неоходима особая настройка для
+того, что бы работать с Varnish. К счастью, Symfony2 опирается на еще один стандарт
+описанный Akamaï (<a class="reference external" href="http://www.w3.org/TR/edge-arch">Edge Architecture</a>), подсказки по настройке в этой главе могут
+быть полезны даже если вы не используете Symfony2.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Varnish поддерживает только атрибут <tt class="docutils literal"><span class="pre">src</span></tt> для ESI тэгов (атрибуты <tt class="docutils literal"><span class="pre">onerror</span></tt> и
+<tt class="docutils literal"><span class="pre">alt</span></tt> будут проигнорированы).</p>
+</div>
+<p>Первое, настройте Varnish так что бы он сообщал то, что он поддерживает ESI, путем добавления
+заголовка <tt class="docutils literal"><span class="pre">Surrogate-Capability</span></tt> к запросам направляемым к
+приложению:</p>
+<div class="highlight-text"><div class="highlight"><pre>sub vcl_recv {
+    set req.http.Surrogate-Capability = &quot;abc=ESI/1.0&quot;;
+}
+</pre></div>
+</div>
+<p>Потом, оптимизируйте Varnish так, что бы он обрабатывал содержимое Response только когда есть
+хотя бы один ESI тэг, путем проверки заголовка <tt class="docutils literal"><span class="pre">Surrogate-Control</span></tt>, который
+Symfony2 добавляет автоматически:</p>
+<div class="highlight-text"><div class="highlight"><pre>sub vcl_fetch {
+    if (beresp.http.Surrogate-Control ~ &quot;ESI/1.0&quot;) {
+        unset beresp.http.Surrogate-Control;
+        esi;
+    }
+}
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p class="last">Не используйте сжатие всесте с ESI так как Varnish не сможет обработать
+содержимое ответа. Если вы хотите использовать компрессию, установите веб-сервер
+перед Varnish для этого.</p>
+</div>
+</div>
+</div>
+<div class="section" id="index-15">
+<span id="id14"></span><h2>Анулирование<a class="headerlink" href="#index-15" title="Ссылка на этот заголовок">¶</a></h2>
+<p>&#8220;Есть только две сложных вещи в Компьютерной Науке: анулирование кэша и
+именование вещей.&#8221; &#8211;Phil Karlton</p>
+<p>Вам нет необходимости анулировать кэш потому что, это уже сделано в
+модели HTTP кэширования. Если вы используете валидацию, вам никогда не нужно
+использовать анулирование по определению; а если вы используете устаревания и
+хотите анулировать ресурс, это значит что вы установили слишком далекую дату устаревания.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Это потому что нет такого механизма устаревания который вы могли бы использовать
+вместе с обратным прокси без изменения кода вашего приложения.</p>
+</div>
+<p>На самом деле, все обратные прокси предоставляют способы для очистки кэша, но вы
+должны избегать этого насколько это возможно. Более стандартный способ очистить кэш,
+это специальный URL, который нужно запросить со специальным HTTP методом <tt class="docutils literal"><span class="pre">PURGE</span></tt>.</p>
+<p id="index-16">Вот как вы можете настроить обратный кэш Symfony2 для поддержки
+HTTP метода <tt class="docutils literal"><span class="pre">PURGE</span></tt>:</p>
+<div class="highlight-python"><pre>// app/AppCache.php
+class AppCache extends Cache
+{
+    protected function invalidate(Request $request)
+    {
+        if ('PURGE' !== $request-&gt;getMethod()) {
+            return parent::invalidate($request);
+        }
+
+        $response = new Response();
+        if (!$this-&gt;store-&gt;purge($request-&gt;getUri())) {
+            $response-&gt;setStatusCode(404, 'Not purged');
+        } else {
+            $response-&gt;setStatusCode(200, 'Purged');
+        }
+
+        return $response;
+    }
+}</pre>
+</div>
+<p>То же самое можно сделать с помощью Varnish:</p>
+<div class="highlight-text"><div class="highlight"><pre>sub vcl_hit {
+    if (req.request == &quot;PURGE&quot;) {
+        set obj.ttl = 0s;
+        error 200 &quot;Purged&quot;;
+    }
+}
+
+sub vcl_miss {
+    if (req.request == &quot;PURGE&quot;) {
+        error 404 &quot;Not purged&quot;;
+    }
+}
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p class="last">Вы должны защитить HTTP метод <tt class="docutils literal"><span class="pre">PURGE</span></tt> любым способом, во избежании
+очистки вашего кэша случайными людьми.</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

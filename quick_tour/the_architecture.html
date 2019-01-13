@@ -1,0 +1,563 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Архитектура (needs correction) &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="needs-correction">
+<h1>Архитектура (needs correction)<a class="headerlink" href="#needs-correction" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Вы мой герой! Кто бы мог подумать что вы всё ещё будете здесь после первых трёх
+частей? Ваши усилия скоро будут вознаграждены. В первых трёх частях мы глубоко
+не вникали в архитектуру фреймворка. Но так как она выделяет Symfony2 из толпы
+фреймворков, давайте сейчас же в неё погрузимся.</p>
+<div class="section" id="index-0">
+<span id="id1"></span><h2>Структура папок<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Структура папок приложения (<em class="xref std std-term">application</em>) на Symfony2 довольно гибкая,
+но типичная и рекомендованная структура папок показана в песочнице Symfony2:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">app/</span></tt>: Эта папка содержит конфигурацию приложения;</li>
+<li><tt class="docutils literal"><span class="pre">src/</span></tt>: Весь PHP код хранится здесь;</li>
+<li><tt class="docutils literal"><span class="pre">web/</span></tt>: Это папка должна быть корневой web директорией.</li>
+</ul>
+<div class="section" id="web">
+<h3>Web директория<a class="headerlink" href="#web" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Корневая web директория - это дом для всех публичных и статичных файлов, таких
+как изображения, таблицы стилей и файлы JavaScript. Здесь также обитает
+<em class="xref std std-term">front controller</em>:</p>
+<div class="highlight-python"><pre>// web/app.php
+require_once __DIR__.'/../app/AppKernel.php';
+
+use Symfony\Component\HttpFoundation\Request;
+
+$kernel = new AppKernel('prod', false);
+$kernel-&gt;handle(new Request())-&gt;send();</pre>
+</div>
+<p>Как и любой фронт контроллер, <tt class="docutils literal"><span class="pre">app.php</span></tt> использует Kernel Class,
+<tt class="docutils literal"><span class="pre">AppKernel</span></tt>, чтобы начать загрузку приложения.</p>
+</div>
+<div class="section" id="index-1">
+<span id="id2"></span><h3>Папка приложения<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Класс <tt class="docutils literal"><span class="pre">AppKernel</span></tt> это главная входная точка конфигурации приложения, поэтому
+он содержится в директории <tt class="docutils literal"><span class="pre">app/</span></tt>.</p>
+<p>Этот класс должен реализовывать четыре метода:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">registerRootDir()</span></tt>: Возвращает корневую папку конфигурации;</li>
+<li><tt class="docutils literal"><span class="pre">registerBundles()</span></tt>: Возвращает массив всех бандлов, необходимых для
+запуска приложения (см. ссылку <tt class="docutils literal"><span class="pre">Application\HelloBundle\HelloBundle</span></tt>);</li>
+<li><tt class="docutils literal"><span class="pre">registerBundleDirs()</span></tt>: Возвращает массив, связывающий пространства имён и
+их домашние директории;</li>
+<li><tt class="docutils literal"><span class="pre">registerContainerConfiguration()</span></tt>: Загружает конфигурацию  (об этом чуть позже);</li>
+</ul>
+<p>Обратите внимание на типичную реализацию этих методов для того чтобы лучше
+понять гибкость фреймворка.</p>
+<p>Чтобы всё это заработало, ядру необходим один файл из директории <tt class="docutils literal"><span class="pre">src/</span></tt>:</p>
+<div class="highlight-python"><pre>// app/AppKernel.php
+require_once __DIR__.'/../src/autoload.php';</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Папка с исходниками<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Файл <tt class="docutils literal"><span class="pre">src/autoload.php</span></tt> ответственен за автозагрузку всех PHP классов,
+которые используются в приложении:</p>
+<div class="highlight-python"><pre>// src/autoload.php
+$vendorDir = __DIR__.'/vendor';
+
+require_once $vendorDir.'/symfony/src/Symfony/Component/HttpFoundation/UniversalClassLoader.php';
+
+use Symfony\Component\HttpFoundation\UniversalClassLoader;
+
+$loader = new UniversalClassLoader();
+$loader-&gt;registerNamespaces(array(
+    'Symfony'                        =&gt; $vendorDir.'/symfony/src',
+    'Application'                    =&gt; __DIR__,
+    'Bundle'                         =&gt; __DIR__,
+    'Doctrine\\Common\\DataFixtures' =&gt; $vendorDir.'/doctrine-data-fixtures/lib',
+    'Doctrine\\Common'               =&gt; $vendorDir.'/doctrine-common/lib',
+    'Doctrine\\DBAL\\Migrations'     =&gt; $vendorDir.'/doctrine-migrations/lib',
+    'Doctrine\\MongoDB'              =&gt; $vendorDir.'/doctrine-mongodb/lib',
+    'Doctrine\\ODM\\MongoDB'         =&gt; $vendorDir.'/doctrine-mongodb-odm/lib',
+    'Doctrine\\DBAL'                 =&gt; $vendorDir.'/doctrine-dbal/lib',
+    'Doctrine'                       =&gt; $vendorDir.'/doctrine/lib',
+    'Zend'                           =&gt; $vendorDir.'/zend/library',
+));
+$loader-&gt;registerPrefixes(array(
+    'Swift_'           =&gt; $vendorDir.'/swiftmailer/lib/classes',
+    'Twig_Extensions_' =&gt; $vendorDir.'/twig-extensions/lib',
+    'Twig_'            =&gt; $vendorDir.'/twig/lib',
+));
+$loader-&gt;register();</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">UniversalClassLoader</span></tt> из Symfony2 используется для автозагрузки файлов,
+которые относятся либо соотвествуют техническим стандартам <a class="reference external" href="http://groups.google.com/group/php-standards/web/psr-0-final-proposal">standards</a> для
+пространств имён в PHP 5.3 или соглашению <a class="reference external" href="http://pear.php.net/">convention</a> о наименованиях для
+классов в PEAR. Как вы видите, все зависимости хранятся в папке <tt class="docutils literal"><span class="pre">vendor/</span></tt>,
+но это просто соглашение. Можете хранить их где пожелаете, глобально на сервере
+или локально в проекте.</p>
+</div>
+</div>
+<div class="section" id="index-2">
+<span id="id4"></span><h2>Система бандлов<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Этот раздел кратко поведает вам об одной из существеннейших и наиболее мощных
+особенностей Symfony2, о системе бандлов <em class="xref std std-term">bundle</em>.</p>
+<p>Бандл в некотором роде как плагин в других программах. Почему его назвали
+<em>бандл</em>, а не <em>плагин</em>? Потому что <em>всё что угодно</em> в Symfony2 это бандл, от
+ключевых особенностей фреймворка до кода, который вы пишете для приложения.
+Бандлы это высшая каста в Symfony2. Это даёт вам гибкость в применении как уже
+встроенных особенностей сторонних бандлов, так и в написании своих собственных.
+Бандл позволяет выбрать необходимые для приложения особенности и оптимизировать
+их как вы этого хотите.</p>
+<p>Приложение составлено из бандлов, объявленных в методе <tt class="docutils literal"><span class="pre">registerBundles()</span></tt>
+класса <tt class="docutils literal"><span class="pre">AppKernel</span></tt>:</p>
+<div class="highlight-python"><pre>// app/AppKernel.php
+public function registerBundles()
+{
+    $bundles = array(
+        new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+        new Symfony\Bundle\TwigBundle\TwigBundle(),
+
+        // enable third-party bundles
+        new Symfony\Bundle\ZendBundle\ZendBundle(),
+        new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+        new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
+        //new Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle(),
+        //new Symfony\Bundle\DoctrineMongoDBBundle\DoctrineMongoDBBundle(),
+
+        // register your bundles
+        new Application\HelloBundle\HelloBundle(),
+    );
+
+    if ($this-&gt;isDebug()) {
+        $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
+    }
+
+    return $bundles;
+}</pre>
+</div>
+<p>В дополнение к <tt class="docutils literal"><span class="pre">HelloBundle</span></tt>, о котором мы недавно говорили, заметьте что ядро
+также включает <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt>, <tt class="docutils literal"><span class="pre">DoctrineBundle</span></tt>, <tt class="docutils literal"><span class="pre">SwiftmailerBundle</span></tt> и
+<tt class="docutils literal"><span class="pre">ZendBundle</span></tt>. Все они части ядра фрэймворка.</p>
+<p>Каждый бандл может быть настроен при помощи конфигурационных файлов, написанных
+на YAML, XML, или PHP. Взгляните на конфигурацию по умолчанию:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">app.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">charset</span><span class="p-Indicator">:</span>       <span class="l-Scalar-Plain">UTF-8</span>
+    <span class="l-Scalar-Plain">error_handler</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">null</span>
+    <span class="l-Scalar-Plain">csrf_secret</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">xxxxxxxxxx</span>
+    <span class="l-Scalar-Plain">router</span><span class="p-Indicator">:</span>        <span class="p-Indicator">{</span> <span class="nv">resource</span><span class="p-Indicator">:</span> <span class="s">&quot;%kernel.root_dir%/config/routing.yml&quot;</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">validation</span><span class="p-Indicator">:</span>    <span class="p-Indicator">{</span> <span class="nv">enabled</span><span class="p-Indicator">:</span> <span class="nv">true</span><span class="p-Indicator">,</span> <span class="nv">annotations</span><span class="p-Indicator">:</span> <span class="nv">true</span> <span class="p-Indicator">}</span>
+    <span class="l-Scalar-Plain">templating</span><span class="p-Indicator">:</span>
+        <span class="c1">#assets_version: SomeVersionScheme</span>
+    <span class="l-Scalar-Plain">session</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">default_locale</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">en</span>
+        <span class="l-Scalar-Plain">lifetime</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3600</span>
+
+<span class="c1">## Twig Configuration</span>
+<span class="c1">#twig.config:</span>
+<span class="c1">#    auto_reload: true</span>
+
+<span class="c1">## Doctrine Configuration</span>
+<span class="c1">#doctrine.dbal:</span>
+<span class="c1">#    dbname:   xxxxxxxx</span>
+<span class="c1">#    user:     xxxxxxxx</span>
+<span class="c1">#    password: ~</span>
+<span class="c1">#doctrine.orm: ~</span>
+
+<span class="c1">## Swiftmailer Configuration</span>
+<span class="c1">#swiftmailer.config:</span>
+<span class="c1">#    transport:  smtp</span>
+<span class="c1">#    encryption: ssl</span>
+<span class="c1">#    auth_mode:  login</span>
+<span class="c1">#    host:       smtp.gmail.com</span>
+<span class="c1">#    username:   xxxxxxxx</span>
+<span class="c1">#    password:   xxxxxxxx</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;app:config</span> <span class="na">csrf-secret=</span><span class="s">&quot;xxxxxxxxxx&quot;</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span> <span class="na">error-handler=</span><span class="s">&quot;null&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;app:router</span> <span class="na">resource=</span><span class="s">&quot;%kernel.root_dir%/config/routing.xml&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;app:validation</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span> <span class="na">annotations=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;app:session</span> <span class="na">default-locale=</span><span class="s">&quot;en&quot;</span> <span class="na">lifetime=</span><span class="s">&quot;3600&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/app:config&gt;</span>
+
+<span class="c">&lt;!-- Twig Configuration --&gt;</span>
+<span class="c">&lt;!--</span>
+<span class="c">&lt;twig:config auto_reload=&quot;true&quot; /&gt;</span>
+<span class="c">--&gt;</span>
+
+<span class="c">&lt;!-- Doctrine Configuration --&gt;</span>
+<span class="c">&lt;!--</span>
+<span class="c">&lt;doctrine:dbal dbname=&quot;xxxxxxxx&quot; user=&quot;xxxxxxxx&quot; password=&quot;&quot; /&gt;</span>
+<span class="c">&lt;doctrine:orm /&gt;</span>
+<span class="c">--&gt;</span>
+
+<span class="c">&lt;!-- Swiftmailer Configuration --&gt;</span>
+<span class="c">&lt;!--</span>
+<span class="c">&lt;swiftmailer:config</span>
+<span class="c">    transport=&quot;smtp&quot;</span>
+<span class="c">    encryption=&quot;ssl&quot;</span>
+<span class="c">    auth_mode=&quot;login&quot;</span>
+<span class="c">    host=&quot;smtp.gmail.com&quot;</span>
+<span class="c">    username=&quot;xxxxxxxx&quot;</span>
+<span class="c">    password=&quot;xxxxxxxx&quot; /&gt;</span>
+<span class="c">--&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/config.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;app&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;charset&#39;       =&gt; &#39;UTF-8&#39;,</span>
+<span class="x">    &#39;error_handler&#39; =&gt; null,</span>
+<span class="x">    &#39;csrf-secret&#39;   =&gt; &#39;xxxxxxxxxx&#39;,</span>
+<span class="x">    &#39;router&#39;        =&gt; array(&#39;resource&#39; =&gt; &#39;%kernel.root_dir%/config/routing.php&#39;),</span>
+<span class="x">    &#39;validation&#39;    =&gt; array(&#39;enabled&#39; =&gt; true, &#39;annotations&#39; =&gt; true),</span>
+<span class="x">    &#39;templating&#39;    =&gt; array(</span>
+<span class="x">        #&#39;assets_version&#39; =&gt; &quot;SomeVersionScheme&quot;,</span>
+<span class="x">    ),</span>
+<span class="x">    &#39;session&#39; =&gt; array(</span>
+<span class="x">        &#39;default_locale&#39; =&gt; &quot;en&quot;,</span>
+<span class="x">        &#39;lifetime&#39; =&gt; &quot;3600&quot;,</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+
+<span class="x">// Twig Configuration</span>
+<span class="x">/*</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;twig&#39;, &#39;config&#39;, array(&#39;auto_reload&#39; =&gt; true));</span>
+<span class="x">*/</span>
+
+<span class="x">// Doctrine Configuration</span>
+<span class="x">/*</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;doctrine&#39;, &#39;dbal&#39;, array(</span>
+<span class="x">    &#39;dbname&#39;   =&gt; &#39;xxxxxxxx&#39;,</span>
+<span class="x">    &#39;user&#39;     =&gt; &#39;xxxxxxxx&#39;,</span>
+<span class="x">    &#39;password&#39; =&gt; &#39;&#39;,</span>
+<span class="x">));</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;doctrine&#39;, &#39;orm&#39;);</span>
+<span class="x">*/</span>
+
+<span class="x">// Swiftmailer Configuration</span>
+<span class="x">/*</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;swiftmailer&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;transport&#39;  =&gt; &quot;smtp&quot;,</span>
+<span class="x">    &#39;encryption&#39; =&gt; &quot;ssl&quot;,</span>
+<span class="x">    &#39;auth_mode&#39;  =&gt; &quot;login&quot;,</span>
+<span class="x">    &#39;host&#39;       =&gt; &quot;smtp.gmail.com&quot;,</span>
+<span class="x">    &#39;username&#39;   =&gt; &quot;xxxxxxxx&quot;,</span>
+<span class="x">    &#39;password&#39;   =&gt; &quot;xxxxxxxx&quot;,</span>
+<span class="x">));</span>
+<span class="x">*/</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Каждая запись <tt class="docutils literal"><span class="pre">app.config</span></tt> указывает на настройку для бандла.</p>
+<p>Каждое <cite>окружение</cite> (<em class="xref std std-term">environment</em>) может переопределять стандартную
+конфигурацию, задавая специфичный конфигурационный файл:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre># app/config/config_dev.yml
+imports:
+    - { resource: config.yml }
+
+app.config:
+    router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
+    profiler: { only_exceptions: false }
+
+webprofiler.config:
+    toolbar: true
+    intercept_redirects: true
+
+zend.config:
+    logger:
+        priority: debug
+        path:     %kernel.logs_dir%/%kernel.environment%.log</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config_dev.xml --&gt;</span>
+<span class="nt">&lt;imports&gt;</span>
+    <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;config.xml&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/imports&gt;</span>
+
+<span class="nt">&lt;app:config&gt;</span>
+    <span class="nt">&lt;app:router</span> <span class="na">resource=</span><span class="s">&quot;%kernel.root_dir%/config/routing_dev.xml&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;app:profiler</span> <span class="na">only-exceptions=</span><span class="s">&quot;false&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/app:config&gt;</span>
+
+<span class="nt">&lt;webprofiler:config</span>
+    <span class="na">toolbar=</span><span class="s">&quot;true&quot;</span>
+    <span class="na">intercept-redirects=</span><span class="s">&quot;true&quot;</span>
+<span class="nt">/&gt;</span>
+
+<span class="nt">&lt;zend:config&gt;</span>
+    <span class="nt">&lt;zend:logger</span> <span class="na">priority=</span><span class="s">&quot;info&quot;</span> <span class="na">path=</span><span class="s">&quot;%kernel.logs_dir%/%kernel.environment%.log&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/zend:config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/config_dev.php</span>
+<span class="x">$loader-&gt;import(&#39;config.php&#39;);</span>
+
+<span class="x">$container-&gt;loadFromExtension(&#39;app&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;router&#39;   =&gt; array(&#39;resource&#39; =&gt; &#39;%kernel.root_dir%/config/routing_dev.php&#39;),</span>
+<span class="x">    &#39;profiler&#39; =&gt; array(&#39;only-exceptions&#39; =&gt; false),</span>
+<span class="x">));</span>
+
+<span class="x">$container-&gt;loadFromExtension(&#39;webprofiler&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;toolbar&#39; =&gt; true,</span>
+<span class="x">    &#39;intercept-redirects&#39; =&gt; true,</span>
+<span class="x">));</span>
+
+<span class="x">$container-&gt;loadFromExtension(&#39;zend&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;logger&#39; =&gt; array(</span>
+<span class="x">        &#39;priority&#39; =&gt; &#39;info&#39;,</span>
+<span class="x">        &#39;path&#39;     =&gt; &#39;%kernel.logs_dir%/%kernel.environment%.log&#39;,</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>В предыдущей участке кода вы могли убедиться что приложение состоит из бандлов,
+определённых в методе <tt class="docutils literal"><span class="pre">registerBundles()</span></tt>. Но откуда Symfony2 знает где их
+искать? Symfony2 и здесь достаточно гибок. Метод <tt class="docutils literal"><span class="pre">registerBundleDirs()</span></tt> должен
+возвратить ассоциативный массив, который связывает пространства имён с любой
+доступной папкой (локальной или глобальной):</p>
+<div class="highlight-python"><pre>public function registerBundleDirs()
+{
+    return array(
+        'Application'     =&gt; __DIR__.'/../src/Application',
+        'Bundle'          =&gt; __DIR__.'/../src/Bundle',
+        'Symfony\\Bundle' =&gt; __DIR__.'/../src/vendor/symfony/src/Symfony/Bundle',
+    );
+}</pre>
+</div>
+<p>Таким образом, когда вы ссылаетесь на <tt class="docutils literal"><span class="pre">HelloBundle</span></tt> в имени контроллера или
+в имени шаблона, Symfony2 будет искать их в данных директориях.</p>
+<p>Теперь вы понимаете почему Symfony2 такой гибкий? Делитесь вашими бандлами
+между приложениями, храните их локально или глобально, всё на ваш выбор.</p>
+</div>
+<div class="section" id="index-3">
+<span id="id5"></span><h2>Применение вендоров<a class="headerlink" href="#index-3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Скорее всего ваше приложение будет зависеть и от сторонних библиотек. Они должны
+хранится в папке <tt class="docutils literal"><span class="pre">src/vendor/</span></tt>. Она уже содержит библиотеки Symfony2,
+библиотеку SwiftMailer, Doctrine ORM, систему шаблонизации Twig и выборку из
+классов Zend Framework.</p>
+</div>
+<div class="section" id="index-4">
+<span id="id6"></span><h2>Кэширование и Логи<a class="headerlink" href="#index-4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Symfony2 пожалуй одна из быстрейших среди многофункциональных фреймворков. Но
+откуда взяться такой скорости когда она анализирует и интерпретирует десятки
+YAML и XML для каждого запроса? Отчасти это благодаря системе кэширования.
+Конфигурация приложения анализируется только при первом запросе, затем она
+компилируется в чистый PHP и хранится в <tt class="docutils literal"><span class="pre">cache/</span></tt> папке приложения. В среде
+разработки Symfony2 достаточно умён чтобы очищать кэш когда вы измените файл.
+Но в производственной среде, когда вы изменяете код или конфигурацию, то
+ответственность по очистке кэша перекладывается на вас.</p>
+<p>Когда разрабатывается web приложение, многое может пойти не так. Логи в <tt class="docutils literal"><span class="pre">logs/</span></tt>
+в папке приложения расскажут вам всё о запросах и помогут быстро решить проблемы.</p>
+</div>
+<div class="section" id="index-5">
+<span id="id7"></span><h2>Интерфейс командной строки<a class="headerlink" href="#index-5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Все приложения идут с интерфейсом командной строки (<tt class="docutils literal"><span class="pre">консоль</span></tt>), который
+помогает обслуживать приложение. Он предоставляет команды, которые увеличивают
+вашу продуктивность, автоматизируя частые и повторяющиеся задачи.</p>
+<p>Запустите консоль без агрументов, чтобы получить представление о её возможностях:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>php app/console
+</pre></div>
+</div>
+<p>Опция <tt class="docutils literal"><span class="pre">--help</span></tt> поможет вам уточнить возможности использования команды:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>php app/console router:debug --help
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>Заключительное слово<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Называйте меня сумасшедшим, но после прочтения этой части, вам должно быть
+комфортно перемещать любые вещи и при этом заставить Symfony2 работать на вас.
+В Symfony2 всё сделано так, чтобы вы смогли настроить его на ваше усмотрение.
+Так что, переименовывайте и перемещайте директории как вам угодно.</p>
+<p>Для начала этого достаточно. Вам ещё предстоит многому научиться, от
+тестирования до отправки почты, чтобы стать мастером Symfony2. Готовы
+погрузиться в чтение сейчас? Следуйте на официальную страницу руководств
+(<a class="reference external" href="http://www.symfony-reloaded.org/learn">guides</a>) и выбирайте любую тему.</p>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

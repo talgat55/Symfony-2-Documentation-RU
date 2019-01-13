@@ -1,0 +1,1202 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Контейнер служб &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../index.html" />
+    <link rel="up" title="Книга" href="index.html" />
+    <link rel="next" title="Составные части" href="internals.html" />
+    <link rel="prev" title="Переводы" href="translation.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Контейнер служб<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>В современном PHP приложении множество объектов. Один объект может облегчать
+отправку email&#8217;ов, другой - сохранять информацию в базе данных. В вашем приложении
+вы можете создать объект, который ведёт учёт товаров, или же объект, который
+обрабатывает данные от сторонних API. Здесь важно понимание того, что современное
+приложение выполняет множество функций и состоит из множества объектов,
+реализующих эти функции.</p>
+<p>В этой главе мы поговорим об особом объекте в Symfony2, который позволяет вам
+создавать экземпляры, систематизировать и получать различные объекты вашего
+приложения. Этот объект, называемый контейнером служб, позволит вам стандартизировать
+и централизовать способ создания объектов в вашем приложении. Контейнер
+делает вашу жизнь проще, быстрее и делает особый акцент на архитектуре, которая
+предоставляет независимый, готовый к повторному использованию код. Так как
+все классы ядра Symfony2 используют контейнер, вы узнаете, как расширять,
+настраивать и использовать любой объект Symfony2. Контейнер служб в значительной
+степени определяет скорость и расширяемость Symfony2.</p>
+<p>И, в конце концов, настройка и использование контейнера служб весьма проста.
+В конце этой главы вы будете с лёгкостью создавать ваши собственные объекты
+при помощи контейнера и настраивать объекты из сторонних пакетов. Вы будете
+писать более тестируемый и менее запутанный код, который можно будет использовать
+повторно лишь потому, что контейнер служб делает написание хорошего кода
+простым.</p>
+<div class="section" id="index-1">
+<span id="id2"></span><h2>Что такое служба?<a class="headerlink" href="#index-1" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если вкратце, <a class="reference internal" href="../glossary.html#term-6"><em class="xref std std-term">Служба</em></a> - это некий PHP объект, который
+выполняет какую-либо &#8220;глобальную&#8221; задачу. Это наименование используется в
+компьютерной науке для описания объекта, который создан с некоторой целью
+(например, отправлять email&#8217;ы). Каждая служба используется в любом модуле
+приложения, где бы вам ни понадобился функционал, который предоставляет служба.
+Вам не требуется делать ничего особенного, для того чтобы создать службу:
+просто создайте PHP класс, решающий некую конкретную задачу. Поздравляем,
+Вы только что создали службу!</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Как правило, PHP объект является службой, если он используется в вашем
+приложении глобально. Единственная служба <tt class="docutils literal"><span class="pre">Mailer</span></tt> используется для
+отправки email сообщений, в то время как множество объектов <tt class="docutils literal"><span class="pre">Message</span></tt>,
+которые содержат эти сообщения, службами <em>не</em> являются. Точно так же,
+объект <tt class="docutils literal"><span class="pre">Product</span></tt> не является службой, но объект, который сохраняет
+<tt class="docutils literal"><span class="pre">Product</span></tt> в базу данных - <em>является</em> службой.</p>
+</div>
+<p>Так где же выгода? Мыслить в терминах &#8220;служб&#8221; полезно, когда вы начинаете
+думать о распределении каждого кусочка функционала в вашем приложении по
+ряду служб. Так как каждая служба выполняет единственную функцию, вы можете
+легко получить доступ к любой службе и использовать её возможности там,
+где это требуется. Каждая служба легко тестируется и настраивается, так
+как она не зависит от прочего функционала. Такое разделение на службы
+называется <a class="reference external" href="http://ru.wikipedia.org/wiki/Сервис-ориентированная_архитектура">Сервис-ориентированная архитектура</a> и она не уникальна ни в
+рамках Symfony2, ни даже в масштабе всего PHP. Структурирование вашего
+приложения в виде набора независимых служб - это хорошо известная,
+а также хорошо зарекомендовавшая себя практика. Знание этой архитектуры
+будет полезно любому хорошему разработчику вне зависимости от языка, на
+котором он программирует.</p>
+</div>
+<div class="section" id="index-2">
+<span id="id3"></span><h2>Что такое контейнер служб?<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p><a class="reference internal" href="../glossary.html#term-7"><em class="xref std std-term">Контейнер служб</em></a> (или же <em>контейнер внедрения зависимости</em>) - это также
+PHP объект, который управляет созданием служб (т.е. объектов).  Например, положим
+у вас есть простой PHP класс, который отправляет email сообщения. Не имея
+контейнера служб, вы будете вынуждены вручную создавать этот объект там
+где вам это потребуется:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Acme\HelloBundle\Mailer</span><span class="p">;</span>
+
+<span class="nv">$mailer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mailer</span><span class="p">(</span><span class="s1">&#39;sendmail&#39;</span><span class="p">);</span>
+<span class="nv">$mailer</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">(</span><span class="s1">&#39;ryan@foobar.net&#39;</span><span class="p">,</span> <span class="o">...</span> <span class="p">);</span>
+</pre></div>
+</div>
+<p>Выглядит не сложно. Ваш воображаемый класс <tt class="docutils literal"><span class="pre">Mailer</span></tt> позволяет указать
+метод, используемый для отправки сообщений (например,  <tt class="docutils literal"><span class="pre">sendmail</span></tt>, <tt class="docutils literal"><span class="pre">smtp</span></tt>
+и т.д.). Но что будет, если потребуется использовать эту службу где-то ещё?
+Естественно вам не захочется конфигурировать объект <tt class="docutils literal"><span class="pre">Mailer</span></tt> <em>каждый раз</em>,
+когда вам потребуется его использовать. Что, если вам потребуется изменить
+транспорт с <tt class="docutils literal"><span class="pre">sendmail</span></tt> на <tt class="docutils literal"><span class="pre">smtp</span></tt> во всём вашем приложении? Потребовалось
+бы искать все места, где создаётся <tt class="docutils literal"><span class="pre">Mailer</span></tt> и изменять их.</p>
+</div>
+<div class="section" id="index-3">
+<span id="id4"></span><h2>Создание/настройка служб в контейнере<a class="headerlink" href="#index-3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Наилучшим решением на практике - разрешить контейнеру служб создать объект
+<tt class="docutils literal"><span class="pre">Mailer</span></tt> для вас. Для этого контейнер необходимо <em>обучить</em> - как создавать
+объект <tt class="docutils literal"><span class="pre">Mailer</span></tt>. Это выполняется при помощи конфигурации, которую можно
+выполнить в форматах YAML, XML или PHP:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">my_mailer</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span>        <span class="l-Scalar-Plain">Acme\HelloBundle\Mailer</span>
+        <span class="l-Scalar-Plain">arguments</span><span class="p-Indicator">:</span>    <span class="p-Indicator">[</span><span class="nv">sendmail</span><span class="p-Indicator">]</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;services&gt;</span>
+    <span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;my_mailer&quot;</span> <span class="na">class=</span><span class="s">&quot;Acme\HelloBundle\Mailer&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;argument&gt;</span>sendmail<span class="nt">&lt;/argument&gt;</span>
+    <span class="nt">&lt;/service&gt;</span>
+<span class="nt">&lt;/services&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// app/config/config.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Definition</span><span class="p">;</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span>
+    <span class="s1">&#39;Acme\HelloBundle\Mailer&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">&#39;sendmail&#39;</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">При инициализации Symfony2 он создаёт контейнер служб, используя
+конфигурацию приложения (по умолчанию <tt class="docutils literal"><span class="pre">app/config/config.yml</span></tt>).
+Файл, который будет загружен, определяется методом
+<tt class="docutils literal"><span class="pre">AppKernel::registerContainerConfiguration()</span></tt>, который загружает
+файл, относящийся к конкретному окружению (например, <tt class="docutils literal"><span class="pre">config_dev.yml</span></tt>
+для <tt class="docutils literal"><span class="pre">dev</span></tt> или же <tt class="docutils literal"><span class="pre">config_prod.yml</span></tt> для <tt class="docutils literal"><span class="pre">prod</span></tt>).</p>
+</div>
+<p>Экземпляр объекта <tt class="docutils literal"><span class="pre">Acme\HelloBundle\Mailer</span></tt> теперь можно получить через
+контейнер служб. А сам контейнер доступен в любом традиционном контроллере
+Symfony2 при помощи вспомогательного метода <tt class="docutils literal"><span class="pre">get()</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">HelloController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">sendEmailAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+        <span class="nv">$mailer</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">);</span>
+        <span class="nv">$mailer</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">(</span><span class="s1">&#39;ryan@foobar.net&#39;</span><span class="p">,</span> <span class="o">...</span> <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Когда запрашивается служба <tt class="docutils literal"><span class="pre">my_mailer</span></tt>, контейнер создаёт её объект и возвращает
+её. Это ещё одно преимущество от использования контейнера служб. А именно, служба
+не создаётся вплоть до того момента, когда она будет нужна вам. Если вы определите
+службу, но нигде её не используете - она никогда не будет создана. Это экономит
+память и делает ваше приложение быстрее. Это также означает, что вы можете определять
+сколько угодно служб без ущерба быстродействию приложения - службы, которые
+не используются - не будут и созданы.</p>
+<p>В качестве приятного бонуса, служба <tt class="docutils literal"><span class="pre">Mailer</span></tt> будет создана лишь однажды
+и один и тот же её экземпляр будет возвращаться всякий раз, когда вы запрашиваете
+данную службу. Как правило, вы именно этого и ожидаете (такой подход более
+гибок и удобен), однако ниже вы узнаете как настроить службу таким образом,
+чтобы она могла иметь несколько экземпляров одновременно.</p>
+</div>
+<div class="section" id="book-service-container-parameters">
+<span id="id5"></span><h2>Параметры службы<a class="headerlink" href="#book-service-container-parameters" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Создание новой службы (т.е. объекта) при помощи контейнера происходит
+очень просто. Параметры делают службы более гибкими:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre># app/config/config.yml
+parameters:
+    my_mailer.class:      Acme\HelloBundle\Mailer
+    my_mailer.transport:  sendmail
+
+services:
+    my_mailer:
+        class:        %my_mailer.class%
+        arguments:    [%my_mailer.transport%]</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;parameters&gt;</span>
+    <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;my_mailer.class&quot;</span><span class="nt">&gt;</span>Acme\HelloBundle\Mailer<span class="nt">&lt;/parameter&gt;</span>
+    <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;my_mailer.transport&quot;</span><span class="nt">&gt;</span>sendmail<span class="nt">&lt;/parameter&gt;</span>
+<span class="nt">&lt;/parameters&gt;</span>
+
+<span class="nt">&lt;services&gt;</span>
+    <span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;my_mailer&quot;</span> <span class="na">class=</span><span class="s">&quot;%my_mailer.class%&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;argument&gt;</span>%my_mailer.transport%<span class="nt">&lt;/argument&gt;</span>
+    <span class="nt">&lt;/service&gt;</span>
+<span class="nt">&lt;/services&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// app/config/config.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Definition</span><span class="p">;</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;my_mailer.class&#39;</span><span class="p">,</span> <span class="s1">&#39;Acme\HelloBundle\Mailer&#39;</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;my_mailer.transport&#39;</span><span class="p">,</span> <span class="s1">&#39;sendmail&#39;</span><span class="p">);</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span>
+    <span class="s1">&#39;%my_mailer.class%&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">&#39;%my_mailer.transport%&#39;</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Конечный результат такой же, как и раньше - отличие лишь в том, <em>как</em>
+определена служба. Заключив строки <tt class="docutils literal"><span class="pre">my_mailer.class</span></tt> и <tt class="docutils literal"><span class="pre">my_mailer.transport</span></tt>
+между символами процента (<tt class="docutils literal"><span class="pre">%</span></tt>), вы указали контейнеру искать параметры
+с этими именами. Когда контейнер создан, он ищет значение для каждого параметра
+и использует их при создании служб.</p>
+<p>Назначение параметров - передача информации внутрь служб. Конечно же, нет ничего
+зазорного в создании служб без параметров, тем не менее параметры дают некоторые
+преимущества:</p>
+<ul class="simple">
+<li>разделение и структурирование всех опций службы;</li>
+<li>значения параметров могут быть использованы для множественного определения служб;</li>
+<li>при создании службы в пакете (об этом будет чуть ниже), использование
+параметров позволяет легко настроить службу в вашем приложении.</li>
+</ul>
+<p>Выбор - использовать или не использовать параметры - целиком лежит на вас.
+Качественные пакеты от сторонних разработчиков <em>всегда</em> используют параметры,
+так как они делают службы более конфигурируемыми. Для служб в вашем приложении,
+тем не менее, вам может и не потребоваться та гибкость, которую даёт использование
+параметров.</p>
+<div class="section" id="id6">
+<h3>Массивы параметров<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Параметры - это не обязательно строки, это также могут быть и массивы. В формате XML
+вы должны использовать атрибут type=&#8221;collection&#8221; для параметров-массивов.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">parameters</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">my_mailer.gateways</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mail1</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mail2</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">mail3</span>
+    <span class="l-Scalar-Plain">my_multilang.language_fallback</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">en</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">en</span>
+            <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">fr</span>
+        <span class="l-Scalar-Plain">fr</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">fr</span>
+            <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">en</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;parameters&gt;</span>
+    <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;my_mailer.gateways&quot;</span> <span class="na">type=</span><span class="s">&quot;collection&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;parameter&gt;</span>mail1<span class="nt">&lt;/parameter&gt;</span>
+        <span class="nt">&lt;parameter&gt;</span>mail2<span class="nt">&lt;/parameter&gt;</span>
+        <span class="nt">&lt;parameter&gt;</span>mail3<span class="nt">&lt;/parameter&gt;</span>
+    <span class="nt">&lt;/parameter&gt;</span>
+    <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;my_multilang.language_fallback&quot;</span> <span class="na">type=</span><span class="s">&quot;collection&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;en&quot;</span> <span class="na">type=</span><span class="s">&quot;collection&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;parameter&gt;</span>en<span class="nt">&lt;/parameter&gt;</span>
+            <span class="nt">&lt;parameter&gt;</span>fr<span class="nt">&lt;/parameter&gt;</span>
+        <span class="nt">&lt;/parameter&gt;</span>
+        <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;fr&quot;</span> <span class="na">type=</span><span class="s">&quot;collection&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;parameter&gt;</span>fr<span class="nt">&lt;/parameter&gt;</span>
+            <span class="nt">&lt;parameter&gt;</span>en<span class="nt">&lt;/parameter&gt;</span>
+        <span class="nt">&lt;/parameter&gt;</span>
+    <span class="nt">&lt;/parameter&gt;</span>
+<span class="nt">&lt;/parameters&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// app/config/config.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Definition</span><span class="p">;</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;my_mailer.gateways&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;mail1&#39;</span><span class="p">,</span> <span class="s1">&#39;mail2&#39;</span><span class="p">,</span> <span class="s1">&#39;mail3&#39;</span><span class="p">));</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;my_multilang.language_fallback&#39;</span><span class="p">,</span>
+                         <span class="k">array</span><span class="p">(</span><span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">,</span> <span class="s1">&#39;fr&#39;</span><span class="p">),</span>
+                               <span class="s1">&#39;fr&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;fr&#39;</span><span class="p">,</span> <span class="s1">&#39;en&#39;</span><span class="p">),</span>
+                        <span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>Импорт конфигураций контейнера<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">В этом разделе мы будем ссылаться на файлы конфигурации служб, как на некоторые
+<em>ресурсы</em>. Это подчёркивает тот факт, что, хотя большинство ресурсов конфигурации
+будут представлены в виде файлов (например, YAML, XML, PHP), Symfony2 настолько
+гибок, что конфигурация может быть загружена практически отовсюду (например,
+из базы данных или даже через внешний веб-сервис).</p>
+</div>
+<p>Контейнер служб создаётся с использованием одного конфигурационного ресурса
+(по умолчанию <tt class="docutils literal"><span class="pre">app/config/config.yml</span></tt>). Все прочие ресурсы для служб
+(включая ядро Symfony2 и настройки сторонних пакетов) должны импортироваться
+тем или иным способом. Это даёт вам абсолютную гибкость в настройке служб
+в вашем приложении.</p>
+<p>Настройки служб могут быть импортированы двумя различными способами. Во-первых,
+мы поговорим о методе, который вы будете в основном использовать в вашем приложении:
+директива <tt class="docutils literal"><span class="pre">imports</span></tt>. В следующей секции мы рассмотрим другой, более гибкий метод,
+наиболее предпочтительный для импорта настроек служб из сторонних приложений.</p>
+<div class="section" id="imports">
+<span id="service-container-imports-directive"></span><span id="index-4"></span><h3>Импорт конфигурации при помощи директивы <tt class="docutils literal"><span class="pre">imports</span></tt><a class="headerlink" href="#imports" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Ранее вы разместили определение службы <tt class="docutils literal"><span class="pre">my_mailer</span></tt> напрямую в файле
+конфигурации приложения (<tt class="docutils literal"><span class="pre">app/config/config.yml</span></tt>). Поскольку класс
+<tt class="docutils literal"><span class="pre">Mailer</span></tt> располагается в пакете <tt class="docutils literal"><span class="pre">AcmeHelloBundle</span></tt>, имеет смысл
+разместить определение контейнера <tt class="docutils literal"><span class="pre">my_mailer</span></tt> внутри этого пакета.</p>
+<p>Во-первых, переместите определение <tt class="docutils literal"><span class="pre">my_mailer</span></tt> в новый файл внутри <tt class="docutils literal"><span class="pre">AcmeHelloBundle</span></tt>.
+Если директории <tt class="docutils literal"><span class="pre">Resources</span></tt> или <tt class="docutils literal"><span class="pre">Resources/config</span></tt> отсутствуют - создайте их.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre># src/Acme/HelloBundle/Resources/config/services.yml
+parameters:
+    my_mailer.class:      Acme\HelloBundle\Mailer
+    my_mailer.transport:  sendmail
+
+services:
+    my_mailer:
+        class:        %my_mailer.class%
+        arguments:    [%my_mailer.transport%]</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- src/Acme/HelloBundle/Resources/config/services.xml --&gt;</span>
+<span class="nt">&lt;parameters&gt;</span>
+    <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;my_mailer.class&quot;</span><span class="nt">&gt;</span>Acme\HelloBundle\Mailer<span class="nt">&lt;/parameter&gt;</span>
+    <span class="nt">&lt;parameter</span> <span class="na">key=</span><span class="s">&quot;my_mailer.transport&quot;</span><span class="nt">&gt;</span>sendmail<span class="nt">&lt;/parameter&gt;</span>
+<span class="nt">&lt;/parameters&gt;</span>
+
+<span class="nt">&lt;services&gt;</span>
+    <span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;my_mailer&quot;</span> <span class="na">class=</span><span class="s">&quot;%my_mailer.class%&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;argument&gt;</span>%my_mailer.transport%<span class="nt">&lt;/argument&gt;</span>
+    <span class="nt">&lt;/service&gt;</span>
+<span class="nt">&lt;/services&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/HelloBundle/Resources/config/services.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Definition</span><span class="p">;</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;my_mailer.class&#39;</span><span class="p">,</span> <span class="s1">&#39;Acme\HelloBundle\Mailer&#39;</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;my_mailer.transport&#39;</span><span class="p">,</span> <span class="s1">&#39;sendmail&#39;</span><span class="p">);</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span>
+    <span class="s1">&#39;%my_mailer.class%&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">&#39;%my_mailer.transport%&#39;</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Само определение службы осталось без изменений, изменилось только расположение
+файла конфигурации. Конечно же, контейнер пока ничего не знает о новом ресурсе.
+К счастью, вы можете легко импортировать файл ресурса при помощи ключевого
+слова <tt class="docutils literal"><span class="pre">imports</span></tt> в конфигурации приложения:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre># app/config/config.yml
+imports:
+    hello_bundle:
+        resource: @AcmeHelloBundle/Resources/config/services.yml</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;imports&gt;</span>
+    <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">&quot;@AcmeHelloBundle/Resources/config/services.xml&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/imports&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// app/config/config.php</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;@AcmeHelloBundle/Resources/config/services.php&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Директива <tt class="docutils literal"><span class="pre">imports</span></tt> позволяет приложению подключать ресурсы конфигурации
+контейнера служб из различных мест (как правило, из пакетов).
+Расположение <tt class="docutils literal"><span class="pre">resource</span></tt> для файлов - это абсолютный путь к этому файлу.
+Специальный синтаксис <tt class="docutils literal"><span class="pre">&#64;AcmeHello</span></tt> соответствует пути к директории пакета
+<tt class="docutils literal"><span class="pre">AcmeHelloBundle</span></tt>. Это помогает указывать путь к ресурсу не заботясь о том,
+что пакет <tt class="docutils literal"><span class="pre">AcmeHelloBundle</span></tt> может быть в будущем перемещён в другое место.</p>
+</div>
+<div class="section" id="service-container-extension-configuration">
+<span id="index-5"></span><span id="id8"></span><h3>Импорт конфигурации при помощи расширений контейнера<a class="headerlink" href="#service-container-extension-configuration" title="Ссылка на этот заголовок">¶</a></h3>
+<p>При разработке с использованием Symfony2 чаще всего вы будете использовать
+директиву <tt class="docutils literal"><span class="pre">imports</span></tt> для импорта конфигурации контейнера из пакетов, которые
+вы создали специально для вашего приложения. Конфигурация контейнера для сторонних
+пакетов, включая службы ядра Symfony2, как правило, загружается при помощи
+другого метода, более гибкого и просто для настройки в вашем приложении.</p>
+<p>Вот как работает этот метод. Внутри каждого пакета его службы определяются
+очень похожим образом, как вы делали это ранее. А именно, пакет использует
+один или более файлов конфигурации (как правило, XML) для указания параметров
+и служб этого пакета. Тем не менее, вместо того, чтобы импортировать каждый ресурс
+непосредственно в файл конфигурации вашего приложения при помощи директивы
+<tt class="docutils literal"><span class="pre">imports</span></tt>, вы можете вызвать <em>расширение контейнера служб</em> внутри пакета,
+которое выполнит эту работу за вас. Расширение контейнера служб - это PHP
+класс, созданный автором пакета для выполнения следующих функций:</p>
+<ul class="simple">
+<li>Импорта всех ресурсов контейнера служб, необходимых для конфигурации
+всех служб пакетов;</li>
+<li>Предоставления простой и понятной конфигурации, при помощи которой пакет
+можно настроить, не взаимодействуя напрямую с конфигурацией
+контейнера служб пакета.</li>
+</ul>
+<p>Другими словами, расширение контейнера служб настраивает службы пакета от
+вашего имени. И, как вы скоро увидите, расширение предоставляет удобный
+высокоуровневый интерфейс для настройки пакета.</p>
+<p>Возьмём в качестве примера <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt> - основу Symfony2. Наличие
+следующего кода в конфигурации вашего приложения вызывает расширение контейнера
+служб внутри <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/config.yml</span>
+<span class="l-Scalar-Plain">framework</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">secret</span><span class="p-Indicator">:</span>          <span class="l-Scalar-Plain">xxxxxxxxxx</span>
+    <span class="l-Scalar-Plain">charset</span><span class="p-Indicator">:</span>         <span class="l-Scalar-Plain">UTF-8</span>
+    <span class="l-Scalar-Plain">form</span><span class="p-Indicator">:</span>            <span class="l-Scalar-Plain">true</span>
+    <span class="l-Scalar-Plain">csrf_protection</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+    <span class="l-Scalar-Plain">router</span><span class="p-Indicator">:</span>        <span class="p-Indicator">{</span> <span class="nv">resource</span><span class="p-Indicator">:</span> <span class="s">&quot;%kernel.root_dir%/config/routing.yml&quot;</span> <span class="p-Indicator">}</span>
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/config.xml --&gt;</span>
+<span class="nt">&lt;framework:config</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span> <span class="na">secret=</span><span class="s">&quot;xxxxxxxxxx&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;framework:form</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;framework:csrf-protection</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;framework:router</span> <span class="na">resource=</span><span class="s">&quot;%kernel.root_dir%/config/routing.xml&quot;</span> <span class="nt">/&gt;</span>
+    <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/framework&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// app/config/config.php</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">loadFromExtension</span><span class="p">(</span><span class="s1">&#39;framework&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;secret&#39;</span>          <span class="o">=&gt;</span> <span class="s1">&#39;xxxxxxxxxx&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;charset&#39;</span>         <span class="o">=&gt;</span> <span class="s1">&#39;UTF-8&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;form&#39;</span>            <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(),</span>
+    <span class="s1">&#39;csrf-protection&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(),</span>
+    <span class="s1">&#39;router&#39;</span>          <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;%kernel.root_dir%/config/routing.php&#39;</span><span class="p">),</span>
+    <span class="c1">// ...</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Когда парсится конфигурационный файл, контейнер ищет расширение, которое может
+обработать директиву <tt class="docutils literal"><span class="pre">framework</span></tt>. Вызывается расширение, которое находится
+в <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt> и загружается конфигурация служб для <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt>.
+Если вы удалите ключ <tt class="docutils literal"><span class="pre">framework</span></tt> из конфигурации приложения - основные
+сервисы ядра Symfony2 не будут загружены. Суть же заключается в том, что всё
+находится под вашим контролем: Symfony2 не содержит никакой магии и не делает
+ничего такого, чего бы вы не контролировали.</p>
+<p>Конечно же, вы можете делать много больше, чем просто активировать расширение
+контейнера служб для <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt>. Каждое расширение позволяет вам легко
+настроить пакет, не заботясь о том, как именно определены его службы.</p>
+<p>В нашем случае, расширение позволяет настроить <tt class="docutils literal"><span class="pre">charset</span></tt>, <tt class="docutils literal"><span class="pre">error_handler</span></tt>,
+<tt class="docutils literal"><span class="pre">csrf_protection</span></tt>, <tt class="docutils literal"><span class="pre">router</span></tt> и многое другое. Внутри <tt class="docutils literal"><span class="pre">FrameworkBundle</span></tt>
+использует опции, указанные в настройках приложения для определения и конфигурирования
+своих служб. Пакет позаботится о создании всех необходимых настроек <tt class="docutils literal"><span class="pre">parameters</span></tt> и
+<tt class="docutils literal"><span class="pre">services</span></tt> для контейнера служб, при этом также сохраняя гибкость настройки.
+В качестве бонуса большинство расширений контейнера служб также выполняют валидацию -
+уведомляют вас об отсутствующих или же имеющих неправильный тип параметрах.</p>
+<p>Когда вы устанавливаете или настраиваете пакет - смотрите его документацию,
+чтобы узнать как установить и настроить его службы. Опции, доступные для
+основных пакетов ядра вы можете посмотреть в <a class="reference internal" href="../reference/index.html"><em>справочнике</em></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Контейнер служб распознаёт лишь директивы <tt class="docutils literal"><span class="pre">parameters</span></tt>, <tt class="docutils literal"><span class="pre">services</span></tt>,
+и <tt class="docutils literal"><span class="pre">imports</span></tt>. Все остальные директивы обрабатываются расширениями.</p>
+</div>
+</div>
+</div>
+<div class="section" id="index-6">
+<span id="id9"></span><h2>Использование одних служб внутри других (Внедрение служб)<a class="headerlink" href="#index-6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Рассмотренная выше служба <tt class="docutils literal"><span class="pre">my_mailer</span></tt> проста: она принимает лишь один аргумент
+конструктора, который легко настраивается. Как вы увидите, свою силу контейнер
+показывает, когда вам нужно создать службу, которая зависит от одной или нескольких
+служб контейнера.</p>
+<p>Давайте начнём с примера. Предположим у вас есть новая служба <tt class="docutils literal"><span class="pre">NewsletterManager</span></tt>,
+которая помогает подготавливать и рассылать email-сообщения на некоторый набор адресов.
+Службу <tt class="docutils literal"><span class="pre">my_mailer</span></tt> было бы неплохо использовать для отправки сообщений
+внутри службы <tt class="docutils literal"><span class="pre">NewsletterManager</span></tt>. Таким образом, класс может выглядеть примерно так:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">Acme\HelloBundle\Newsletter</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Acme\HelloBundle\Mailer</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">NewsletterManager</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailer</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">Mailer</span> <span class="nv">$mailer</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailer</span> <span class="o">=</span> <span class="nv">$mailer</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Не используя контейнер служб, мы может создать <tt class="docutils literal"><span class="pre">NewsletterManager</span></tt> внутри
+контроллера:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">sendNewsletterAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$mailer</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">);</span>
+    <span class="nv">$newsletter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Acme\HelloBundle\Newsletter\NewsletterManager</span><span class="p">(</span><span class="nv">$mailer</span><span class="p">);</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Такой подход, в общем-то, не плох, но что, если потребуется добавить к конструктору
+класса <tt class="docutils literal"><span class="pre">NewsletterManager</span></tt> второй или даже третий аргумент? Что, если вы решите
+выполнить рефакторинг и переименуете класс? В обоих случаях вам потребовалось бы найти
+все места, где создаются экземпляры <tt class="docutils literal"><span class="pre">NewsletterManager</span></tt> и изменить их. И тут контейнер
+служб предоставляет вам удобное решение:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre># src/Acme/HelloBundle/Resources/config/services.yml
+parameters:
+    # ...
+    newsletter_manager.class: Acme\HelloBundle\Newsletter\NewsletterManager
+
+services:
+    my_mailer:
+        # ...
+    newsletter_manager:
+        class:     %newsletter_manager.class%
+        arguments: [@my_mailer]</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><pre>&lt;!-- src/Acme/HelloBundle/Resources/config/services.xml --&gt;
+&lt;parameters&gt;
+    &lt;!-- ... --&gt;
+    &lt;parameter key="newsletter_manager.class"&gt;Acme\HelloBundle\Newsletter\NewsletterManager&lt;/parameter&gt;
+&lt;/parameters&gt;
+
+&lt;services&gt;
+    &lt;service id="my_mailer" ... &gt;
+      &lt;!-- ... --&gt;
+    &lt;/service&gt;
+    &lt;service id="newsletter_manager" class="%newsletter_manager.class%"&gt;
+        &lt;argument type="service" id="my_mailer"/&gt;
+    &lt;/service&gt;
+&lt;/services&gt;</pre>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/HelloBundle/Resources/config/services.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Definition</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Reference</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;newsletter_manager.class&#39;</span><span class="p">,</span> <span class="s1">&#39;Acme\HelloBundle\Newsletter\NewsletterManager&#39;</span><span class="p">);</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">,</span> <span class="o">...</span> <span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;newsletter_manager&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span>
+    <span class="s1">&#39;%newsletter_manager.class%&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(</span><span class="k">new</span> <span class="nx">Reference</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">))</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>В YAML, специальный синтаксис <tt class="docutils literal"><span class="pre">&#64;my_mailer</span></tt> сообщает контейнеру, что
+нужно искать службу <tt class="docutils literal"><span class="pre">my_mailer</span></tt> и передать этот объект в конструктор
+<tt class="docutils literal"><span class="pre">NewsletterManager</span></tt>. В этом случае служба <tt class="docutils literal"><span class="pre">my_mailer</span></tt> должна существовать.
+Если её определение не будет найдено, будет вызвано исключение. Вы также можете
+пометить зависимости опциональными - это будет обсуждаться в следующей секции.</p>
+<p>Использование ссылок на службы (внедрение служб) - это мощный инструмент, который
+позволяет создавать независимые классы служб с чётко определёнными зависимостями. В
+этом примере, службе <tt class="docutils literal"><span class="pre">newsletter_manager</span></tt> для функционирования необходима служба
+<tt class="docutils literal"><span class="pre">my_mailer</span></tt>. Когда вы определите эту зависимость в контейнере служб, он позаботится
+о создании всех необходимых объектов.</p>
+<div class="section" id="id10">
+<h3>Опциональные зависимости<a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Внедрение зависимостей в конструктор - это прекрасный способ удостовериться,
+что зависимость доступна для использования. Если у вас есть необязательные
+зависимости для класса, то лучшим выбором будет использование &#8220;setter injection&#8221;.
+Это означает, что внедрение зависимости производится при помощи некоторого
+метода, а не в конструкторе. Класс будет выглядеть следующим образом:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">Acme\HelloBundle\Newsletter</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Acme\HelloBundle\Mailer</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">NewsletterManager</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailer</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setMailer</span><span class="p">(</span><span class="nx">Mailer</span> <span class="nv">$mailer</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailer</span> <span class="o">=</span> <span class="nv">$mailer</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Внедрение зависимости при помощи метода требует также изменения синтаксиса:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre># src/Acme/HelloBundle/Resources/config/services.yml
+parameters:
+    # ...
+    newsletter_manager.class: Acme\HelloBundle\Newsletter\NewsletterManager
+
+services:
+    my_mailer:
+        # ...
+    newsletter_manager:
+        class:     %newsletter_manager.class%
+        calls:
+            - [ setMailer, [ @my_mailer ] ]</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><pre>&lt;!-- src/Acme/HelloBundle/Resources/config/services.xml --&gt;
+&lt;parameters&gt;
+    &lt;!-- ... --&gt;
+    &lt;parameter key="newsletter_manager.class"&gt;Acme\HelloBundle\Newsletter\NewsletterManager&lt;/parameter&gt;
+&lt;/parameters&gt;
+
+&lt;services&gt;
+    &lt;service id="my_mailer" ... &gt;
+      &lt;!-- ... --&gt;
+    &lt;/service&gt;
+    &lt;service id="newsletter_manager" class="%newsletter_manager.class%"&gt;
+        &lt;call method="setMailer"&gt;
+             &lt;argument type="service" id="my_mailer" /&gt;
+        &lt;/call&gt;
+    &lt;/service&gt;
+&lt;/services&gt;</pre>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/HelloBundle/Resources/config/services.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Definition</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Reference</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;newsletter_manager.class&#39;</span><span class="p">,</span> <span class="s1">&#39;Acme\HelloBundle\Newsletter\NewsletterManager&#39;</span><span class="p">);</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">,</span> <span class="o">...</span> <span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;newsletter_manager&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span>
+    <span class="s1">&#39;%newsletter_manager.class%&#39;</span>
+<span class="p">))</span><span class="o">-&gt;</span><span class="na">addMethodCall</span><span class="p">(</span><span class="s1">&#39;setMailer&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="k">new</span> <span class="nx">Reference</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Подходы к внедрению служб, представленные в этой секции называются &#8220;constructor injection&#8221;
+и &#8220;setter injection&#8221;. Контейнер служб Symfony2 также поддерживает &#8220;property injection&#8221;.</p>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>Делаем ссылки на службы опциональными<a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Иногда, службы могут иметь опциональные зависимости, т.е. зависимость
+не требуется, для того, чтобы служба правильно работала. В примере выше
+служба <tt class="docutils literal"><span class="pre">my_mailer</span></tt> должна существовать, в противном случае будет сгенерирована
+ошибка (исключение). Изменив определение службы <tt class="docutils literal"><span class="pre">newsletter_manager</span></tt> вы
+можете сделать зависимость необязательной. Контейнер будет внедрять её
+лишь когда эта зависимость существует, в случае же если она не существует,
+никаких действий производиться не будет:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre># src/Acme/HelloBundle/Resources/config/services.yml
+parameters:
+    # ...
+
+services:
+    newsletter_manager:
+        class:     %newsletter_manager.class%
+        arguments: [@?my_mailer]</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><pre>&lt;!-- src/Acme/HelloBundle/Resources/config/services.xml --&gt;
+
+&lt;services&gt;
+    &lt;service id="my_mailer" ... &gt;
+      &lt;!-- ... --&gt;
+    &lt;/service&gt;
+    &lt;service id="newsletter_manager" class="%newsletter_manager.class%"&gt;
+        &lt;argument type="service" id="my_mailer" on-invalid="ignore" /&gt;
+    &lt;/service&gt;
+&lt;/services&gt;</pre>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// src/Acme/HelloBundle/Resources/config/services.php</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Definition</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Reference</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\ContainerInterface</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;newsletter_manager.class&#39;</span><span class="p">,</span> <span class="s1">&#39;Acme\HelloBundle\Newsletter\NewsletterManager&#39;</span><span class="p">);</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">,</span> <span class="o">...</span> <span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;newsletter_manager&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span>
+    <span class="s1">&#39;%newsletter_manager.class%&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(</span><span class="k">new</span> <span class="nx">Reference</span><span class="p">(</span><span class="s1">&#39;my_mailer&#39;</span><span class="p">,</span> <span class="nx">ContainerInterface</span><span class="o">::</span><span class="na">IGNORE_ON_INVALID_REFERENCE</span><span class="p">))</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>В YAML, специальный синтаксис <tt class="docutils literal"><span class="pre">&#64;?</span></tt> сообщает контейнеру служб, что зависимость не
+обязательная. И, конечно же, конструктор <tt class="docutils literal"><span class="pre">NewsletterManager</span></tt> должен быть переписан,
+чтобы поддерживать опциональную зависимость:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// ...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">Mailer</span> <span class="nv">$mailer</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="symfony">
+<h2>Основные службы Symfony и службы от сторонних разработчиков<a class="headerlink" href="#symfony" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Так как Symfony2 и все сторонние пакеты настраивают и получают свои службы
+при помощи контейнера, вы можете легко получить доступ к ним или даже использовать
+их в своих собственных службах. Для простоты Symfony2 по умолчанию не требует,
+чтобы контроллеры были бы определены как службы. Кроме того, Symfony2 внедряет
+в ваш контроллер контейнер служб целиком. Например, для работы с пользовательской
+сессией, Symfony2 предоставляет службу <tt class="docutils literal"><span class="pre">session</span></tt>, которая позволяет получить
+доступ к сессии внутри обычного контроллера:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nv">$bar</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$session</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;session&#39;</span><span class="p">);</span>
+    <span class="nv">$session</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="nv">$bar</span><span class="p">);</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>В Symfony2 вы постоянно будете пользоваться службами, предоставляемыми ядром Symfony
+или же прочими пакетами от сторонних разработчиков, для выполнения таких задач как
+отображение шаблонов (<tt class="docutils literal"><span class="pre">templating</span></tt>), отправку майлов (<tt class="docutils literal"><span class="pre">mailer</span></tt>) или доступ
+к переменным запроса (<tt class="docutils literal"><span class="pre">request</span></tt>).</p>
+<p>Вы можете пойти ещё дальше и использовать эти службы внутри ваших служб,
+созданных для вашего приложения. Дайте изменим класс <tt class="docutils literal"><span class="pre">NewsletterManager</span></tt>,
+чтобы он использовал стандартный <tt class="docutils literal"><span class="pre">mailer</span></tt> Symfony2 (вместо <tt class="docutils literal"><span class="pre">my_mailer</span></tt>).
+Давайте также внедрим службу шаблонизатора в <tt class="docutils literal"><span class="pre">NewsletterManager</span></tt>, чтобы
+можно было создавать контент электронных писем из шаблонов:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">Acme\HelloBundle\Newsletter</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Symfony\Component\Templating\EngineInterface</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">NewsletterManager</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$mailer</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="nv">$templating</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">\Swift_Mailer</span> <span class="nv">$mailer</span><span class="p">,</span> <span class="nx">EngineInterface</span> <span class="nv">$templating</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mailer</span> <span class="o">=</span> <span class="nv">$mailer</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">templating</span> <span class="o">=</span> <span class="nv">$templating</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Настройку контейнера выполнить не сложно:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre>services:
+    newsletter_manager:
+        class:     %newsletter_manager.class%
+        arguments: [@mailer, @templating]</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;newsletter_manager&quot;</span> <span class="na">class=</span><span class="s">&quot;%newsletter_manager.class%&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;argument</span> <span class="na">type=</span><span class="s">&quot;service&quot;</span> <span class="na">id=</span><span class="s">&quot;mailer&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;argument</span> <span class="na">type=</span><span class="s">&quot;service&quot;</span> <span class="na">id=</span><span class="s">&quot;templating&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;newsletter_manager&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span>
+    <span class="s1">&#39;%newsletter_manager.class%&#39;</span><span class="p">,</span>
+    <span class="k">array</span><span class="p">(</span>
+        <span class="k">new</span> <span class="nx">Reference</span><span class="p">(</span><span class="s1">&#39;mailer&#39;</span><span class="p">),</span>
+        <span class="k">new</span> <span class="nx">Reference</span><span class="p">(</span><span class="s1">&#39;templating&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Служба <tt class="docutils literal"><span class="pre">newsletter_manager</span></tt> теперь имеет доступ к службам <tt class="docutils literal"><span class="pre">mailer</span></tt>
+и <tt class="docutils literal"><span class="pre">templating</span></tt>. Это типичный путь по созданию служб, специфичных для вашего
+приложения, который позволяет использовать всю мощь различных служб Фреймворка.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Удостоверьтесь, что в конфигурации вашего приложения присутствует раздел
+<tt class="docutils literal"><span class="pre">swiftmailer</span></tt>. Как указано в секции <a class="reference internal" href="#service-container-extension-configuration"><em>Импорт конфигурации при помощи расширений контейнера</em></a>,
+ключ <tt class="docutils literal"><span class="pre">swiftmailer</span></tt> внедряет расширение из <tt class="docutils literal"><span class="pre">SwiftmailerBundle</span></tt>, которое
+регистрирует службу <tt class="docutils literal"><span class="pre">mailer</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="index-7">
+<span id="id12"></span><h2>Продвинутая конфигурация контейнера<a class="headerlink" href="#index-7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Как вы могли видеть ранее, определение служб в контейнере выполняется легко,
+в основном с применением ключа конфигурации <tt class="docutils literal"><span class="pre">service</span></tt> и нескольких
+параметров. Тем не менее, контейнер имеет ещё несколько дополнительных
+инструментов, с помощью которых можно получить дополнительную функциональность,
+создавать более сложные службы и выполнять операции после создания контейнера.</p>
+<div class="section" id="id13">
+<h3>Публичные и приватные службы<a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Как правило, при определении служб, вы рассчитываете получить доступ к ним в вашем
+приложении. Такие службы называются <em>публичными</em> (<tt class="docutils literal"><span class="pre">public</span></tt>). Например, служба <tt class="docutils literal"><span class="pre">doctrine</span></tt>
+из состава DoctrineBundle является публичной и вы можете получить к ней доступ
+следующим образом:</p>
+<div class="highlight-python"><pre>$doctrine = $container-&gt;get('doctrine');</pre>
+</div>
+<p>Тем не менее, имеются случаи, когда вы не захотите, чтобы ваши службы были публичными.
+Как правило, это случается, когда служба определена лишь для того, чтобы
+быть использованной в качестве аргумента для другой службы.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Если вы используете приватные службы в качестве аргумента более чем
+для одной службы, в результате будут созданы два различных экземпляра
+этой приватной службы (т.е. <tt class="docutils literal"><span class="pre">new</span> <span class="pre">PrivateFooBar()</span></tt>).</p>
+</div>
+<p>Служба должна быть приватной, когда вы не хотите, чтобы она была доступна
+напрямую из кода.</p>
+<p>Например:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+   <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span>
+     <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Acme\HelloBundle\Foo</span>
+     <span class="l-Scalar-Plain">public</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;foo&quot;</span> <span class="na">class=</span><span class="s">&quot;Acme\HelloBundle\Foo&quot;</span> <span class="na">public=</span><span class="s">&quot;false&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$definition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span><span class="s1">&#39;Acme\HelloBundle\Foo&#39;</span><span class="p">);</span>
+<span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">setPublic</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="nv">$definition</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Теперь служба определена как приватная и в <em>не можете</em> получить к ней доступ напрямую:</p>
+<div class="highlight-python"><pre>$container-&gt;get('foo');</pre>
+</div>
+<p>Тем не менее, даже если служба обозначена как приватная, вы ещё можете использовать
+её псевдоним (alias, см. ниже) для доступа к ней (при помощи этого псевдонима).</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">По умолчанию все службы - публичные.</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>Псевдонимы<a class="headerlink" href="#id14" title="Ссылка на этот заголовок">¶</a></h3>
+<p>При использовании основных или же сторонних пакетов в вашем приложении, вы
+возможно захотите использовать ярлычки для доступа к некоторым их службам. Вы
+можете сделать это при помощи псевдонимов и даже можете создавать псевдонимы
+для приватных служб.</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+   <span class="l-Scalar-Plain">foo</span><span class="p-Indicator">:</span>
+     <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Acme\HelloBundle\Foo</span>
+   <span class="l-Scalar-Plain">bar</span><span class="p-Indicator">:</span>
+     <span class="l-Scalar-Plain">alias</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foo</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;foo&quot;</span> <span class="na">class=</span><span class="s">&quot;Acme\HelloBundle\Foo&quot;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;bar&quot;</span> <span class="na">alias=</span><span class="s">&quot;foo&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$definition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span><span class="s1">&#39;Acme\HelloBundle\Foo&#39;</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="nv">$definition</span><span class="p">);</span>
+
+<span class="nv">$containerBuilder</span><span class="o">-&gt;</span><span class="na">setAlias</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Это означает, что при использовании контейнера, вы можете получить доступ
+к службе <tt class="docutils literal"><span class="pre">foo</span></tt> запрашивая службу <tt class="docutils literal"><span class="pre">bar</span></tt>:</p>
+<div class="highlight-python"><pre>$container-&gt;get('bar'); // В итоге получите службу foo</pre>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>Подключение файлов<a class="headerlink" href="#id15" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Также возможны случаи, когда вам будет необходимо подключить некоторый
+файл прямо перед загрузкой службы. Для этого вы можете воспользоваться
+директивой <tt class="docutils literal"><span class="pre">file</span></tt>:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><pre>services:
+   foo:
+     class: Acme\HelloBundle\Foo\Bar
+     file: %kernel.root_dir%/src/path/to/file/foo.php</pre>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;foo&quot;</span> <span class="na">class=</span><span class="s">&quot;Acme\HelloBundle\Foo\Bar&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;file&gt;</span>%kernel.root_dir%/src/path/to/file/foo.php<span class="nt">&lt;/file&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">$definition = new Definition(&#39;Acme\HelloBundle\Foo\Bar&#39;);</span>
+<span class="x">$definition-&gt;setFile(&#39;%kernel.root_dir%/src/path/to/file/foo.php&#39;);</span>
+<span class="x">$container-&gt;setDefinition(&#39;foo&#39;, $definition);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Имейте в виду, что symfony будет подключать файл при помощи PHP функции
+<tt class="docutils literal"><span class="pre">require_once</span></tt>, поэтому файл будет подключаться один единственный раз
+в рамках каждого запроса.</p>
+</div>
+<div class="section" id="tags">
+<span id="book-service-container-tags"></span><h3>Таги (<tt class="docutils literal"><span class="pre">tags</span></tt>)<a class="headerlink" href="#tags" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Точно также как ваша запись в блоге может быть снабжена тагами, так и
+любая служба может иметь свои таги. В контейнере служб таг означает,
+что служба используется для некоторых специфических функций. Давайте
+рассмотрим пример:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="l-Scalar-Plain">services</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">foo.twig.extension</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Acme\HelloBundle\Extension\FooExtension</span>
+        <span class="l-Scalar-Plain">tags</span><span class="p-Indicator">:</span>
+            <span class="p-Indicator">-</span>  <span class="p-Indicator">{</span> <span class="nv">name</span><span class="p-Indicator">:</span> <span class="nv">twig.extension</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;service</span> <span class="na">id=</span><span class="s">&quot;foo.twig.extension&quot;</span> <span class="na">class=</span><span class="s">&quot;Acme\HelloBundle\Extension\FooExtension&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tag</span> <span class="na">name=</span><span class="s">&quot;twig.extension&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$definition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Definition</span><span class="p">(</span><span class="s1">&#39;Acme\HelloBundle\Extension\FooExtension&#39;</span><span class="p">);</span>
+<span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s1">&#39;twig.extension&#39;</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setDefinition</span><span class="p">(</span><span class="s1">&#39;foo.twig.extension&#39;</span><span class="p">,</span> <span class="nv">$definition</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Таг <tt class="docutils literal"><span class="pre">twig.extension</span></tt> - это специализированный таг, который <tt class="docutils literal"><span class="pre">TwigBundle</span></tt>
+использует во время конфигурирования. Присваивая службе таг <tt class="docutils literal"><span class="pre">twig.extension</span></tt>,
+<tt class="docutils literal"><span class="pre">TwigBundle</span></tt> будет знать, что служба <tt class="docutils literal"><span class="pre">foo.twig.extension</span></tt> должна быть
+зарегистрирована в качестве расширения Twig. Другими словами, Twig таким
+образом ищет все службы с тагом <tt class="docutils literal"><span class="pre">twig.extension</span></tt> и автоматически регистрирует
+их как расширения Twig.</p>
+<p>Таги, таким образом, являются способом сообщить Symfony2 или другим
+сторонним пакетам, что ваша служба должна быть зарегистрирована или
+использована некоторым особым способом внутри целевого пакета.</p>
+<p>Ниже представлен список тагов, доступных в ядре Symfony2.
+Каждый из этих тагов имеет свой собственный эффект на вашу службу и
+многие таги требуют наличия дополнительных параметров (помимо параметра
+<tt class="docutils literal"><span class="pre">name</span></tt>).</p>
+<ul class="simple">
+<li>assetic.filter</li>
+<li>assetic.templating.php</li>
+<li>data_collector</li>
+<li>form.field_factory.guesser</li>
+<li>kernel.cache_warmer</li>
+<li>kernel.event_listener</li>
+<li>monolog.logger</li>
+<li>routing.loader</li>
+<li>security.listener.factory</li>
+<li>security.voter</li>
+<li>templating.helper</li>
+<li>twig.extension</li>
+<li>translation.loader</li>
+<li>validator.constraint_validator</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>Дополнительно читайте в книге рецептов:<a class="headerlink" href="#id16" title="Ссылка на этот заголовок">¶</a></h2>
+<ul class="simple">
+<li><tt class="xref doc docutils literal"><span class="pre">/cookbook/service_container/factories</span></tt></li>
+<li><tt class="xref doc docutils literal"><span class="pre">/cookbook/service_container/parentservices</span></tt></li>
+<li><a class="reference internal" href="../cookbook/controller/service.html"><em>Как определять Контроллеры в качестве сервисов</em></a></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

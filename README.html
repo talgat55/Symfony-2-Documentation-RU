@@ -1,0 +1,270 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Как предложить свой вариант перевода? &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="id1">
+<h1>Как предложить свой вариант перевода?<a class="headerlink" href="#id1" title="Ссылка на этот заголовок">¶</a></h1>
+<ol class="arabic simple">
+<li>Для начала, вам <a class="reference external" href="http://help.github.com/forking/">нужно сделать Fork</a>
+текущего <a class="reference external" href="https://github.com/avalanche123/symfony-docs-ru">репозитория с переводом</a></li>
+<li>В своем репозитории перевода <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">создайте branch</a>
+и внесите законченный набор изменений в перевод. Желательно, чтобы изменения
+касались не более чем 10 файлов на один <tt class="docutils literal"><span class="pre">Pull</span> <span class="pre">Request</span></tt></li>
+<li>Актуальную версию английской документации берите из <a class="reference external" href="https://github.com/symfony/symfony-docs">репозитория
+symfony-docs</a></li>
+<li>Когда вы закончили правки в переводе, из нужного <tt class="docutils literal"><span class="pre">branch</span></tt>
+<a class="reference external" href="http://help.github.com/pull-requests/">сделайте Pull Request</a></li>
+<li>Для бОльшего удобства при определении изменений в файле перевода необходимо:</li>
+</ol>
+<p>5.1. При создании нового перевода добавить в конец файла такую конструкцию (не будет отображаться при генерации):</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>toctree</dt>
+<dd><p class="first">hidden</p>
+<p class="last">Translation source: YYYY-mm-dd REV</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>где</dt>
+<dd>YYYY-mm-dd дата когда был взят исходник перевода,
+REV - короткий хеш ревизии (можно посмотреть командой <cite>git log &#8211;oneline [file]</cite>)</dd>
+</dl>
+<p>5.2. При обновлении перевода добавить в историю правок строку</p>
+<blockquote>
+<div>Corrected from: YYYY-mm-dd REV</div></blockquote>
+<p>5.3. Пример этой конструкции можно подсмотреть в конце этого файла, так как он не виден в распарсеном документе.</p>
+<dl class="docutils">
+<dt>где</dt>
+<dd>YYYY-mm-dd - дата когда был взят исходник для коррекции
+REV - также хеш ревизии по которой делалась коррекция</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h1>Соглашения по переводу<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h1>
+<ol class="arabic simple">
+<li>Некоторые частные случаи:</li>
+</ol>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="33%" />
+<col width="36%" />
+</colgroup>
+<tbody valign="top">
+<tr><td><strong>Исходный вариант</strong></td>
+<td><strong>Правильный перевод</strong></td>
+<td><strong>Неправильный перевод</strong></td>
+</tr>
+<tr><td><strong>Response object</strong></td>
+<td>объект Response</td>
+<td>объект ответа</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id4">
+<h1>Не переводятся<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">Служебная разметка:</p>
+<div class="highlight-python"><pre>- :orphan:
+- .. glossary::
+- .. note::
+- .. tip::
+- .. toctree::
+     :maxdepth: 2
+     :glob:
+     :numbered:</pre>
+</div>
+</li>
+<li><p class="first">Служебные слова: &#8220;<tt class="docutils literal"><span class="pre">API</span></tt>&#8221;, &#8220;<tt class="docutils literal"><span class="pre">HTTP</span></tt>&#8221;, &#8220;<tt class="docutils literal"><span class="pre">Symfony2</span></tt>&#8221;, &#8220;<tt class="docutils literal"><span class="pre">Controller</span></tt>&#8221;, &#8220;<tt class="docutils literal"><span class="pre">Response</span></tt>&#8221;, etc.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h1>Полезные ссылки<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h1>
+<ul class="simple">
+<li>Правила форматирования документации: <a href="#id6"><span class="problematic" id="id7">`</span></a>Symfony2 Documentation Format</li>
+</ul>
+<p>&lt;<a class="reference external" href="http://symfony.com/doc/current/contributing/documentation/format.html">http://symfony.com/doc/current/contributing/documentation/format.html</a>&gt;`_ и
+<a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html">reStructuredText Markup Specification</a></p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

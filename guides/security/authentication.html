@@ -1,0 +1,1004 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Идентификация &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Идентификация<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Идентификация в Symfony2 регулируется системой Firewall. Она основана на
+обработчиках, которые следят за безопасностью и перенаправляют пользователя
+если его полномочия не доступны, не достаточны или попросту неправильны.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Firewall реализован через событие <tt class="docutils literal"><span class="pre">core.security</span></tt>, которое вызывается
+сразу после события <tt class="docutils literal"><span class="pre">core.request</span></tt>. Вся функциональность, о которой пойдёт
+речь в этой части, реализована через обработчики этого события.</p>
+</div>
+<div class="section" id="firewall">
+<span id="index-1"></span><h2>Карта Firewall<a class="headerlink" href="#firewall" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Firewall может быть настроен для защиты всего приложения, также может использовать
+различные стратегии идентификации для различных частей приложения.</p>
+<p>Часто, web сайт открывает публичную часть для всех, при этом защищая панель
+управления с помощью формы идентификации, и защищает публичные API/Web Службы
+через базовую HTTP идентификацию:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">backend</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>    <span class="l-Scalar-Plain">/admin/.*</span>
+            <span class="l-Scalar-Plain">form-login</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">logout</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">api</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>    <span class="l-Scalar-Plain">/api/.*</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">stateless</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">public</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>    <span class="l-Scalar-Plain">/.*</span>
+            <span class="l-Scalar-Plain">security</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/admin/.*&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;form-login</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;logout</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+    <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/api/.*&quot;</span> <span class="na">stateless=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+    <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/.*&quot;</span> <span class="na">security=</span><span class="s">&quot;false&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;backend&#39; =&gt; array(&#39;pattern&#39; =&gt; &#39;/admin/.*&#39;, &#39;http_basic&#39; =&gt; true, &#39;logout&#39; =&gt; true),</span>
+<span class="x">        &#39;api&#39;     =&gt; array(&#39;pattern&#39; =&gt; &#39;/api/.*&#39;, &#39;http_basic&#39; =&gt; true, &#39;stateless&#39; =&gt; true),</span>
+<span class="x">        &#39;public&#39;  =&gt; array(&#39;pattern&#39; =&gt; &#39;/.*&#39;, &#39;security&#39; =&gt; false),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Каждая конфигурация firewall-а активируется когда входящий запрос совпадёт с
+регулярным выражением, определённым в настройке <tt class="docutils literal"><span class="pre">pattern</span></tt>. Этот шаблон должен
+совпадать с запрошенным путём
+(<tt class="docutils literal"><span class="pre">preg_match('#^'.PATTERN_VALUE.'$#',</span> <span class="pre">$request-&gt;getPathInfo())</span></tt>.)</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Важен порядок определения правил для фаервола, т. к. Symfony2
+использует первую настройку, для которой паттерн соответствует запросу
+(т. о. сначала определите более конкретные конфигурации).</p>
+</div>
+</div>
+<div class="section" id="index-2">
+<span id="id2"></span><h2>Механизмы идентификации<a class="headerlink" href="#index-2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Symfony2 поставляется с поддержкой следующих механизмов идентификации:</p>
+<ul class="simple">
+<li>HTTP Basic;</li>
+<li>HTTP Digest;</li>
+<li>Идентификация через форму;</li>
+<li>X.509 сертификаты;</li>
+<li>Анонимная идентификация.</li>
+</ul>
+<p>Каждый механизм состоит из двух классов, выполняющих его работу: слушатель
+и точка входа. <em>Слушатель</em> пытается идентифицировать запросы. Если пользователь
+не идентифицирован или если слушатель обнаружит неправильные полномочия,
+<em>точка входа</em> создаст ответ чтобы выдать ответную реакцию пользователю и
+предоставить ему возможность войти в свои полномочия.</p>
+<p>Вы можете настроить фаервол для использования более одного механизма идентификации:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">backend</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>    <span class="l-Scalar-Plain">/admin/.*</span>
+            <span class="l-Scalar-Plain">x509</span><span class="p-Indicator">:</span>       <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">form_login</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">logout</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/admin/.*&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;x509</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;form-login</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;logout</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;backend&#39; =&gt; array(</span>
+<span class="x">            &#39;pattern&#39;    =&gt; &#39;/admin/.*&#39;,</span>
+<span class="x">            &#39;x509&#39;       =&gt; true,</span>
+<span class="x">            &#39;http_basic&#39; =&gt; true,</span>
+<span class="x">            &#39;form_login&#39; =&gt; true,</span>
+<span class="x">            &#39;logout&#39;     =&gt; true,</span>
+<span class="x">        ),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Пользователь, проникающий в ресурсы <tt class="docutils literal"><span class="pre">/admin/</span></tt>, должен предоставить либо
+сертификат X.509, либо заголовок Authorization HTTP, а также может использовать
+форму входа.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Когда пользователь не идентифицирован и установлено более одного механизма
+идентификации, Symfony2 автоматически определяет точку входа по умолчанию
+(в предыдущем примере, ею будет форма входа; но если пользователь отправит
+заголовок Authorization HTTP с неправильными полномочиями, Symfony2 будет
+использовать точку входа HTTP Basic).</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Идентификация HTTP Basic применяется повсюду, но не безопасна. HTTP Digest
+более защищена, не очень везде применима на практике.</p>
+</div>
+<div class="section" id="http-basic">
+<span id="index-3"></span><h3>HTTP Basic<a class="headerlink" href="#http-basic" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Настроить идентификацию HTTP basic очень просто:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;http_basic&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="http-digest">
+<span id="index-4"></span><h3>HTTP Digest<a class="headerlink" href="#http-digest" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Настроить идентификацию HTTP digest очень просто:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">http_digest</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;http-digest</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;http_digest&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition caution">
+<p class="first admonition-title">Осторожно</p>
+<p class="last">Используя HTTP Digest, храните пароли пользователей в открытом виде.</p>
+</div>
+</div>
+<div class="section" id="index-5">
+<span id="id3"></span><h3>Идентификация через форму<a class="headerlink" href="#index-5" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Идентификация через форму - наиболее используемый механизм в Web на сегодня:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">form_login</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;form-login</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;form_login&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Если пользователь не идентифицирован, он перенаправляется на URL <tt class="docutils literal"><span class="pre">login_path</span></tt>
+(<tt class="docutils literal"><span class="pre">/login</span></tt> по умолчанию).</p>
+<p>Этот прослушиватель полагается на форму для взаимодействия с пользователем. Он
+обрабатывает передачу формы автоматически, но не её отображение; т. о. вы должны
+выполнить эту задачу самостоятельно:</p>
+<blockquote>
+<div><p>use SymfonyBundleFrameworkBundleControllerController;
+use SymfonyComponentSecuritySecurityContext;</p>
+<p>class SecurityController extends Controller
+{</p>
+<blockquote>
+<div><p>public function loginAction()
+{</p>
+<blockquote>
+<div><p>// get the error if any (works with forward and redirect &#8211; see below)
+if ($this-&gt;get(&#8216;request&#8217;)-&gt;attributes-&gt;has(SecurityContext::AUTHENTICATION_ERROR)) {</p>
+<blockquote>
+<div>$error = $this-&gt;get(&#8216;request&#8217;)-&gt;attributes-&gt;get(SecurityContext::AUTHENTICATION_ERROR);</div></blockquote>
+<dl class="docutils">
+<dt>} else {</dt>
+<dd>$error = $this-&gt;get(&#8216;request&#8217;)-&gt;getSession()-&gt;get(SecurityContext::AUTHENTICATION_ERROR);</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>return $this-&gt;render(&#8216;SecurityBundle:Security:login.php&#8217;, array(</dt>
+<dd>// last username entered by the user
+&#8216;last_username&#8217; =&gt; $this-&gt;get(&#8216;request&#8217;)-&gt;getSession()-&gt;get(SecurityContext::LAST_USERNAME),
+&#8216;error&#8217;         =&gt; $error,</dd>
+</dl>
+<p>));</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>И соотвествующий шаблон:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>PHP</em><div class="highlight-html+php"><div class="highlight"><pre><span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$error</span><span class="p">)</span><span class="o">:</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;div&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$error</span> <span class="cp">?&gt;</span><span class="nt">&lt;/div&gt;</span>
+<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span>
+
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$view</span><span class="p">[</span><span class="s1">&#39;router&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;_security_check&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span><span class="s">&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;username&quot;</span><span class="nt">&gt;</span>Username:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">id=</span><span class="s">&quot;username&quot;</span> <span class="na">name=</span><span class="s">&quot;_username&quot;</span> <span class="na">value=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$last_username</span> <span class="cp">?&gt;</span><span class="s">&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;password&quot;</span><span class="nt">&gt;</span>Password:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;password&quot;</span> <span class="na">id=</span><span class="s">&quot;password&quot;</span> <span class="na">name=</span><span class="s">&quot;_password&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;login&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>Twig</em><div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">if</span> <span class="nv">error</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    &lt;div&gt;</span><span class="cp">{{</span> <span class="nv">error</span> <span class="cp">}}</span><span class="x">&lt;/div&gt;</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="x">&lt;form action=&quot;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="s1">&#39;_security_check&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&quot; method=&quot;post&quot;&gt;</span>
+<span class="x">    &lt;label for=&quot;username&quot;&gt;Username:&lt;/label&gt;</span>
+<span class="x">    &lt;input type=&quot;text&quot; id=&quot;username&quot; name=&quot;_username&quot; value=&quot;</span><span class="cp">{{</span> <span class="nv">last_username</span> <span class="cp">}}</span><span class="x">&quot; /&gt;</span>
+
+<span class="x">    &lt;label for=&quot;password&quot;&gt;Password:&lt;/label&gt;</span>
+<span class="x">    &lt;input type=&quot;password&quot; id=&quot;password&quot; name=&quot;_password&quot; /&gt;</span>
+
+<span class="x">    &lt;input type=&quot;submit&quot; name=&quot;login&quot; /&gt;</span>
+<span class="x">&lt;/form&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Шаблон должен иметь поля <tt class="docutils literal"><span class="pre">_username</span></tt> и <tt class="docutils literal"><span class="pre">_password</span></tt>, в форме URL для передачи
+должен быть значением настройки <tt class="docutils literal"><span class="pre">check_path</span></tt> (<tt class="docutils literal"><span class="pre">/login_check</span></tt> по умолчанию).</p>
+<p>Наконец, добавьте URL маршруты для <tt class="docutils literal"><span class="pre">/login</span></tt> (значение <tt class="docutils literal"><span class="pre">login_path</span></tt>) и
+<tt class="docutils literal"><span class="pre">/login_check</span></tt> (значение <tt class="docutils literal"><span class="pre">login_check</span></tt>):</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;_security_login&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/login&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;default</span> <span class="na">key=</span><span class="s">&quot;_controller&quot;</span><span class="nt">&gt;</span>SecurityBundle:Security:login<span class="nt">&lt;/default&gt;</span>
+<span class="nt">&lt;/route&gt;</span>
+
+<span class="nt">&lt;route</span> <span class="na">id=</span><span class="s">&quot;_security_check&quot;</span> <span class="na">pattern=</span><span class="s">&quot;/login_check&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>После неудачной идентификации пользователь переадресовывается на страницу входа.
+Вместо этого можно использовать перенаправление установив <tt class="docutils literal"><span class="pre">failure_forward</span></tt> в
+значение <tt class="docutils literal"><span class="pre">true</span></tt>. Также можно переадресовать или перенаправить на другую
+страницу, если указать``failure_path``.</p>
+<p>После удачной идентификации пользователь переадресовывается согласно следующему
+алгоритму:</p>
+<ul class="simple">
+<li>Если <tt class="docutils literal"><span class="pre">always_use_default_target_path</span></tt> равно <tt class="docutils literal"><span class="pre">true</span></tt> (<tt class="docutils literal"><span class="pre">false</span></tt> по умолчанию),
+переадресовывает пользователя на <tt class="docutils literal"><span class="pre">default_target_path</span></tt> (<tt class="docutils literal"><span class="pre">/</span></tt> по умолчанию);</li>
+<li>Если запрос содержит параметр, названный <tt class="docutils literal"><span class="pre">_target_path</span></tt> (настраивается через
+<tt class="docutils literal"><span class="pre">target_path_parameter</span></tt>), то переадресовывает пользователя на адрес, указанный
+в нём;</li>
+<li>Если целевой URL хранится в сессии (это делается автоматически когда
+пользователь переадресовывается на страницу входа), то переадресовывает
+пользователя на этот URL;</li>
+<li>Если <tt class="docutils literal"><span class="pre">use_referer</span></tt> равно <tt class="docutils literal"><span class="pre">true</span></tt> (<tt class="docutils literal"><span class="pre">false</span></tt> по умолчанию), то переадресовывает
+пользователя на Referrer URL;</li>
+<li>Переадресовывает пользователя на <tt class="docutils literal"><span class="pre">default_target_path</span></tt> URL (<tt class="docutils literal"><span class="pre">/</span></tt> по умолчанию).</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Все URL-ы должны быть значениями path info или абсолютными URL-ами.</p>
+</div>
+<p>Первоначальные значения для всех настроек являются наиболее точными, но вот
+пример конфигурации, показывающий как их можно переопределить:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">form_login</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">check_path</span><span class="p-Indicator">:</span>                     <span class="l-Scalar-Plain">/login_check</span>
+                <span class="l-Scalar-Plain">login_path</span><span class="p-Indicator">:</span>                     <span class="l-Scalar-Plain">/login</span>
+                <span class="l-Scalar-Plain">failure_path</span><span class="p-Indicator">:</span>                   <span class="l-Scalar-Plain">null</span>
+                <span class="l-Scalar-Plain">always_use_default_target_path</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+                <span class="l-Scalar-Plain">default_target_path</span><span class="p-Indicator">:</span>            <span class="l-Scalar-Plain">/</span>
+                <span class="l-Scalar-Plain">target_path_parameter</span><span class="p-Indicator">:</span>          <span class="l-Scalar-Plain">_target_path</span>
+                <span class="l-Scalar-Plain">use_referer</span><span class="p-Indicator">:</span>                    <span class="l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;form-login</span>
+            <span class="na">check_path=</span><span class="s">&quot;/login_check&quot;</span>
+            <span class="na">login_path=</span><span class="s">&quot;/login&quot;</span>
+            <span class="na">failure_path=</span><span class="s">&quot;null&quot;</span>
+            <span class="na">always_use_default_target_path=</span><span class="s">&quot;false&quot;</span>
+            <span class="na">default_target_path=</span><span class="s">&quot;/&quot;</span>
+            <span class="na">target_path_parameter=</span><span class="s">&quot;_target_path&quot;</span>
+            <span class="na">use_referer=</span><span class="s">&quot;false&quot;</span>
+        <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;form_login&#39; =&gt; array(</span>
+<span class="x">            &#39;check_path&#39;                     =&gt; &#39;/login_check&#39;,</span>
+<span class="x">            &#39;login_path&#39;                     =&gt; &#39;/login&#39;,</span>
+<span class="x">            &#39;failure_path&#39;                   =&gt; null,</span>
+<span class="x">            &#39;always_use_default_target_path&#39; =&gt; false,</span>
+<span class="x">            &#39;default_target_path&#39;            =&gt; &#39;/&#39;,</span>
+<span class="x">            &#39;target_path_parameter&#39;          =&gt; _target_path,</span>
+<span class="x">            &#39;use_referer&#39;                    =&gt; false,</span>
+<span class="x">        )),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="x-509">
+<span id="index-6"></span><h3>X.509 сертификаты<a class="headerlink" href="#x-509" title="Ссылка на этот заголовок">¶</a></h3>
+<p>X.509 сертификаты отличный способ идентификации пользователей если все они вам
+известны:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">x509</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;x509</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;x509&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Так как Symfony2 не проверяет сертификаты самостоятельно, потому что он не
+сможет усилить пароль, вам придётся правильно настроить web сервер перед
+включением это механизма идентификации. Вот простой, но рабочий пример
+конфигурации для Apache:</p>
+<div class="highlight-xml"><pre>&lt;VirtualHost *:443&gt;
+    ServerName intranet.example.com:443
+
+    DocumentRoot "/some/path"
+    DirectoryIndex app.php
+    &lt;Directory "/some/path"&gt;
+        Allow from all
+        Order allow,deny
+        SSLOptions +StdEnvVars
+    &lt;/Directory&gt;
+
+    SSLEngine on
+    SSLCertificateFile "/path/to/server.crt"
+    SSLCertificateKeyFile "/path/to/server.key"
+    SSLCertificateChainFile "/path/to/ca.crt"
+    SSLCACertificateFile "/path/to/ca.crt"
+    SSLVerifyClient require
+    SSLVerifyDepth 1
+&lt;/VirtualHost&gt;</pre>
+</div>
+<p>Первоначально username это email, указанный в сертификате (значение
+переменной окружения <tt class="docutils literal"><span class="pre">SSL_CLIENT_S_DN_Email</span></tt>).</p>
+<div class="admonition tip">
+<p class="first admonition-title">Совет</p>
+<p class="last">Идентификация через сертификат работает только когда пользователь обращается
+к приложению через HTTPS.</p>
+</div>
+</div>
+<div class="section" id="index-7">
+<span id="id4"></span><h3>Анонимные пользователи<a class="headerlink" href="#index-7" title="Ссылка на этот заголовок">¶</a></h3>
+<p>Когда отключается безопасность, то больше ни один из пользователей не
+прикрепляется к запросу. Но если вы всё же хотите этого, активизируйте анонимных
+пользователей. Анонимный это идентифицированный пользователь, но имеющий только
+одну роль <tt class="docutils literal"><span class="pre">IS_AUTHENTICATED_ANONYMOUSLY</span></tt>. &#8220;Настоящая&#8221; идентификация происходит
+только тогда, когда пользователь допускается к ресурсам, ограниченным более
+жёсткими правилами контроля:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">anonymous</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;anonymous</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;anonymous&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>Так как анонимные пользователи идентифицированы, то метод <tt class="docutils literal"><span class="pre">isAuthenticated()</span></tt>
+возвращает <tt class="docutils literal"><span class="pre">true</span></tt>. Чтобы проверить анонимный ли пользователь, проверяйте роль
+<tt class="docutils literal"><span class="pre">IS_AUTHENTICATED_ANONYMOUSLY</span></tt> (помните, все не анонимные пользователи
+имеют роль <tt class="docutils literal"><span class="pre">IS_AUTHENTICATED_FULLY</span></tt>).</p>
+</div>
+</div>
+<div class="section" id="stateless">
+<span id="index-8"></span><h2>Stateless идентификация<a class="headerlink" href="#stateless" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Первоначально Symfony2 полагается на cookie (Session) чтобы сохранять контекст
+безопасности пользователя. Но если вы используете сертификаты или идентификацию
+через HTTP, то в сохранении нет необходимости т. к. полномочия доступны каждому
+запросу. В этом случае, а также если вам не надо хранить что-либо между
+запросами, можете активировать stateless идентификацию (это значит что ни один
+cookie не будет создан Symfony2):</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">stateless</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall</span> <span class="na">stateless=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39; =&gt; array(&#39;http_basic&#39; =&gt; true, &#39;stateless&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Если используется вход через форму, Symfony2 создаст cookie даже если
+<tt class="docutils literal"><span class="pre">stateless</span></tt> равно <tt class="docutils literal"><span class="pre">true</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="index-9">
+<span id="id5"></span><h2>Обезличивание пользователя<a class="headerlink" href="#index-9" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Иногда полезно переключаться с одного пользователя на другого без выхода из
+системы и повторного входа (например, когда вы занимаетесь отладкой или пытаетесь
+понять ошибку, которую видит пользователь, но не можете её воспроизвести). Это
+делается через простую активацию прослушивателя <tt class="docutils literal"><span class="pre">switch-user</span></tt>:</p>
+<div class="highlight-python"><pre>.. configuration-block::</pre>
+</div>
+<blockquote>
+<div><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">switch_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;switch-user</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39;=&gt; array(&#39;http_basic&#39; =&gt; true, &#39;switch_user&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Переключение на другого пользователя осуществляется через параметр <tt class="docutils literal"><span class="pre">_switch_user</span></tt>
+строки запроса для данного URL со значением равным username:</p>
+<blockquote>
+<div><a class="reference external" href="http://example.com/somewhere?_switch_user=thomas">http://example.com/somewhere?_switch_user=thomas</a></div></blockquote>
+<p>Чтобы обратно переключиться используйте специальный username равный <tt class="docutils literal"><span class="pre">_exit</span></tt>:</p>
+<blockquote>
+<div><a class="reference external" href="http://example.com/somewhere?_switch_user=_exit">http://example.com/somewhere?_switch_user=_exit</a></div></blockquote>
+<p>Эта возможность должна быть доступна лишь небольшой группе пользователей.
+Первоначально доступ ограничен пользователями, имеющими роль
+&#8216;ROLE_ALLOWED_TO_SWITCH&#8217;. Замените первоначальную роль через настройку <tt class="docutils literal"><span class="pre">role</span></tt>
+для дополнительной безопасности, также измените имя параметра через настройку
+<tt class="docutils literal"><span class="pre">parameter</span></tt>:</p>
+<div class="highlight-python"><pre>.. configuration-block::</pre>
+</div>
+<blockquote>
+<div><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">switch_user</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">role</span><span class="p-Indicator">:</span> <span class="nv">ROLE_ADMIN</span><span class="p-Indicator">,</span> <span class="nv">parameter</span><span class="p-Indicator">:</span> <span class="nv">_want_to_be_this_user</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+<div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;switch-user</span> <span class="na">role=</span><span class="s">&quot;ROLE_ADMIN&quot;</span> <span class="na">parameter=</span><span class="s">&quot;_want_to_be_this_user&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39;=&gt; array(</span>
+<span class="x">            &#39;http_basic&#39;  =&gt; true,</span>
+<span class="x">            &#39;switch_user&#39; =&gt; array(&#39;role&#39; =&gt; &#39;ROLE_ADMIN&#39;, &#39;parameter&#39; =&gt; &#39;_want_to_be_this_user&#39;),</span>
+<span class="x">        ),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="index-10">
+<span id="id6"></span><h2>Выход пользователей из системы<a class="headerlink" href="#index-10" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если хотите предоставить пользователям возможность выйти, то активируйте
+прослушиватель logout:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">logout</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;logout</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39;=&gt; array(&#39;http_basic&#39; =&gt; true, &#39;logout&#39; =&gt; true),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>По умолчанию пользователи выходят из системы когда запрашивают путь <tt class="docutils literal"><span class="pre">/logout</span></tt>
+и они переадресовываются на <tt class="docutils literal"><span class="pre">/</span></tt>. Это легко изменяется через настройки <tt class="docutils literal"><span class="pre">path</span></tt>
+и <tt class="docutils literal"><span class="pre">target</span></tt>:</p>
+<div class="highlight-python"><pre>.. configuration-block::</pre>
+</div>
+<blockquote>
+<div><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">main</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">logout</span><span class="p-Indicator">:</span>     <span class="p-Indicator">{</span> <span class="nv">path</span><span class="p-Indicator">:</span> <span class="nv">/signout</span><span class="p-Indicator">,</span> <span class="nv">target</span><span class="p-Indicator">:</span> <span class="nv">/signin</span> <span class="p-Indicator">}</span>
+</pre></div>
+</div>
+<div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;firewall&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;logout</span> <span class="na">path=</span><span class="s">&quot;/signout&quot;</span> <span class="na">target=</span><span class="s">&quot;/signin&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;main&#39;=&gt; array(</span>
+<span class="x">            &#39;http_basic&#39; =&gt; true,</span>
+<span class="x">            &#39;logout&#39; =&gt; array(&#39;path&#39; =&gt; &#39;/signout&#39;, &#39;target&#39; =&gt; &#39;/signin&#39;)),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h2>Идентификация и провайдеры пользователя<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Изначально фаервол использует первый объявленный ползовательский провайдер для
+идентификации. Но если вы хотите использовать различные провайдеры для разных
+частей web сайта, то можете явно указать их для фаервола или хотя бы для
+механизма идентификации:</p>
+<div class="configuration-block">
+<ul class="simple">
+<li><em>YAML</em><div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># app/config/security.yml</span>
+<span class="l-Scalar-Plain">security.config</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">providers</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">password_encoder</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sha1</span>
+            <span class="l-Scalar-Plain">entity</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">class</span><span class="p-Indicator">:</span> <span class="nv">SecurityBundle</span><span class="p-Indicator">:</span><span class="nv">User</span><span class="p-Indicator">,</span> <span class="nv">property</span><span class="p-Indicator">:</span> <span class="nv">username</span> <span class="p-Indicator">}</span>
+        <span class="l-Scalar-Plain">certificate</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+                <span class="l-Scalar-Plain">fabien@example.com</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">roles</span><span class="p-Indicator">:</span> <span class="nv">ROLE_USER</span> <span class="p-Indicator">}</span>
+
+    <span class="l-Scalar-Plain">firewalls</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">backend</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>    <span class="l-Scalar-Plain">/admin/.*</span>
+            <span class="l-Scalar-Plain">x509</span><span class="p-Indicator">:</span>       <span class="p-Indicator">{</span> <span class="nv">provider</span><span class="p-Indicator">:</span> <span class="nv">certificate</span> <span class="p-Indicator">}</span>
+            <span class="l-Scalar-Plain">form-login</span><span class="p-Indicator">:</span> <span class="p-Indicator">{</span> <span class="nv">provider</span><span class="p-Indicator">:</span> <span class="nv">default</span> <span class="p-Indicator">}</span>
+            <span class="l-Scalar-Plain">logout</span><span class="p-Indicator">:</span>     <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">api</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">provider</span><span class="p-Indicator">:</span>   <span class="l-Scalar-Plain">default</span>
+            <span class="l-Scalar-Plain">pattern</span><span class="p-Indicator">:</span>    <span class="l-Scalar-Plain">/api/.*</span>
+            <span class="l-Scalar-Plain">http_basic</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">stateless</span><span class="p-Indicator">:</span>  <span class="l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</li>
+<li><em>XML</em><div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- app/config/security.xml --&gt;</span>
+<span class="nt">&lt;config&gt;</span>
+    <span class="nt">&lt;provider</span> <span class="na">name=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;password-encoder&gt;</span>sha1<span class="nt">&lt;/password-encoder&gt;</span>
+        <span class="nt">&lt;entity</span> <span class="na">class=</span><span class="s">&quot;SecurityBundle:User&quot;</span> <span class="na">property=</span><span class="s">&quot;username&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/provider&gt;</span>
+
+    <span class="nt">&lt;provider</span> <span class="na">name=</span><span class="s">&quot;certificate&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;user</span> <span class="na">name=</span><span class="s">&quot;fabien@example.com&quot;</span> <span class="na">roles=</span><span class="s">&quot;ROLE_USER&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/provider&gt;</span>
+
+    <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/admin/.*&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;x509</span> <span class="na">provider=</span><span class="s">&quot;certificate&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;form-login</span> <span class="na">provider=</span><span class="s">&quot;default&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;logout</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+    <span class="nt">&lt;firewall</span> <span class="na">pattern=</span><span class="s">&quot;/api/.*&quot;</span> <span class="na">stateless=</span><span class="s">&quot;true&quot;</span> <span class="na">provider=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;http-basic</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/firewall&gt;</span>
+<span class="nt">&lt;/config&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><em>PHP</em><div class="highlight-php"><div class="highlight"><pre><span class="x">// app/config/security.php</span>
+<span class="x">$container-&gt;loadFromExtension(&#39;security&#39;, &#39;config&#39;, array(</span>
+<span class="x">    &#39;providers&#39; =&gt; array(</span>
+<span class="x">        &#39;default&#39; =&gt; array(</span>
+<span class="x">            &#39;password_encoder&#39; =&gt; &#39;sha1&#39;,</span>
+<span class="x">            &#39;entity&#39; =&gt; array(&#39;class&#39; =&gt; &#39;SecurityBundle:User&#39;, &#39;property&#39; =&gt; &#39;username&#39;),</span>
+<span class="x">        ),</span>
+<span class="x">        &#39;certificate&#39; =&gt; array(&#39;users&#39; =&gt; array(</span>
+<span class="x">            &#39;fabien@example.com&#39; =&gt; array(&#39;roles&#39; =&gt; &#39;ROLE_USER&#39;),</span>
+<span class="x">        ),</span>
+<span class="x">    ),</span>
+
+<span class="x">    &#39;firewalls&#39; =&gt; array(</span>
+<span class="x">        &#39;backend&#39; =&gt; array(</span>
+<span class="x">            &#39;pattern&#39; =&gt; &#39;/admin/.*&#39;,</span>
+<span class="x">            &#39;x509&#39; =&gt; array(&#39;provider&#39; =&gt; &#39;certificate&#39;),</span>
+<span class="x">            &#39;form-login&#39; =&gt; array(&#39;provider&#39; =&gt; &#39;default&#39;)</span>
+<span class="x">            &#39;logout&#39; =&gt; true,</span>
+<span class="x">        ),</span>
+<span class="x">        &#39;api&#39; =&gt; array(</span>
+<span class="x">            &#39;provider&#39; =&gt; &#39;default&#39;,</span>
+<span class="x">            &#39;pattern&#39; =&gt; &#39;/api/.*&#39;,</span>
+<span class="x">            &#39;http_basic&#39; =&gt; true,</span>
+<span class="x">            &#39;stateless&#39; =&gt; true,</span>
+<span class="x">        ),</span>
+<span class="x">    ),</span>
+<span class="x">));</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<p>В этом примере <tt class="docutils literal"><span class="pre">/admin/.*</span></tt> URL-ы принимают пользователей от провайдера
+<tt class="docutils literal"><span class="pre">certificate</span></tt>, когда используется идентификация X.509, и от провайдера <tt class="docutils literal"><span class="pre">default</span></tt>,
+когда пользователь входит через форму. <tt class="docutils literal"><span class="pre">/api/.*</span></tt> URL-ы используют <tt class="docutils literal"><span class="pre">default</span></tt>
+провайдер для всех механизмов идентификации.</p>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Прослушиватели не используют провайдеры пользователей напрямую, но
+идентифицируют через провайдеров. Они делают текущую идентификацию, такую
+как проверка пароля, и могут использовать для этого провайдер пользователя
+(провайдер анонимной идентификации это не тот случай).</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>

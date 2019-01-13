@@ -1,0 +1,462 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Работа с формами &mdash; Русская документация Symfony2</title>
+    <link rel="stylesheet" href="../../_static/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <link rel="top" title="Русская документация Symfony2" href="../../index.html" /> 
+
+    <meta content="Русская документация Symfony2 на SymfonyGuru. Документация обновляется еженевно." name="Description">
+
+    <meta content="русская документация symfony2, перевод документации Symfony2, symfony2, symfony 2, symfony, components, symphony, symfony framework" name="Keywords">
+
+    <script type="text/javascript" src="../../_static/js/doc.js"></script>
+
+    <link rel="stylesheet" href="../../_static/css/doc.css">
+
+  </head>
+
+  <body>
+
+  <div id="wrapper">
+
+      <div id="header_index">
+
+          <div id="logo">
+              <h1>
+                  <a href="/ru/">
+                      <img src="../../_static/images/logo.png" width="168" height="40" alt="Logo"/>
+                      <span id="logo-text">ГУРУ</span>
+                  </a>
+              </h1>
+          </div>
+          <!-- /#logo -->
+
+          <div id="menu">
+
+              <div id="right_bg"></div>
+
+              <ul>
+
+                  <li>
+                      <a href="/ru/">Главная</a>
+                  </li>
+
+                  <li>
+                      <a href="/blog/ru/">Блог</a>
+                  </li>
+
+                  <li>
+                      <a href="/content/ru/about/">О проекте</a>
+                  </li>
+
+              </ul>
+              <!-- /#menu ul -->
+
+          </div>
+          <!-- /#menu -->
+
+          <div id="header_info" class="blog_info">
+
+              <div class="left">
+                  <a href="/ru/">Главная</a> /
+                  <a href="/documentation/ru/html/index.html">Русская документация Symfony2</a>
+              </div>
+
+              <div class="right">
+                  Сменить язык:
+                  <a href="/documentation/en/html/index.html" class="en">EN</a>
+              </div>
+
+          </div>
+          <!-- /#header_info -->
+
+      </div>
+      <!-- /#header -->
+
+      <div id="top_box_index">
+
+          <span class="top_box_top"></span>
+          <!-- /.top_box_top - adds the top Background -->
+
+          <div class="content">
+
+              <div class="top_box_block" style="width: 100%;">
+
+                  <h4>Русская документация Symfony2 на SymfonyGuru</h4>
+
+                  <p style="width: 100%;">
+                      <b>Дата последнего обновления: 2012-07-16.</b>
+                      <!--
+                      <br/>
+                      Принять участие в переводе документации Symfony2 на русский язык
+                      <a href="https://github.com/avalanche123/symfony-docs-ru/blob/master/README.rst" target="_blank">
+                          может любой желающий
+                      </a>.
+                      -->
+                  </p>
+
+              </div>
+              <!-- /.content .top_box_block -->
+
+          </div>
+          <!-- /#top_box .content -->
+
+      </div>
+      <!-- /#top_box -->
+
+      <div id="content">
+          
+  <div class="section" id="index-0">
+<span id="id1"></span><h1>Работа с формами<a class="headerlink" href="#index-0" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Symfony2 выходит со встроенным компонентом форм. Он занимается отображением, рендерингом и передачей HTML форм.</p>
+<p>Хотя можно обрабатывать формы одним только классом Symfony2 <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\HttpFoundation\Request</span></tt>, компонент форм занимается также рядом общих, связанных с формами, задач:
+1. Отображение HTML формы с автоматически созданными полями формы
+2. Преобразование представленных данных в типы данных PHP
+3. Чтение из POPOs и запись в них же (POPOs - простые старые PHP объекты)
+4. Подтверждение представленной в формах информации при помощи <tt class="docutils literal"><span class="pre">Validator</span></tt> Symfony2.
+5. Защита форм представлений от атак CSRF</p>
+<div class="section" id="id2">
+<h2>Обзор<a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Компонент имеет дело со следующими понятиями:
+<em>Field</em>
+Класс, преображающий представленную информацию в нормализованные значения.</p>
+<p><em>Form</em>
+Набор полей, знающих, как проверить самих себя.</p>
+<p><em>Template</em>
+Файл, который рендерит форму или поле в HTML.</p>
+<p><em>Domain objects</em>
+Объект, используемый формой для заполнения значений по умолчанию, где записываются представленные данные.</p>
+<p>Объект формы в своей работе опирается лишь на компоненты HttpFoundation и Validator. Если вы планируете использовать особенности интернационализации, также потребуются международные PHP расширения.</p>
+</div>
+<div class="section" id="id3">
+<h2>Объекты форм<a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Объект формы инкапсулирует набор полей, которые преобразовывают представленные данные в формат, используемый в приложении. Классы форм создаются как подклассы <tt class="xref py py-class docutils literal"><span class="pre">Symfony\Component\Form\Form</span></tt>. Вам следует применить метод <tt class="docutils literal"><span class="pre">configure()</span></tt> для инициализации формы со множественными полями.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactForm.php</span>
+<span class="x">namespace Sensio\HelloBundle\Contact;</span>
+
+<span class="x">use Symfony\Component\Form\Form;</span>
+<span class="x">use Symfony\Component\Form\TextField;</span>
+<span class="x">use Symfony\Component\Form\TextareaField;</span>
+<span class="x">use Symfony\Component\Form\CheckboxField;</span>
+
+<span class="x">class ContactForm extends Form</span>
+<span class="x">{</span>
+<span class="x">    protected function configure()</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;add(new TextField(&#39;subject&#39;, array(</span>
+<span class="x">            &#39;max_length&#39; =&gt; 100,</span>
+<span class="x">        )));</span>
+<span class="x">        $this-&gt;add(new TextareaField(&#39;message&#39;));</span>
+<span class="x">        $this-&gt;add(new TextField(&#39;sender&#39;));</span>
+<span class="x">        $this-&gt;add(new CheckboxField(&#39;ccmyself&#39;, array(</span>
+<span class="x">            &#39;required&#39; =&gt; false,</span>
+<span class="x">        )));</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Форма состоит из объектов <tt class="docutils literal"><span class="pre">Field</span></tt>. В этом случае наша форма обладает полями <tt class="docutils literal"><span class="pre">subject</span></tt>, <tt class="docutils literal"><span class="pre">message</span></tt>, <tt class="docutils literal"><span class="pre">sender</span></tt> и <tt class="docutils literal"><span class="pre">ccmyself</span></tt>. <tt class="docutils literal"><span class="pre">TextField</span></tt>,
+<tt class="docutils literal"><span class="pre">TextareaField</span></tt> и <tt class="docutils literal"><span class="pre">CheckboxField</span></tt> - только три из возможных полей формы; полный список можно найти в <a class="reference internal" href="fields.html"><em>Form fields</em></a>.</p>
+</div>
+<div class="section" id="id4">
+<h2>Использование формы в контроллере<a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Стандартный шаблон для использования формы в контроллере выглядит примерно так:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Controller/HelloController.php</span>
+<span class="x">public function contactAction()</span>
+<span class="x">{</span>
+<span class="x">    $contactRequest = new ContactRequest($this-&gt;get(&#39;mailer&#39;));</span>
+<span class="x">    $form = ContactForm::create($this-&gt;get(&#39;form.context&#39;), &#39;contact&#39;);</span>
+
+<span class="x">    // If a POST request, write the submitted data into $contactRequest</span>
+<span class="x">    // and validate the object</span>
+<span class="x">    $form-&gt;bind($this-&gt;get(&#39;request&#39;), $contactRequest);</span>
+
+<span class="x">    // If the form has been submitted and is valid...</span>
+<span class="x">    if ($form-&gt;isValid()) {</span>
+<span class="x">        $contactRequest-&gt;send();</span>
+<span class="x">    }</span>
+
+<span class="x">    // Display the form with the values in $contactRequest</span>
+<span class="x">    return $this-&gt;render(&#39;HelloBundle:Hello:contact.html.twig&#39;, array(</span>
+<span class="x">        &#39;form&#39; =&gt; $form</span>
+<span class="x">    ));</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Здесь существует два пути кода:
+1. Если форма не была отправлена или не валидна, она просто пропускается в шаблон.
+2. Если форма была отправлена и является валидной, выполняется запрос отправки.</p>
+<p>Мы создали форму со статическим методом <tt class="docutils literal"><span class="pre">create()</span></tt>. Этот метод ожидает, что в содержании формы будут присутствовать все сервисы по умолчанию (например, <tt class="docutils literal"><span class="pre">Validator</span></tt>) и настройки, которые необходимы форме для работы.</p>
+<p>Примечание.
+Если вы не используете Symfony2 или ее контейнер сервиса, не волнуйтесь. Вы легко можете создать <tt class="docutils literal"><span class="pre">FormContext</span></tt> и <tt class="docutils literal"><span class="pre">Request</span></tt> вручную:</p>
+<blockquote>
+<div><div class="highlight-php"><div class="highlight"><pre><span class="x">use Symfony\Component\Form\FormContext;</span>
+<span class="x">use Symfony\Component\HttpFoundation\Request;</span>
+
+<span class="x">$context = FormContext::buildDefault();</span>
+<span class="x">$request = Request::createFromGlobals();</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h2>Формы и доменные объекты<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В предыдущем примере <tt class="docutils literal"><span class="pre">ContactRequest</span></tt> был привязан к форме. Значения свойств этого объекта используются для заполнения полей формы. После привязывания представленные значения снова записываются в объект. Класс <tt class="docutils literal"><span class="pre">ContactRequest</span></tt> может выглядеть примерно так:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactRequest.php</span>
+<span class="x">namespace Sensio\HelloBundle\Contact;</span>
+
+<span class="x">class ContactRequest</span>
+<span class="x">{</span>
+<span class="x">    protected $subject = &#39;Subject...&#39;;</span>
+
+<span class="x">    protected $message;</span>
+
+<span class="x">    protected $sender;</span>
+
+<span class="x">    protected $ccmyself = false;</span>
+
+<span class="x">    protected $mailer;</span>
+
+<span class="x">    public function __construct(\Swift_Mailer $mailer)</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;mailer = $mailer;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function setSubject($subject)</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;subject = $subject;</span>
+<span class="x">    }</span>
+
+<span class="x">    public function getSubject()</span>
+<span class="x">    {</span>
+<span class="x">        return $this-&gt;subject;</span>
+<span class="x">    }</span>
+
+<span class="x">    // Setters and getters for the other properties</span>
+<span class="x">    // ...</span>
+
+<span class="x">    public function send()</span>
+<span class="x">    {</span>
+<span class="x">        // Send the contact mail</span>
+<span class="x">        $message = \Swift_Message::newInstance()</span>
+<span class="x">            -&gt;setSubject($this-&gt;subject)</span>
+<span class="x">            -&gt;setFrom($this-&gt;sender)</span>
+<span class="x">            -&gt;setTo(&#39;me@example.com&#39;)</span>
+<span class="x">            -&gt;setBody($this-&gt;message);</span>
+
+<span class="x">        $this-&gt;mailer-&gt;send($message);</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Примечание.</p>
+<p>Смотрите <a class="reference internal" href="../emails.html"><em>Emails</em></a> для получения информации об отправке писем.</p>
+<p>Для каждого поля в вашей форме класс доменного объекта должен иметь:
+1. Публичное свойство с именем поля или
+2. Публичные setter и getter с префиксом &#8220;set&#8221;/&#8221;get&#8221; с последующим именем поля, наичнающимся с заглавной буквы.</p>
+</div>
+<div class="section" id="id6">
+<h2>Проверка отправленных данных<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Форма использует компонент <tt class="docutils literal"><span class="pre">Validator</span></tt> для проверки отправленных значений формы. Все ограничения доменного объекта в форме и в ее полях будут проверены при вызове <tt class="docutils literal"><span class="pre">bind()</span></tt>. Затем мы добавим несколько ограничений в <tt class="docutils literal"><span class="pre">ContactRequest</span></tt>, чтобы убедиться, что никто не сможет отправить формы с некорректными данными.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactRequest.php</span>
+<span class="x">namespace Sensio\HelloBundle\Contact;</span>
+
+<span class="x">class ContactRequest</span>
+<span class="x">{</span>
+<span class="x">    /**</span>
+<span class="x">     * @validation:MaxLength(100)</span>
+<span class="x">     * @validation:NotBlank</span>
+<span class="x">     */</span>
+<span class="x">    protected $subject = &#39;Subject...&#39;;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @validation:NotBlank</span>
+<span class="x">     */</span>
+<span class="x">    protected $message;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @validation:Email</span>
+<span class="x">     * @validation:NotBlank</span>
+<span class="x">     */</span>
+<span class="x">    protected $sender;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @validation:AssertType(&quot;boolean&quot;)</span>
+<span class="x">     */</span>
+<span class="x">    protected $ccmyself = false;</span>
+
+<span class="x">    // Other code...</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Если какое-либо ограничение срабатывает, рядом с соответствующим полем формы выводится сообщение об ошибке. Вы можете узнать больше об ограничениях в <tt class="xref doc docutils literal"><span class="pre">Validation</span>
+<span class="pre">Constraints</span></tt>.</p>
+</div>
+<div class="section" id="id7">
+<h2>Автоматическое создание полей формы<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Если вы используете <tt class="docutils literal"><span class="pre">Validator</span></tt> Doctrine2 или Symfony2, Symfony уже знает довольно много о ваших доменных классах. Она знает, какой тип данных используется для сохранения свойств в базе данных, какими проверками ограничений обладает свойство и т.д. Компонет формы может использовать эту информацию для &#8220;угадывания&#8221;, какой из типов поля должен быть создан с теми же свойствами.</p>
+<p>Для использования этой особенности форме необходимо знать класс связанного доменного объекта. Вы можете выставить этот класс с помощью метода формы <tt class="docutils literal"><span class="pre">configure()</span></tt>, используя <tt class="docutils literal"><span class="pre">setDataClass()</span></tt> и пропуская полное имя класса как строку. Вызов <tt class="docutils literal"><span class="pre">add()</span></tt> только с именем свойства автоматически создаст лучшее соответствующее поле.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactForm.php</span>
+<span class="x">class ContactForm extends Form</span>
+<span class="x">{</span>
+<span class="x">    protected function configure()</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;setDataClass(&#39;Sensio\\HelloBundle\\Contact\\ContactRequest&#39;);</span>
+<span class="x">        $this-&gt;add(&#39;subject&#39;);  // TextField with max_length=100 because</span>
+<span class="x">                                // of the @MaxLength constraint</span>
+<span class="x">        $this-&gt;add(&#39;message&#39;);  // TextField</span>
+<span class="x">        $this-&gt;add(&#39;sender&#39;);   // EmailField because of the @Email constraint</span>
+<span class="x">        $this-&gt;add(&#39;ccmyself&#39;); // CheckboxField because of @AssertType(&quot;boolean&quot;)</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Эти предугадывания полей не всегда оказываются верными. Для свойства <tt class="docutils literal"><span class="pre">message``Symfony</span> <span class="pre">создаст</span> <span class="pre">``TextField</span></tt>, поскольку не сможет узнать из ограничений, что вы хотели создать <tt class="docutils literal"><span class="pre">TextareaField</span></tt>. Так что вам придется создать это поле вручную. Вы также можете настроить эти опции генерируемых полей путем передачи их в качестве второго параметра. Мы добавим опцию <tt class="docutils literal"><span class="pre">max_length</span></tt> в поле <tt class="docutils literal"><span class="pre">sender</span></tt> для ограничения его длины.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">// src/Sensio/HelloBundle/Contact/ContactForm.php</span>
+<span class="x">class ContactForm extends Form</span>
+<span class="x">{</span>
+<span class="x">    protected function configure()</span>
+<span class="x">    {</span>
+<span class="x">        $this-&gt;setDataClass(&#39;Sensio\\HelloBundle\\Contact\\ContactRequest&#39;);</span>
+<span class="x">        $this-&gt;add(&#39;subject&#39;);</span>
+<span class="x">        $this-&gt;add(new TextareaField(&#39;message&#39;));</span>
+<span class="x">        $this-&gt;add(&#39;sender&#39;, array(&#39;max_length&#39; =&gt; 50));</span>
+<span class="x">        $this-&gt;add(&#39;ccmyself&#39;);</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+<p>Автоматическое создание полей формы поможет вам увеличить скорость разработки и сократить дублирование кода. Вы можете сохранить информацию о свойствах класса лишь однажды и позволить Symfony2 делать остальную работу за вас.</p>
+</div>
+<div class="section" id="html">
+<h2>Рендеринг форм как HTML<a class="headerlink" href="#html" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В контроллере мы пропускаем форму в шаблон в переменной <tt class="docutils literal"><span class="pre">form</span></tt>. В шаблоне мы можем использовать помощник <tt class="docutils literal"><span class="pre">form_field</span></tt> для вывода сырого прототипа формы.</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre># src/Sensio/HelloBundle/Resources/views/Hello/contact.html.twig
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;HelloBundle::layout.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span><span class="nt">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Send!&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>Настройка вывода в формате HTML<a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<p>В большинстве приложений вам нужно будет настроить HTML формы. Это можно сделать используя остальные встроенные помощники рендеринга форм.</p>
+<div class="highlight-html+jinja"><div class="highlight"><pre># src/Sensio/HelloBundle/Resources/views/Hello/contact.html.twig
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;HelloBundle::layout.html.twig&#39;</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;#&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="cp">{{</span> <span class="nv">form_enctype</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span><span class="nt">&gt;</span>
+    <span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+
+    <span class="cp">{%</span> <span class="k">for</span> <span class="nv">field</span> <span class="k">in</span> <span class="nv">form</span> <span class="cp">%}</span>
+        <span class="cp">{%</span> <span class="k">if</span> <span class="k">not</span> <span class="nv">field.ishidden</span> <span class="cp">%}</span>
+        <span class="nt">&lt;div&gt;</span>
+            <span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">field</span><span class="o">)</span> <span class="cp">}}</span>
+            <span class="cp">{{</span> <span class="nv">form_label</span><span class="o">(</span><span class="nv">field</span><span class="o">)</span> <span class="cp">}}</span>
+            <span class="cp">{{</span> <span class="nv">form_field</span><span class="o">(</span><span class="nv">field</span><span class="o">)</span> <span class="cp">}}</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+
+    <span class="cp">{{</span> <span class="nv">form_hidden</span><span class="o">(</span><span class="nv">form</span><span class="o">)</span> <span class="cp">}}</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+<p>В составе Symfony2 есть следующие помощники:</p>
+<dl class="docutils">
+<dt><em>``form_enctype``</em></dt>
+<dd>Выводит атрибут <tt class="docutils literal"><span class="pre">enctype</span></tt> тэга формы. Требуется для загрузки файлов.</dd>
+<dt><em>``form_errors``</em></dt>
+<dd>Выводит тэг <tt class="docutils literal"><span class="pre">&lt;ul&gt;</span></tt> с ошибками поля или формы.</dd>
+<dt><em>``form_label``</em></dt>
+<dd>Выводит тэг поля <tt class="docutils literal"><span class="pre">&lt;label&gt;</span></tt>.</dd>
+<dt><em>``form_field``</em></dt>
+<dd>Выводит HTML поля или формы.</dd>
+<dt><em>``form_hidden``</em></dt>
+<dd>Выводит все скрытые поля формы.</dd>
+</dl>
+<p>Рендеринг форм в деталях описан в <a class="reference internal" href="view.html"><em>Forms in Templates</em></a>.</p>
+<p>Поздравляем! Вы только что создали вашу первую полностью фунциональную форму с помощью Symfony2.</p>
+</div>
+</div>
+
+
+      </div>
+      <!-- /#content -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <div id="copyright">
+      <div id="copyright_wrapper">
+          <ul class="left">
+              <li><a href="/ru/">Главная</a></li>
+              <li><a href="/content/ru/about/">О проекте</a></li>
+          </ul>
+          <!-- /.left content-->
+          <span class="right">
+              Этот сайт создал и поддерживает <a href="http://hudson.su" target="_blank">Дмитрий Быкадоров</a> 2011
+              <br/>
+              <b>Symfony</b> is a <a href="http://symfony.com/trademark" target="_blank">trademark of Fabien Potencier</a>. All rights reserved.
+          </span>
+          <!-- /.right content-->
+      </div>
+      <!-- /#copyright _wrapper-->
+  </div>
+
+  <!-- Yandex.Metrika counter -->
+  <div style="display:none;"><script type="text/javascript">
+  (function(w, c) {
+      (w[c] = w[c] || []).push(function() {
+          try {
+              w.yaCounter9710512 = new Ya.Metrika({id:9710512, enableAll: true, trackHash:true});
+          }
+          catch(e) { }
+      });
+  })(window, "yandex_metrika_callbacks");
+  </script></div>
+  <script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+  <noscript><div><img src="//mc.yandex.ru/watch/9710512" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+
+  <!-- Google analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11137454-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  <!-- /Google analytics -->
+
+  </body>
+</html>
